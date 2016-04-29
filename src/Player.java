@@ -9,10 +9,8 @@ public class Player {
     private ArrayList<Territory> conqueredTerritories;
     private ArrayList<Continent> conqueredContinents;
     private String name;
-
-
-
     private ArrayList<Die> playerDies;
+    private Territory currentTerritory;
 
     public Player(String name){
         this.name = name;
@@ -57,9 +55,23 @@ public class Player {
         return playerDies;
     }
 
+    public Territory getCurrentTerritory() {
+        return currentTerritory;
+    }
+
+    public void setCurrentTerritory(Territory currentTerritory) {
+        this.currentTerritory = currentTerritory;
+    }
+
     public void resetPlayerDice(){
         for(Die die : playerDies){
             die.setFaceValue(0);
         }
     }
+
+    public void updateTroopLevel(Territory territory, int troops){
+        int index = conqueredTerritories.indexOf(territory);
+        conqueredTerritories.get(index).updateTroopCount(troops);
+    }
+
 }

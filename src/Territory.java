@@ -39,15 +39,10 @@ public class Territory extends Button {
         this.continent = continent;
     }
 
-    public void addTroops(int troops){
-        troopCount += troops;
-    }
-
-    public void removeTroops(int troops){
-        if(troopCount >= troops) {
-            troopCount -= troops;
-        }
-        else
+    public void updateTroopCount(int troops){//can update with negative or positive integer for troops
+        if(troopCount + troops <= 0){
+            troopCount += troops;
+        }else
             troopCount = 0;
     }
 

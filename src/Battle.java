@@ -19,7 +19,7 @@ public class Battle {
     }
 
     public ArrayList engage() {
-        Player winner = null;
+        Player winner = null, loser = null;
         int casualties = 0;
         ArrayList result = new ArrayList();
 
@@ -34,9 +34,11 @@ public class Battle {
                 continue;
             if (attackerDieValue <= defenderDieValue) {
                 winner = defender;
+                loser = attacker;
                 casualties = attackerDice;
             } else if (attackerDieValue > defenderDieValue) {
                 winner = attacker;
+                loser = defender;
                 casualties = defenderDice;
             }
         }
@@ -46,6 +48,8 @@ public class Battle {
 
         attacker.resetPlayerDice();
         defender.resetPlayerDice();
+
+        loser.getCurrentTerritory().updateTroopCount(casualties * -1);//update troop count at territory
 
         return result; //returns an arraylist with the winning player and casualties for the loser}
     }
