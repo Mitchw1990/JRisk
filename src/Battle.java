@@ -54,6 +54,8 @@ public class Battle {
 
         attacker.resetPlayerDice();
         defender.resetPlayerDice();
+        attacker.resetCurrentTerritory();
+        defender.resetCurrentTerritory();
 
         loser.getCurrentTerritory().updateTroopCount(casualties * -1);//update troop count at territory
 

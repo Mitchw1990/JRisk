@@ -69,6 +69,10 @@ public class Player {
         }
     }
 
+    public void resetCurrentTerritory(){
+        currentTerritory = null;
+    }
+
     public void updateTroopLevel(Territory territory, int troops){
         int index = conqueredTerritories.indexOf(territory);
         conqueredTerritories.get(index).updateTroopCount(troops);
