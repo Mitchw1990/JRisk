@@ -72,17 +72,14 @@ public class jfx extends Application{
     @Override
     public void start(Stage theStage)
     {
-
         final double initWidth = 1480;
         final double initHeight = 920;
 
         theStage.setTitle("Timeline Example");
         Group root = new Group();
 
-
         theScene = new Scene(root, initWidth, initHeight);
         theStage.setScene( theScene );
-
 
         Canvas canvas = new Canvas( initWidth, initHeight );
         root.getChildren().add( canvas );
@@ -278,11 +275,7 @@ public class jfx extends Application{
         territory.setEffect(new GaussianBlur(10.0));
         territory.setLayoutX(x);
         territory.setLayoutY(y);
-        territory.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-                System.out.println("clicked");
-            }
-        });
+        territory.setOnAction(e -> System.out.println("clicked"));
 
         ((Group)theScene.getRoot()).getChildren().add(territory);
     }

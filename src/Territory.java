@@ -1,5 +1,7 @@
 import javafx.scene.control.Button;
 
+import java.util.ArrayList;
+
 /**
  * Created by Mitch on 4/27/2016.
  */
@@ -9,11 +11,26 @@ public class Territory extends Button {
     private Continent continent;
     private String name;
     private int troopCount;
+    private ArrayList<Territory> sharedBorderContinents;
 
     public Territory(){
         name = null;
         troopCount = 0;
         continent = null;
+        sharedBorderContinents = new ArrayList<Territory>();
+    }
+
+
+    public void addBorderTerritory(Territory territory){
+        sharedBorderContinents.add(territory);
+    }
+
+    public boolean sharesBorder(Territory territory){
+        return sharedBorderContinents.contains(territory);
+    }
+
+    public boolean isPartOfContinent(Continent continent){
+        return this.continent == continent;
     }
 
     public Territory(String name, Continent continent){

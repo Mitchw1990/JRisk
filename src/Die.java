@@ -1,60 +1,27 @@
-
-
-
-public class Die
-{
+public class Die{
     private int MAX = 6; //max face value
     private int faceValue; // current value showing on the die
-    
-    /**
-     * Contructor: Sets the initial face value of this die.
-     */
-    
-    public Die()
-    {
-        faceValue = 1;
+
+    public Die() {
+        faceValue = 0;
     }
-    
-    /**
-     * Computes a new face value for this die and returns the result.
-     */
-    
-    public int roll()
-    {
-        faceValue = (int)(Math.random() * MAX) + 1;
-        
+
+    public int roll() {
+        faceValue = (int) (Math.random() * MAX) + 1;
         return faceValue;
     }
-    
-    /**
-     * Face value mutator. The face value is not modified if the 
-     * specified value is not valid.
-     */
-    
-    public void setFaceValue(int value)
-    {
+
+    public void setFaceValue(int value) {
         if (value > 0 && value <= MAX)
             faceValue = value;
     }
-    
-    /**
-     * Face value accessor
-     */
-     
-    public int getFaceValue()
-    {
+
+    public int getFaceValue() {
         return faceValue;
     }
-    
-    /**
-     * Returns a string representation of this die.
-     */
-    
-    public String toString()
-    {
+
+    public String toString() {
         String result = Integer.toString(faceValue);
-        
         return result;
     }
-
-}// end class
+}

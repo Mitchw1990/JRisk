@@ -24,6 +24,10 @@ public class Continent {
         this.name = name;
     }
 
+    public boolean containsTerritory(Territory territory){
+        return territoryList.contains(territory);
+    }
+
     public int getBonus(){
         return bonus;
     }
@@ -41,12 +45,9 @@ public class Continent {
     }
 
     public void updateStatus(){
-
         String name;
-
         for(Territory territory : territoryList){
             name = territory.getCurrentOccupant().getName();
-
         }
     }
 }
