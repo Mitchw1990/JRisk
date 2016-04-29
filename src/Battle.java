@@ -18,19 +18,34 @@ public class Battle {
         this.defenderDice = defenderDice;
     }
 
-    public void engage(){
-        int[] attackerResults = attacker.rollDice(attackerDice);
-        int[] defenderResults = defender.rollDice(defenderDice);
+    public ArrayList engage(){
+        Player winner = null;
+        int casualties = 0;
+        ArrayList result = new ArrayList();
 
-        Arrays.sort(attackerResults);
-        Arrays.sort(defenderResults);
+        int[] attackerResults = attacker.rollDice(attackerDice),
+                defenderResults = defender.rollDice(defenderDice);
 
+        for(int i = 1; i <= attackerDice; i++){
+            int attackerDieValue = attackerResults[attackerDice - i];
+            int defenderDieValue = defenderResults[defenderDice - i];
+
+            if(attackerDieValue == 0  || defenderDieValue == 0)
+                continue;
+            if(attackerDieValue <= defenderDieValue){
+                winner = defender;
+                casualties = attackerDice;
+            }else if(attackerDieValue > defenderDieValue){
+                winner = attacker;
+                casualties = defenderDice;
+            }
+        }
+
+        result.add(winner);
+        result.add(casualties);
 
         attacker.resetPlayerDice();
         defender.resetPlayerDice();
-    }
 
-
-
-
+        return result; //returns an arraylist with the winning player and casualties for the loser}
 }

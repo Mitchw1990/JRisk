@@ -1,4 +1,5 @@
 public class Die{
+
     private int MAX = 6; //max face value
     private int faceValue; // current value showing on the die
 

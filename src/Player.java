@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Mitch on 4/27/2016.
@@ -34,6 +35,7 @@ public class Player {
             }
         }else
             System.out.println("Invalid number of dice.  Must be integer between 1 and 3");
+        Arrays.sort(results);
         return results;
     }
 
