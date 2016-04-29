@@ -13,9 +13,9 @@ public class Player {
     public Player(String name)
     {
         this.name = name;
-        conqueredContinents = new ArrayList<Territory>;
-        conqueredTerritories = new ArrayList<Territory>;
-        playerDies = new ArrayList<Die>;
+        conqueredContinents = new ArrayList<Continent>();
+        conqueredTerritories = new ArrayList<Territory>();
+        playerDies = new ArrayList<Die>();
         playerDies.add(new Die());
         playerDies.add(new Die());
         playerDies.add(new Die());
