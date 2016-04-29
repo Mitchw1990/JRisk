@@ -7,15 +7,21 @@ import java.util.Collections;
  */
 public class Battle {
 
-    Player attacker, defender;
-    int defenderDice, attackerDice;
+    private Player attacker, defender;
+    private int defenderDice, attackerDice;
+    private Territory attackerTerritory, defenderTerritory;
 
-    public Battle(Player attacker, int attackerDice,
-                  Player defender, int defenderDice) {
+    public Battle(Player attacker, int attackerDice, Territory attackerTerritory,
+                  Player defender, int defenderDice, Territory defenderTerritory) {
         this.attacker = attacker;
         this.defender = defender;
         this.attackerDice = attackerDice;
         this.defenderDice = defenderDice;
+        this.attackerTerritory = attackerTerritory;
+        this.defenderTerritory = defenderTerritory;
+
+        attacker.setCurrentTerritory(attackerTerritory);
+        defender.setCurrentTerritory(defenderTerritory);
     }
 
     public ArrayList engage() {
