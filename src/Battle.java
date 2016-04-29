@@ -11,14 +11,14 @@ public class Battle {
     int defenderDice, attackerDice;
 
     public Battle(Player attacker, int attackerDice,
-                  Player defender, int defenderDice){
+                  Player defender, int defenderDice) {
         this.attacker = attacker;
         this.defender = defender;
         this.attackerDice = attackerDice;
         this.defenderDice = defenderDice;
     }
 
-    public ArrayList engage(){
+    public ArrayList engage() {
         Player winner = null;
         int casualties = 0;
         ArrayList result = new ArrayList();
@@ -26,16 +26,16 @@ public class Battle {
         int[] attackerResults = attacker.rollDice(attackerDice),
                 defenderResults = defender.rollDice(defenderDice);
 
-        for(int i = 1; i <= attackerDice; i++){
+        for (int i = 1; i <= attackerDice; i++) {
             int attackerDieValue = attackerResults[attackerDice - i];
             int defenderDieValue = defenderResults[defenderDice - i];
 
-            if(attackerDieValue == 0  || defenderDieValue == 0)
+            if (attackerDieValue == 0 || defenderDieValue == 0)
                 continue;
-            if(attackerDieValue <= defenderDieValue){
+            if (attackerDieValue <= defenderDieValue) {
                 winner = defender;
                 casualties = attackerDice;
-            }else if(attackerDieValue > defenderDieValue){
+            } else if (attackerDieValue > defenderDieValue) {
                 winner = attacker;
                 casualties = defenderDice;
             }
@@ -48,4 +48,5 @@ public class Battle {
         defender.resetPlayerDice();
 
         return result; //returns an arraylist with the winning player and casualties for the loser}
+    }
 }
