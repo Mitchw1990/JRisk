@@ -77,6 +77,9 @@ public class Territory extends Button {
         return troopCount;
     }
 
+    public void setColor(String color){
+        this.setStyle("-fx-font: 0 arial; -fx-base: " + color + ";");
+    }
 
     public void setTroopCount(int troopCount) {
         this.troopCount = troopCount;

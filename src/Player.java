@@ -8,7 +8,7 @@ public class Player {
 
     private ArrayList<Territory> conqueredTerritories;
     private ArrayList<Continent> conqueredContinents;
-    private String name;
+    private String name, playerColor;
     private ArrayList<Die> playerDies;
     private Territory currentTerritory;
 
@@ -21,6 +21,8 @@ public class Player {
         playerDies.add(new Die());
         playerDies.add(new Die());
     }
+
+    //Added attribute  String color and a function to Territory that allows you to change button color owned by Territory
 
     public int[]  rollDice(int numberOfDice){
 
@@ -78,4 +80,11 @@ public class Player {
         conqueredTerritories.get(index).updateTroopCount(troops);
     }
 
+    public String getPlayerColor() {
+        return playerColor;
+    }
+
+    public void setPlayerColor(String color) {
+        this.playerColor = color;
+    }
 }
