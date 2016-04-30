@@ -436,11 +436,6 @@ public class jfx extends Application{
                 "    -fx-font-size: 1.1em;");
 
 
-        DropShadow shadow = new DropShadow();
-        shadow.setColor(Color.CORAL);
-        shadow.setOffsetX(70);
-        shadow.setOffsetY(70);
-//Adding the shadow when the mouse cursor is on
         territory.addEventHandler(MouseEvent.MOUSE_ENTERED,
                 new EventHandler<MouseEvent>() {
                     @Override public void handle(MouseEvent e) {
@@ -457,7 +452,7 @@ public class jfx extends Application{
                                 "    -fx-font-size: 1.1em;");
                     }
                 });
-//Removing the shadow when the mouse cursor is off
+
         territory.addEventHandler(MouseEvent.MOUSE_EXITED,
                 new EventHandler<MouseEvent>() {
                     @Override public void handle(MouseEvent e) {
@@ -475,16 +470,6 @@ public class jfx extends Application{
                     }
                 });
 
-
-        //territory.setStyle("-fx-background-radius: 30;");
-        //territory.setStyle("-fx-background-insets: 0;");
-        //territory.setStyle("-fx-text-fill: white;");
-
-        //territory.setStyle("-fx-font: 0 arial; -fx-base: #8cea37;");
-        //territory.setPrefWidth(30);
-        //territory.setPrefHeight(30);
-        //territory.setEffect(new DropShadow());
-        //territory.setEffect(new GaussianBlur(10.0));
         territory.setLayoutX(x);
         territory.setLayoutY(y);
         territory.setOnAction(e -> {
