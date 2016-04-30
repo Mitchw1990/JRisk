@@ -272,7 +272,7 @@ public class jfx extends Application{
 
         territory.setStyle("  -fx-padding: 1 5 5 5;\n" +
                 "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
-                "    -fx-background-radius: 4;\n" +
+                "    -fx-background-radius: 10;\n" +
                 "    -fx-background-color: \n" +
                 "        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),\n" +
                 "        #9d4024,\n" +
