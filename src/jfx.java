@@ -98,9 +98,6 @@ public class jfx extends Application{
         final double initWidth = 1480;
         final double initHeight = 920;
 
-
-
-
         theStage.setTitle("Timeline Example");
         Group root = new Group();
 
@@ -387,6 +384,7 @@ public class jfx extends Application{
         redWaste.addBorderTerritory(bayasabhad, ghiscar, lhazar, qarth, slaversBay);
 
         ghiscar.addBorderTerritory(redWaste, slaversBay);
+
 
 
 
