@@ -84,178 +84,136 @@ public class jfx extends Application{
         Canvas canvas = new Canvas( initWidth, initHeight );
         root.getChildren().add( canvas );
 
-        Image board = new Image(getClass().getResourceAsStream("board.jpg"));
+        Image board = new Image(getClass().getResourceAsStream("westerosMap.jpg"));
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.drawImage( board, 0, 0, initWidth, initHeight );
 
 
-        alaska = new Territory();
+        alaska = new Territory("alaska");
         initButton(alaska, 100, 90);
-        alaska.setStyle("-fx-font: 0 arial; -fx-base: yellow;");
 
-        northWestTerritory = new Territory();
+        northWestTerritory = new Territory("northWestTerritory");
         initButton(northWestTerritory, 225, 130);
-        northWestTerritory.setStyle("-fx-font: 0 arial; -fx-base: yellow;");
 
-        alberta = new Territory();
+        alberta = new Territory("alberta");
         initButton(alberta, 225, 210);
-        alberta.setStyle("-fx-font: 0 arial; -fx-base: yellow;");
 
-        westernUnitedStates = new Territory();
+        westernUnitedStates = new Territory("westernUnitedStates");
         initButton(westernUnitedStates, 225, 315);
-        westernUnitedStates.setStyle("-fx-font: 0 arial; -fx-base: yellow;");
 
-        ontario = new Territory();
+        ontario = new Territory("ontario");
         initButton(ontario, 325, 220);
-        ontario.setStyle("-fx-font: 0 arial; -fx-base: yellow;");
 
-        quebec = new Territory();
+        quebec = new Territory("quebec");
         initButton(quebec, 395, 220);
-        quebec.setStyle("-fx-font: 0 arial; -fx-base: yellow;");
 
-        greenland = new Territory();
+        greenland = new Territory("greenland");
         initButton(greenland, 505, 90);
-        greenland.setStyle("-fx-font: 0 arial; -fx-base: yellow;");
 
-        easternUnitedStates = new Territory();
+        easternUnitedStates = new Territory("easternUnitedStates");
         initButton(easternUnitedStates, 325, 290);
-        easternUnitedStates.setStyle("-fx-font: 0 arial; -fx-base: yellow;");
 
-        centralAmerica = new Territory();
+        centralAmerica = new Territory("centralAmerica");
         initButton(centralAmerica, 240, 405);
-        centralAmerica.setStyle("-fx-font: 0 arial; -fx-base: yellow;");
 
-        venezuela = new Territory();
+        venezuela = new Territory("venezuela");
         initButton(venezuela, 330, 510);
-        venezuela.setStyle("-fx-font: 0 arial; -fx-base: red;");
 
-        peru = new Territory();
+        peru = new Territory("peru");
         initButton(peru, 380, 620);
-        peru.setStyle("-fx-font: 0 arial; -fx-base: red;");
 
-        brazil = new Territory();
+        brazil = new Territory("brazil");
         initButton(brazil, 450, 600);
-        brazil.setStyle("-fx-font: 0 arial; -fx-base: red;");
 
-        argentina = new Territory();
+        argentina = new Territory("argentina");
         initButton(argentina, 380, 730);
-        argentina.setStyle("-fx-font: 0 arial; -fx-base: red;");
 
-        iceland = new Territory();
+        iceland = new Territory("iceland");
         initButton(iceland, 625, 170);
-        iceland.setStyle("-fx-font: 0 arial; -fx-base: cyan;");
 
-        greatBritain = new Territory();
+        greatBritain = new Territory("greatBritain");
         initButton(greatBritain, 620, 275);
-        greatBritain.setStyle("-fx-font: 0 arial; -fx-base: cyan;");
 
-        scandanavia = new Territory();
+        scandanavia = new Territory("scandanavia");
         initButton(scandanavia, 725, 170);
-        scandanavia.setStyle("-fx-font: 0 arial; -fx-base: cyan;");
 
-        ukraine = new Territory();
+        ukraine = new Territory("ukraine");
         initButton(ukraine, 860, 245);
-        ukraine.setStyle("-fx-font: 0 arial; -fx-base: cyan;");
 
-        northernEurope = new Territory();
+        northernEurope = new Territory("northernEurope");
         initButton(northernEurope, 735, 300);
-        northernEurope.setStyle("-fx-font: 0 arial; -fx-base: cyan;");
 
-        southernEurope = new Territory();
+        southernEurope = new Territory("southernEurope");
         initButton(southernEurope, 770, 380);
-        southernEurope.setStyle("-fx-font: 0 arial; -fx-base: cyan;");
 
-        westernEurope = new Territory();
+        westernEurope = new Territory("westernEurope");
         initButton(westernEurope, 620, 425);
-        westernEurope.setStyle("-fx-font: 0 arial; -fx-base: cyan;");
 
-        northAfrica = new Territory();
+        northAfrica = new Territory("northAfrica");
         initButton(northAfrica, 665, 550);
-        northAfrica.setStyle("-fx-font: 0 arial; -fx-base: goldenrod;");
 
-        egypt = new Territory();
+        egypt = new Territory("egypt");
         initButton(egypt, 785, 520);
-        egypt.setStyle("-fx-font: 0 arial; -fx-base: goldenrod;");
 
-        eastAfrica = new Territory();
+        eastAfrica = new Territory("eastAfrica");
         initButton(eastAfrica, 850, 590);
-        eastAfrica.setStyle("-fx-font: 0 arial; -fx-base: goldenrod;");
 
-        congo = new Territory();
+        congo = new Territory("congo");
         initButton(congo, 795, 680);
-        congo.setStyle("-fx-font: 0 arial; -fx-base: goldenrod;");
 
-        southAfrica = new Territory();
+        southAfrica = new Territory("southAfrica");
         initButton(southAfrica, 795, 795);
-        southAfrica.setStyle("-fx-font: 0 arial; -fx-base: goldenrod;");
 
-        madagascar = new Territory();
+        madagascar = new Territory("madagascar");
         initButton(madagascar, 915, 795);
-        madagascar.setStyle("-fx-font: 0 arial; -fx-base: goldenrod;");
 
-        middleEast = new Territory();
+        middleEast = new Territory("middleEast");
         initButton(middleEast, 900, 465);
-        middleEast.setStyle("-fx-font: 0 arial; -fx-base: green;");
 
-        afganistan = new Territory();
+        afganistan = new Territory("afganistan");
         initButton(afganistan, 985, 335);
-        afganistan.setStyle("-fx-font: 0 arial; -fx-base: green;");
 
-        ural = new Territory();
-        initButton(ural, 1005, 205);
-        ural.setStyle("-fx-font: 0 arial; -fx-base: green;");
+        ural = new Territory("ural");
+        //missing initButton
 
-        siberia = new Territory();
+        siberia = new Territory("siberia");
         initButton(siberia, 1080, 155);
-        siberia.setStyle("-fx-font: 0 arial; -fx-base: green;");
 
-        yakutsk = new Territory();
+        yakutsk = new Territory("yakutsk");
         initButton(yakutsk, 1190, 110);
-        yakutsk.setStyle("-fx-font: 0 arial; -fx-base: green;");
 
-        kamchatka = new Territory();
+        kamchatka = new Territory("kamchatka");
         initButton(kamchatka, 1325, 120);
-        kamchatka.setStyle("-fx-font: 0 arial; -fx-base: green;");
 
-        irkutsk = new Territory();
+        irkutsk = new Territory("irkutsk");
         initButton(irkutsk, 1180, 220);
-        irkutsk.setStyle("-fx-font: 0 arial; -fx-base: green;");
 
-        mongolia = new Territory();
+        mongolia = new Territory("mongolia");
         initButton(mongolia, 1195, 310);
-        mongolia.setStyle("-fx-font: 0 arial; -fx-base: green;");
 
-        china = new Territory();
+        china = new Territory("china");
         initButton(china, 1170, 405);
-        china.setStyle("-fx-font: 0 arial; -fx-base: green;");
 
-        siam = new Territory();
+        siam = new Territory("siam");
         initButton(siam, 1195, 510);
-        siam.setStyle("-fx-font: 0 arial; -fx-base: green;");
 
-        india = new Territory();
+        india = new Territory("india");
         initButton(india, 1070, 475);
-        india.setStyle("-fx-font: 0 arial; -fx-base: green;");
 
-        japan = new Territory();
+        japan = new Territory("japan");
         initButton(japan, 1335, 325);
-        japan.setStyle("-fx-font: 0 arial; -fx-base: green;");
 
-        indonesia = new Territory();
+        indonesia = new Territory("indonesia");
         initButton(indonesia, 1200, 640);
-        indonesia.setStyle("-fx-font: 0 arial; -fx-base: purple;");
 
-        newGuinea = new Territory();
+        newGuinea = new Territory("newGuinea");
         initButton(newGuinea, 1330, 635);
-        newGuinea.setStyle("-fx-font: 0 arial; -fx-base: purple;");
 
-        westernAustralia = new Territory();
+        westernAustralia = new Territory("westernAustralia");
         initButton(westernAustralia, 1275, 800);
-        westernAustralia.setStyle("-fx-font: 0 arial; -fx-base: purple;");
 
-        easternAustralia = new Territory();
+        easternAustralia = new Territory("easternAustralia");
         initButton(easternAustralia, 1385, 780);
-        easternAustralia.setStyle("-fx-font: 0 arial; -fx-base: purple;");
 
         Player p1 = new Player("Attacker");
         Player p2 = new Player("Defender");
@@ -272,22 +230,35 @@ public class jfx extends Application{
         System.out.println("Alaska troops after battle: " + alaska.getTroopCount());
         System.out.println("East Africa troops after battle: " + eastAfrica.getTroopCount());
 
-
         theStage.show();
     }
 
 
     public void initButton(Territory territory, int x, int y){
 
-        territory.setStyle("-fx-font: 0 arial; -fx-base: red;");
-        territory.setPrefWidth(20);
-        territory.setPrefHeight(20);
-        territory.setEffect(new DropShadow());
-        territory.setEffect(new GaussianBlur(10.0));
+        territory.setStyle("  -fx-padding: 8 10 10 10;\n" +
+                "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
+                "    -fx-background-radius: 8;\n" +
+                "    -fx-background-color: \n" +
+                "        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),\n" +
+                "        #9d4024,\n" +
+                "        #d86e3a,\n" +
+                "        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);\n" +
+                "    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\n" +
+                "    -fx-font-weight: bold;\n" +
+                "    -fx-font-size: 1.1em;");
+        //territory.setStyle("-fx-background-radius: 30;");
+        //territory.setStyle("-fx-background-insets: 0;");
+        //territory.setStyle("-fx-text-fill: white;");
+
+        //territory.setStyle("-fx-font: 0 arial; -fx-base: #8cea37;");
+        //territory.setPrefWidth(30);
+        //territory.setPrefHeight(30);
+        //territory.setEffect(new DropShadow());
+        //territory.setEffect(new GaussianBlur(10.0));
         territory.setLayoutX(x);
         territory.setLayoutY(y);
         territory.setOnAction(e -> System.out.println("clicked"));
-
         ((Group)theScene.getRoot()).getChildren().add(territory);
     }
 

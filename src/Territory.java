@@ -13,11 +13,13 @@ public class Territory extends Button {
     private int troopCount;
     private ArrayList<Territory> sharedBorderTerritories;
 
-    public Territory(){
+    public Territory(String name){
         name = null;
         troopCount = 0;
         continent = null;
         sharedBorderTerritories = new ArrayList<Territory>();
+        this.name = name;
+        this.setText(String.valueOf(troopCount));
     }
 
 
@@ -46,6 +48,7 @@ public class Territory extends Button {
             troopCount += troops;
         }else
             troopCount = 0;
+        this.setText(String.valueOf(troopCount));
     }
 
     public void setContinent(Continent continent){
@@ -83,5 +86,6 @@ public class Territory extends Button {
 
     public void setTroopCount(int troopCount) {
         this.troopCount = troopCount;
+        this.setText(String.valueOf(this.troopCount));
     }
 }
