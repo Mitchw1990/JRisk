@@ -1,3 +1,4 @@
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
@@ -16,6 +17,7 @@ import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import javax.sound.sampled.FloatControl;
 import java.io.File;
 import java.net.URL;
 
@@ -416,9 +418,72 @@ public class jfx extends Application{
         Ghiscar = new Continent("Ghiscar", 4, bayasabhad, ghiscar, lhazar, paintedMountains, qarth, redWaste,
                 samyrianHills, slaversBay);
 
+
+
+        Button attackButton = new Button("Attack");
+        Button endTurnButton = new Button("End Turn");
+
+        attackButton.setStyle("-fx-background-color: \n" +
+                "        #090a0c,\n" +
+                "        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),\n" +
+                "        linear-gradient(#20262b, #191d22),\n" +
+                "        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));\n" +
+                "    -fx-background-radius: 5,4,3,5;\n" +
+                "    -fx-background-insets: 0,1,2,0;\n" +
+                "    -fx-text-fill: white;\n" +
+                "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
+                "    -fx-font-family: \"Helvetica\";\n" +
+                "    -fx-text-fill: linear-gradient(#ff3440, #d0d0d0);\n" +
+                "    -fx-font-size: 20px;\n" +
+                "    -fx-padding: 10 20 10 20;");
+        endTurnButton.setStyle("-fx-background-color: \n" +
+                "        #090a0c,\n" +
+                "        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),\n" +
+                "        linear-gradient(#20262b, #191d22),\n" +
+                "        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));\n" +
+                "    -fx-background-radius: 5,4,3,5;\n" +
+                "    -fx-background-insets: 0,1,2,0;\n" +
+                "    -fx-text-fill: white;\n" +
+                "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
+                "    -fx-font-family: \"Helvetica\";\n" +
+                "    -fx-text-fill: linear-gradient(#437aff, #d0d0d0);\n" +
+                "    -fx-font-size: 20px;\n" +
+                "    -fx-padding: 10 20 10 20;");
+
+
+
+        attackButton.setLayoutX(100);
+        attackButton.setLayoutY(800);
+        attackButton.setOnAction(e -> {
+            System.out.println("clickedAttack");
+            URL horn = getClass().getResource("horn.mp3");
+            AudioClip battleHorn = new AudioClip(horn.toString());
+            battleHorn.setVolume(999999999);
+            battleHorn.play();
+
+        });
+
+        endTurnButton.setLayoutX(210);
+        endTurnButton.setLayoutY(800);
+        endTurnButton.setOnAction(e -> {
+            System.out.println("clickedDefend");
+            URL end = getClass().getResource("sword.aif");
+            AudioClip endturn = new AudioClip(end.toString());
+            endturn.setVolume(999999999);
+            endturn.play();
+        });
+
+        ((Group)theScene.getRoot()).getChildren().add(attackButton);
+        ((Group)theScene.getRoot()).getChildren().add(endTurnButton);
+
+
+
         theStage.show();
-        themesong.play(1.0);
+        themesong.setVolume(.3);
+        themesong.play();
     }
+
+
 
 
     public void initButton(Territory territory, int x, int y){
@@ -456,7 +521,7 @@ public class jfx extends Application{
         territory.addEventHandler(MouseEvent.MOUSE_EXITED,
                 new EventHandler<MouseEvent>() {
                     @Override public void handle(MouseEvent e) {
-                        territory.setStyle("  -fx-padding: 1 5 5 5;\n" +
+                        territory.setStyle("-fx-padding: 1 5 5 5;\n" +
                                 "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
                                 "    -fx-background-radius: 10;\n" +
                                 "    -fx-background-color: \n" +
