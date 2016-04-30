@@ -240,28 +240,28 @@ public class jfx extends Application{
         initButton(parchedFields, 890, 560);
 
         paintedMountains = new Territory("paintedMountains");
-        initButton(paintedMountains, 0, 0);
+        initButton(paintedMountains, 890, 610);
 
         slaversBay = new Territory("slaversBay");
-        initButton(slaversBay, 0, 0);
+        initButton(slaversBay, 1040, 690);
 
         lhazar = new Territory("lhazar");
-        initButton(lhazar, 0, 0);
+        initButton(lhazar, 1110, 650);
 
         samyrianHills = new Territory("samyrianHills");
-        initButton(samyrianHills, 0, 0);
+        initButton(samyrianHills, 1280, 595);
 
         bayasabhad = new Territory("bayasabhad");
-        initButton(bayasabhad, 0, 0);
+        initButton(bayasabhad, 1285, 675);
 
         qarth = new Territory("qarth");
-        initButton(qarth, 0, 0);
+        initButton(qarth, 1285, 745);
 
         redWaste = new Territory("redWaste");
-        initButton(redWaste, 0, 0);
+        initButton(redWaste, 1170, 735);
 
         ghiscar = new Territory("ghiscar");
-        initButton(ghiscar, 0, 0);
+        initButton(ghiscar, 1060, 785);
 
         Player p1 = new Player("Attacker");
         Player p2 = new Player("Defender");
