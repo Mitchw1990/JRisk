@@ -34,7 +34,6 @@ public class jfx extends Application{
     private Territory theRills;
     private Territory wolfsrvood;
 
-
     private Territory theVale;
     private Territory crorvnlands;
     private Territory westerlands;
