@@ -406,7 +406,7 @@ public class jfx extends Application{
                     @Override public void handle(MouseEvent e) {
                         territory.setStyle("  -fx-padding: 1 5 5 5;\n" +
                                 "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
-                                "    -fx-background-radius: 4;\n" +
+                                "    -fx-background-radius: 10;\n" +
                                 "    -fx-background-color: \n" +
                                 "        linear-gradient(from 0% 93% to 0% 100%, #02a300 0%, #34fa0c 100%),\n" +
                                 "        #1d9d33,\n" +
@@ -423,7 +423,7 @@ public class jfx extends Application{
                     @Override public void handle(MouseEvent e) {
                         territory.setStyle("  -fx-padding: 1 5 5 5;\n" +
                                 "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
-                                "    -fx-background-radius: 4;\n" +
+                                "    -fx-background-radius: 10;\n" +
                                 "    -fx-background-color: \n" +
                                 "        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),\n" +
                                 "        #9d4024,\n" +
