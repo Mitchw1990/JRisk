@@ -225,19 +225,19 @@ public class jfx extends Application{
         initButton(jbben, 1200, 215);
 
         realmsOfShogran = new Territory("realmsOfShogran");
-        initButton(realmsOfShogran, 0, 0);
+        initButton(realmsOfShogran, 1360, 370);
 
         vaesDothrak = new Territory("vaesDothrak");
-        initButton(vaesDothrak, 0, 0);
+        initButton(vaesDothrak, 1240, 465);
 
         easternGrassSea = new Territory("easternGrassSea");
-        initButton(easternGrassSea, 0, 0);
+        initButton(easternGrassSea, 1190, 550);
 
         westernGrassSea = new Territory("westernGrassSea");
-        initButton(westernGrassSea, 0, 0);
+        initButton(westernGrassSea, 1030, 540);
 
         parchedFields = new Territory("parchedFields");
-        initButton(parchedFields, 0, 0);
+        initButton(parchedFields, 890, 560);
 
         paintedMountains = new Territory("paintedMountains");
         initButton(paintedMountains, 0, 0);
