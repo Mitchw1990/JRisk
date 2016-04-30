@@ -1,3 +1,5 @@
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -105,6 +107,10 @@ public class jfx extends Application{
     {
         URL url = getClass().getResource("got.mp3");
         AudioClip themesong = new AudioClip(url.toString());
+
+        URL url2 = getClass().getResource("gotQuote.mp3");
+        AudioClip quote = new AudioClip(url2.toString());
+
 
 
 
@@ -502,9 +508,15 @@ public class jfx extends Application{
 
 
         theStage.show();
+
+
+
         themesong.setVolume(.3);
         themesong.play();
+        quote.play(.2);
+
     }
+
 
 
 
