@@ -60,6 +60,7 @@ public class jfx extends Application{
     private Territory abandonedLand;
     private Territory kingdomsOfTheIfeqevron;
     private Territory theFootprint;
+    private Territory jbben;
     private Territory realmsOfShogran;
     private Territory vaesDothrak;
     private Territory easternGrassSea;
@@ -101,6 +102,9 @@ public class jfx extends Application{
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.drawImage( board, 0, 0, initWidth, initHeight );
 
+
+        jbben = new Territory("jbben");
+        initButton(jbben, 1195, 700);
 
         theWall = new Territory("theWall");
         initButton(theWall, 320, 95);
@@ -263,6 +267,115 @@ public class jfx extends Application{
 
         System.out.println("Alaska troops after battle: " + theWall.getTroopCount());
         System.out.println("East Africa troops after battle: " + westerlands.getTroopCount());
+
+
+        theWall.addBorderTerritory(skagos, theGrevCliffs, wolfsrvood);
+
+        skagos.addBorderTerritory(theWall, theGrevCliffs);
+
+        theGrevCliffs.addBorderTerritory(theWall, skagos, winterfell, wolfsrvood);
+
+        theNeck.addBorderTerritory(theFlintCliff, theRills, theVale, winterfell, wolfsrvood);
+
+        theFlintCliff.addBorderTerritory(ironIslands, theNeck, theVale);
+
+        theRills.addBorderTerritory(theNeck, wolfsrvood);
+
+        wolfsrvood.addBorderTerritory(theNeck, theRills, theGrevCliffs, theWall, winterfell);
+
+        theVale.addBorderTerritory(crorvnlands, riverlands, theFlintCliff, theNeck);
+
+        crorvnlands.addBorderTerritory(andalos, riverlands, stormlands, theReach, theVale, westerlands);
+
+        westerlands.addBorderTerritory(crorvnlands, shieldLands, riverlands, theReach);
+
+        riverlands.addBorderTerritory(crorvnlands, ironIslands, realmsOfShogran, theVale, westerlands);
+
+        ironIslands.addBorderTerritory(riverlands, theFlintCliff);
+
+        theReach.addBorderTerritory(crorvnlands, redMountains, shieldLands, stormlands, westerlands, whisperingSound);
+
+        stormlands.addBorderTerritory(andalos, crorvnlands, redMountains, theReach);
+
+        dorne.addBorderTerritory(redMountains, theDisputedLands);
+
+        redMountains.addBorderTerritory(dorne, stormlands, theReach, whisperingSound);
+
+        whisperingSound.addBorderTerritory(redMountains, shieldLands, theReach);
+
+        shieldLands.addBorderTerritory(theReach, westerlands, whisperingSound);
+
+        braavosianCoastland.addBorderTerritory(andalos, hillsOfNorvos);
+
+        hillsOfNorvos.addBorderTerritory(andalos, braavosianCoastland, theGoldenFields, qhoyneLands);
+
+        qhoyneLands.addBorderTerritory(forrestOfQohor, hillsOfNorvos, rhoynianVeld, theGoldenFields);
+
+        forrestOfQohor.addBorderTerritory(parchedFields, qhoyneLands, rhoynianVeld, sarnor);
+
+        theGoldenFields.addBorderTerritory(andalos, hillsOfNorvos, qhoyneLands, rhoynianVeld, sarMell,
+                theDisputedLands);
+
+        theDisputedLands.addBorderTerritory(dorne, sarMell, theGoldenFields);
+
+        andalos.addBorderTerritory(braavosianCoastland, crorvnlands, hillsOfNorvos, stormlands, theGoldenFields);
+
+        rhoynianVeld.addBorderTerritory(forrestOfQohor, parchedFields, qhoyneLands, sarMell, theGoldenFields,
+                westernWaste);
+
+        westernWaste.addBorderTerritory(paintedMountains, parchedFields, rhoynianVeld, sarMell, seaOfsighs);
+
+        seaOfsighs.addBorderTerritory(elyria, sarMell, valyria, westernWaste);
+
+        elyria.addBorderTerritory(paintedMountains, seaOfsighs, valyria);
+
+        valyria.addBorderTerritory(elyria, seaOfsighs);
+
+        sarMell.addBorderTerritory(theDisputedLands, theGoldenFields, rhoynianVeld, seaOfsighs, westernWaste);
+
+        sarnor.addBorderTerritory(abandonedLand, forrestOfQohor, parchedFields);
+
+        abandonedLand.addBorderTerritory(kingdomsOfTheIfeqevron, parchedFields, sarnor, westernGrassSea);
+
+        kingdomsOfTheIfeqevron.addBorderTerritory(abandonedLand, easternGrassSea, theFootprint, vaesDothrak,
+                westernGrassSea);
+
+        theFootprint.addBorderTerritory(kingdomsOfTheIfeqevron, realmsOfShogran, vaesDothrak, jbben);
+
+        jbben.addBorderTerritory(theFootprint);
+
+        realmsOfShogran.addBorderTerritory( theFootprint, riverlands, vaesDothrak);
+
+        vaesDothrak.addBorderTerritory(easternGrassSea, kingdomsOfTheIfeqevron, realmsOfShogran, theFootprint,
+                samyrianHills);
+
+        easternGrassSea.addBorderTerritory(kingdomsOfTheIfeqevron, lhazar, samyrianHills, vaesDothrak, westernGrassSea);
+
+        westernGrassSea.addBorderTerritory(abandonedLand, easternGrassSea, kingdomsOfTheIfeqevron, paintedMountains,
+                parchedFields, lhazar);
+
+        parchedFields.addBorderTerritory(abandonedLand, forrestOfQohor, rhoynianVeld, paintedMountains, sarnor,
+                westernGrassSea, westernWaste);
+
+        paintedMountains.addBorderTerritory(elyria, lhazar, parchedFields, slaversBay, westernGrassSea, westernWaste);
+
+        slaversBay.addBorderTerritory(ghiscar, lhazar, paintedMountains, redWaste);
+
+        lhazar.addBorderTerritory(bayasabhad, easternGrassSea, paintedMountains, redWaste, samyrianHills, slaversBay,
+                westernGrassSea);
+
+        samyrianHills.addBorderTerritory(bayasabhad, easternGrassSea, lhazar, vaesDothrak);
+
+        bayasabhad.addBorderTerritory(lhazar, redWaste, qarth, samyrianHills);
+
+        qarth.addBorderTerritory(bayasabhad, redWaste);
+
+        redWaste.addBorderTerritory(bayasabhad, ghiscar, lhazar, qarth, slaversBay);
+
+        ghiscar.addBorderTerritory(redWaste, slaversBay);
+
+
+
 
         theStage.show();
     }
