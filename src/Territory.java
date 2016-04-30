@@ -11,22 +11,24 @@ public class Territory extends Button {
     private Continent continent;
     private String name;
     private int troopCount;
-    private ArrayList<Territory> sharedBorderContinents;
+    private ArrayList<Territory> sharedBorderTerritories;
 
     public Territory(){
         name = null;
         troopCount = 0;
         continent = null;
-        sharedBorderContinents = new ArrayList<Territory>();
+        sharedBorderTerritories = new ArrayList<Territory>();
     }
 
 
-    public void addBorderTerritory(Territory territory){
-        sharedBorderContinents.add(territory);
+    public void addBorderTerritory(Territory ... territories){
+        for(Territory territory : territories ) {
+            sharedBorderTerritories.add(territory);
+        }
     }
 
     public boolean sharesBorder(Territory territory){
-        return sharedBorderContinents.contains(territory);
+        return sharedBorderTerritories.contains(territory);
     }
 
     public boolean isPartOfContinent(Continent continent){
@@ -74,6 +76,7 @@ public class Territory extends Button {
     public int getTroopCount() {
         return troopCount;
     }
+
 
     public void setTroopCount(int troopCount) {
         this.troopCount = troopCount;
