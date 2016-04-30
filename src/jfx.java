@@ -95,6 +95,8 @@ public class jfx extends Application{
         URL url = getClass().getResource("got.mp3");
         AudioClip themesong = new AudioClip(url.toString());
 
+
+
         final double initWidth = 1480;
         final double initHeight = 920;
 
@@ -458,7 +460,12 @@ public class jfx extends Application{
         //territory.setEffect(new GaussianBlur(10.0));
         territory.setLayoutX(x);
         territory.setLayoutY(y);
-        territory.setOnAction(e -> System.out.println("clicked"));
+        territory.setOnAction(e -> {
+            System.out.println("clicked");
+            URL swordClash = getClass().getResource("swordClash.mp3");
+            AudioClip swords = new AudioClip(swordClash.toString());
+            swords.play();
+        });
         ((Group)theScene.getRoot()).getChildren().add(territory);
     }
 
