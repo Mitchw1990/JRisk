@@ -1,5 +1,6 @@
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -20,6 +21,7 @@ import javafx.stage.Stage;
 import javax.sound.sampled.FloatControl;
 import java.io.File;
 import java.net.URL;
+import javafx.scene.layout.VBox;
 
 
 public class jfx extends Application{
@@ -103,6 +105,9 @@ public class jfx extends Application{
     {
         URL url = getClass().getResource("got.mp3");
         AudioClip themesong = new AudioClip(url.toString());
+
+
+
 
 
 
@@ -472,9 +477,28 @@ public class jfx extends Application{
             endturn.play();
         });
 
+        MenuBar menuBar = new MenuBar();
+        menuBar.setStyle("-fx-font-size: 9pt;\n" +
+                "    -fx-font-family: \"Segoe UI Semibold\";\n" +
+                "    -fx-text-fill: green;\n" +
+                "    -fx-background-color : darkslategrey;\n" +
+                "    -fx-opacity: .9;");
+        Menu menu = new Menu("Options");
+        MenuItem menuPause = new MenuItem("Pause");
+        MenuItem menuQuit = new MenuItem("Quit");
+        //menuBar.prefWidthProperty().bind(theStage.widthProperty());
+        menu.getItems().addAll(menuPause, menuQuit);
+        menuBar.getMenus().addAll(menu);
+
+        Label label = new Label("Current Player: ");
+        label.setLayoutX(100);
+        label.setLayoutY(100);
+
+
         ((Group)theScene.getRoot()).getChildren().add(attackButton);
         ((Group)theScene.getRoot()).getChildren().add(endTurnButton);
-
+        ((Group)theScene.getRoot()).getChildren().addAll(menuBar);
+        ((Group)theScene.getRoot()).getChildren().add(label);
 
 
         theStage.show();
