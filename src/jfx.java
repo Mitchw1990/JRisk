@@ -236,9 +236,9 @@ public class jfx extends Application{
 
     public void initButton(Territory territory, int x, int y){
 
-        territory.setStyle("  -fx-padding: 8 10 10 10;\n" +
+        territory.setStyle("  -fx-padding: 1 5 5 5;\n" +
                 "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
-                "    -fx-background-radius: 8;\n" +
+                "    -fx-background-radius: 4;\n" +
                 "    -fx-background-color: \n" +
                 "        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),\n" +
                 "        #9d4024,\n" +
