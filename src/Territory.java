@@ -14,7 +14,6 @@ public class Territory extends Button {
     private ArrayList<Territory> sharedBorderTerritories;
 
     public Territory(String name){
-        name = null;
         troopCount = 0;
         continent = null;
         sharedBorderTerritories = new ArrayList<Territory>();

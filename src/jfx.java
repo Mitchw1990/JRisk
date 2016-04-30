@@ -82,6 +82,14 @@ public class jfx extends Application{
     private Territory redWaste;
     private Territory ghiscar;
 
+    private Continent theNorth;
+    private Continent theKingsLands;
+    private Continent theSouth;
+    private Continent theFreeCities;
+    private Continent valyrianFreehold;
+    private Continent theDothrakiSea;
+    private Continent Ghiscar;
+
 
 
     public static void main(String[] args)
@@ -386,8 +394,27 @@ public class jfx extends Application{
 
         ghiscar.addBorderTerritory(redWaste, slaversBay);
 
+        theNorth = new Continent("theNorth", 4, skagos, theFlintCliff, theGrevCliffs,
+                theNeck, theRills, theWall, wolfsrvood, winterfell);
 
+        theKingsLands = new Continent("the King's Lands", 3, crorvnlands, ironIslands, riverlands, theVale,
+                westerlands);
 
+        theSouth = new Continent("the South", 3, dorne, redMountains, shieldLands, stormlands,
+                whisperingSound);
+
+        theFreeCities = new Continent("the Free Cities", 4, andalos, braavosianCoastland, forrestOfQohor, hillsOfNorvos,
+                theDisputedLands, theGoldenFields);
+
+        valyrianFreehold = new Continent("Valyrian Freehold", 3, elyria, rhoynianVeld, sarMell, seaOfsighs, valyria,
+                westernWaste);
+
+        theDothrakiSea = new Continent("the Dothraki Sea", 5, abandonedLand, easternGrassSea, jbben,
+                kingdomsOfTheIfeqevron, parchedFields, realmsOfShogran, sarnor,  theFootprint,
+                vaesDothrak, westernGrassSea);
+
+        Ghiscar = new Continent("Ghiscar", 4, bayasabhad, ghiscar, lhazar, paintedMountains, qarth, redWaste,
+                samyrianHills, slaversBay);
 
         theStage.show();
         themesong.play(1.0);

@@ -13,9 +13,10 @@ public class Continent {
 
 
     public Continent(String name, int bonus, Territory ... territories){
-        for (Territory terrritory: territories){
-            territoryList.add(terrritory);
-            terrritory.setContinent(this);
+        for (Territory t: territories){
+            territoryList = new ArrayList<Territory>();
+            territoryList.add(t);
+            t.setContinent(this);
         }
         numberOfTerritories = territoryList.size();
         isConquered = false;
