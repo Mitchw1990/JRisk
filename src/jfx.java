@@ -16,53 +16,65 @@ public class jfx extends Application{
 
     private Scene theScene;
 
-    private Territory alaska ;
-    private Territory northWestTerritory;
-    private Territory alberta;
-    private Territory ontario;
-    private Territory westernUnitedStates;
-    private Territory easternUnitedStates;
-    private Territory centralAmerica;
-    private Territory greenland;
-    private Territory quebec;
+    private Territory theWall ;
+    private Territory skagos;
+    private Territory theGrevCliffs;
+    private Territory winterfell;
+    private Territory theNeck;
+    private Territory theFlintCliff;
+    private Territory theRills;
+    private Territory wolfsrvood;
 
-    private Territory venezuela;
-    private Territory peru;
-    private Territory brazil;
-    private Territory argentina;
 
-    private Territory iceland;
-    private Territory greatBritain;
-    private Territory scandanavia;
-    private Territory westernEurope;
-    private Territory northernEurope;
-    private Territory southernEurope;
-    private Territory ukraine;
+    private Territory theVale;
+    private Territory crorvnlands;
+    private Territory westerlands;
+    private Territory riverlands;
+    private Territory ironIslands;
 
-    private Territory northAfrica;
-    private Territory egypt;
-    private Territory eastAfrica;
-    private Territory congo;
-    private Territory southAfrica;
-    private Territory madagascar;
+    private Territory theReach;
+    private Territory stormlands;
+    private Territory dorne;
+    private Territory redMountains;
+    private Territory whisperingSound;
+    private Territory shieldLands;
 
-    private Territory middleEast;
-    private Territory afganistan;
-    private Territory ural;
-    private Territory siberia;
-    private Territory yakutsk;
-    private Territory kamchatka;
-    private Territory irkutsk;
-    private Territory mongolia;
-    private Territory china;
-    private Territory siam;
-    private Territory india;
-    private Territory japan;
 
-    private Territory indonesia;
-    private Territory newGuinea;
-    private Territory westernAustralia;
-    private Territory easternAustralia;
+    private Territory braavosianCoastland;
+    private Territory hillsOfNorvos;
+    private Territory qhoyneLands;
+    private Territory forrestOfQohor;
+    private Territory theGoldenFields;
+    private Territory theDisputedLands;
+    private Territory andalos;
+
+    private Territory rhoynianVeld;
+    private Territory westernWaste;
+    private Territory seaOfsighs;
+    private Territory elyria;
+    private Territory valyria;
+    private Territory sarMell;
+
+    private Territory sarnor;
+    private Territory abandonedLand;
+    private Territory kingdomsOfTheIfeqevron;
+    private Territory theFootprint;
+    private Territory realmsOfShogran;
+    private Territory vaesDothrak;
+    private Territory easternGrassSea;
+    private Territory westernGrassSea;
+    private Territory parchedFields;
+
+    private Territory paintedMountains;
+    private Territory slaversBay;
+    private Territory lhazar;
+    private Territory samyrianHills;
+    private Territory bayasabhad;
+    private Territory qarth;
+    private Territory redWaste;
+    private Territory ghiscar;
+
+
 
     public static void main(String[] args)
     {
@@ -89,146 +101,167 @@ public class jfx extends Application{
         gc.drawImage( board, 0, 0, initWidth, initHeight );
 
 
-        alaska = new Territory("alaska");
-        initButton(alaska, 100, 90);
+        theWall = new Territory("theWall");
+        initButton(theWall, 100, 90);
 
-        northWestTerritory = new Territory("northWestTerritory");
-        initButton(northWestTerritory, 225, 130);
+        skagos = new Territory("skagos");
+        initButton(skagos, 225, 130);
 
-        alberta = new Territory("alberta");
-        initButton(alberta, 225, 210);
+        theGrevCliffs = new Territory("theGrevCliffs");
+        initButton(theGrevCliffs, 225, 210);
 
-        westernUnitedStates = new Territory("westernUnitedStates");
-        initButton(westernUnitedStates, 225, 315);
+        winterfell = new Territory("winterfell");
+        initButton(winterfell, 225, 315);
 
-        ontario = new Territory("ontario");
-        initButton(ontario, 325, 220);
+        theNeck = new Territory("theNeck");
+        initButton(theNeck, 325, 220);
 
-        quebec = new Territory("quebec");
-        initButton(quebec, 395, 220);
+        theFlintCliff = new Territory("theFlintCliff");
+        initButton(theFlintCliff, 395, 220);
 
-        greenland = new Territory("greenland");
-        initButton(greenland, 505, 90);
+        theRills = new Territory("theRills");
+        initButton(theRills, 505, 90);
 
-        easternUnitedStates = new Territory("easternUnitedStates");
-        initButton(easternUnitedStates, 325, 290);
+        wolfsrvood = new Territory("wolfsrvood");
+        initButton(wolfsrvood, 325, 290);
 
-        centralAmerica = new Territory("centralAmerica");
-        initButton(centralAmerica, 240, 405);
+        theVale = new Territory("theVale");
+        initButton(theVale, 240, 405);
 
-        venezuela = new Territory("venezuela");
-        initButton(venezuela, 330, 510);
+        crorvnlands = new Territory("crorvnlands");
+        initButton(crorvnlands, 330, 510);
 
-        peru = new Territory("peru");
-        initButton(peru, 380, 620);
+        westerlands = new Territory("westerlands");
+        initButton(westerlands, 380, 620);
 
-        brazil = new Territory("brazil");
-        initButton(brazil, 450, 600);
+        riverlands = new Territory("riverlands");
+        initButton(riverlands, 450, 600);
 
-        argentina = new Territory("argentina");
-        initButton(argentina, 380, 730);
+        ironIslands = new Territory("ironIslands");
+        initButton(ironIslands, 380, 730);
 
-        iceland = new Territory("iceland");
-        initButton(iceland, 625, 170);
+        theReach = new Territory("theReach");
+        initButton(theReach, 625, 170);
 
-        greatBritain = new Territory("greatBritain");
-        initButton(greatBritain, 620, 275);
+        stormlands = new Territory("stormlands");
+        initButton(stormlands, 620, 275);
 
-        scandanavia = new Territory("scandanavia");
-        initButton(scandanavia, 725, 170);
+        dorne = new Territory("dorne");
+        initButton(dorne, 725, 170);
 
-        ukraine = new Territory("ukraine");
-        initButton(ukraine, 860, 245);
+        redMountains = new Territory("redMountains");
+        initButton(redMountains, 860, 245);
 
-        northernEurope = new Territory("northernEurope");
-        initButton(northernEurope, 735, 300);
+        whisperingSound = new Territory("whisperingSound");
+        initButton(whisperingSound, 735, 300);
 
-        southernEurope = new Territory("southernEurope");
-        initButton(southernEurope, 770, 380);
+        shieldLands = new Territory("shieldLands");
+        initButton(shieldLands, 770, 380);
 
-        westernEurope = new Territory("westernEurope");
-        initButton(westernEurope, 620, 425);
+        braavosianCoastland = new Territory("braavosianCoastland");
+        initButton(braavosianCoastland, 620, 425);
 
-        northAfrica = new Territory("northAfrica");
-        initButton(northAfrica, 665, 550);
+        hillsOfNorvos = new Territory("hillsOfNorvos");
+        initButton(hillsOfNorvos, 665, 550);
 
-        egypt = new Territory("egypt");
-        initButton(egypt, 785, 520);
+        qhoyneLands = new Territory("qhoyneLands");
+        initButton(qhoyneLands, 785, 520);
 
-        eastAfrica = new Territory("eastAfrica");
-        initButton(eastAfrica, 850, 590);
+        forrestOfQohor = new Territory("forrestOfQohor");
+        initButton(forrestOfQohor, 850, 590);
 
-        congo = new Territory("congo");
-        initButton(congo, 795, 680);
+        theGoldenFields = new Territory("theGoldenFields");
+        initButton(theGoldenFields, 795, 680);
 
-        southAfrica = new Territory("southAfrica");
-        initButton(southAfrica, 795, 795);
+        theDisputedLands = new Territory("theDisputedLands");
+        initButton(theDisputedLands, 795, 795);
 
-        madagascar = new Territory("madagascar");
-        initButton(madagascar, 915, 795);
+        andalos = new Territory("andalos");
+        initButton(andalos, 915, 795);
 
-        middleEast = new Territory("middleEast");
-        initButton(middleEast, 900, 465);
+        rhoynianVeld = new Territory("rhoynianVeld");
+        initButton(rhoynianVeld, 900, 465);
 
-        afganistan = new Territory("afganistan");
-        initButton(afganistan, 985, 335);
+        westernWaste = new Territory("westernWaste");
+        initButton(westernWaste, 985, 335);
 
-        ural = new Territory("ural");
-        //missing initButton
+        seaOfsighs = new Territory("seaOfsighs");
+        initButton(seaOfsighs, 995, 350);
 
-        siberia = new Territory("siberia");
-        initButton(siberia, 1080, 155);
+        elyria = new Territory("elyria");
+        initButton(elyria, 1080, 155);
 
-        yakutsk = new Territory("yakutsk");
-        initButton(yakutsk, 1190, 110);
+        valyria = new Territory("valyria");
+        initButton(valyria, 1190, 110);
 
-        kamchatka = new Territory("kamchatka");
-        initButton(kamchatka, 1325, 120);
+        sarMell = new Territory("sarMell");
+        initButton(sarMell, 1325, 120);
 
-        irkutsk = new Territory("irkutsk");
-        initButton(irkutsk, 1180, 220);
+        sarnor = new Territory("sarnor");
+        initButton(sarnor, 1180, 220);
 
-        mongolia = new Territory("mongolia");
-        initButton(mongolia, 1195, 310);
+        abandonedLand = new Territory("abandonedLand");
+        initButton(abandonedLand, 1195, 310);
 
-        china = new Territory("china");
-        initButton(china, 1170, 405);
+        kingdomsOfTheIfeqevron = new Territory("kingdomsOfTheIfeqevron");
+        initButton(kingdomsOfTheIfeqevron, 1170, 405);
 
-        siam = new Territory("siam");
-        initButton(siam, 1195, 510);
+        theFootprint = new Territory("theFootprint");
+        initButton(theFootprint, 1195, 510);
 
-        india = new Territory("india");
-        initButton(india, 1070, 475);
+        realmsOfShogran = new Territory("realmsOfShogran");
+        initButton(realmsOfShogran, 1070, 475);
 
-        japan = new Territory("japan");
-        initButton(japan, 1335, 325);
+        vaesDothrak = new Territory("vaesDothrak");
+        initButton(vaesDothrak, 1335, 325);
 
-        indonesia = new Territory("indonesia");
-        initButton(indonesia, 1200, 640);
+        easternGrassSea = new Territory("easternGrassSea");
+        initButton(easternGrassSea, 1200, 640);
 
-        newGuinea = new Territory("newGuinea");
-        initButton(newGuinea, 1330, 635);
+        westernGrassSea = new Territory("westernGrassSea");
+        initButton(westernGrassSea, 1330, 635);
 
-        westernAustralia = new Territory("westernAustralia");
-        initButton(westernAustralia, 1275, 800);
+        parchedFields = new Territory("parchedFields");
+        initButton(parchedFields, 1275, 800);
 
-        easternAustralia = new Territory("easternAustralia");
-        initButton(easternAustralia, 1385, 780);
+        paintedMountains = new Territory("paintedMountains");
+        initButton(paintedMountains, 1385, 780);
+
+        slaversBay = new Territory("slaversBay");
+        initButton(slaversBay, 1385, 780);
+
+        lhazar = new Territory("lhazar");
+        initButton(lhazar, 1385, 780);
+
+        samyrianHills = new Territory("samyrianHills");
+        initButton(samyrianHills, 1385, 780);
+
+        bayasabhad = new Territory("bayasabhad");
+        initButton(bayasabhad, 1385, 780);
+
+        qarth = new Territory("qarth");
+        initButton(qarth, 1385, 780);
+
+        redWaste = new Territory("redWaste");
+        initButton(redWaste, 1385, 780);
+
+        ghiscar = new Territory("ghiscar");
+        initButton(ghiscar, 1385, 780);
 
         Player p1 = new Player("Attacker");
         Player p2 = new Player("Defender");
 
-        alaska.updateTroopCount(15);
-        eastAfrica.updateTroopCount(20);
+        theWall.updateTroopCount(15);
+        westerlands.updateTroopCount(20);
 
-        System.out.println("Alaska troops before battle: " + alaska.getTroopCount());
-        System.out.println("East Africa troops before battle: " + eastAfrica.getTroopCount());
+        System.out.println("Alaska troops before battle: " + theWall.getTroopCount());
+        System.out.println("East Africa troops before battle: " + westerlands.getTroopCount());
 
-        Battle battle = new Battle(p1, 1, alaska, p2, 2, eastAfrica);
+        Battle battle = new Battle(p1, 1, theWall, p2, 2, westerlands);
         battle.engage();
 
-        System.out.println("Alaska troops after battle: " + alaska.getTroopCount());
-        System.out.println("East Africa troops after battle: " + eastAfrica.getTroopCount());
+        System.out.println("Alaska troops after battle: " + theWall.getTroopCount());
+        System.out.println("East Africa troops after battle: " + westerlands.getTroopCount());
 
         theStage.show();
     }
