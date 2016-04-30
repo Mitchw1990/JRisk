@@ -113,10 +113,6 @@ public class jfx extends Application{
 
 
 
-
-        jbben = new Territory("jbben");
-        initButton(jbben, 1195, 700);
-
         theWall = new Territory("theWall");
         initButton(theWall, 320, 95);
 
@@ -214,16 +210,19 @@ public class jfx extends Application{
         initButton(sarMell, 710, 665);
 
         sarnor = new Territory("sarnor");
-        initButton(sarnor, 0, 0);
+        initButton(sarnor, 860, 430);
 
         abandonedLand = new Territory("abandonedLand");
-        initButton(abandonedLand, 0, 0);
+        initButton(abandonedLand, 970, 470);
 
         kingdomsOfTheIfeqevron = new Territory("kingdomsOfTheIfeqevron");
-        initButton(kingdomsOfTheIfeqevron, 0, 0);
+        initButton(kingdomsOfTheIfeqevron, 1095, 485);
 
         theFootprint = new Territory("theFootprint");
-        initButton(theFootprint, 0, 0);
+        initButton(theFootprint, 1200, 395);
+
+        jbben = new Territory("theFootprint");
+        initButton(jbben, 1200, 215);
 
         realmsOfShogran = new Territory("realmsOfShogran");
         initButton(realmsOfShogran, 0, 0);
