@@ -154,10 +154,10 @@ public class jfx extends Application{
         initButton(redMountains, 205, 655);
 
         whisperingSound = new Territory("whisperingSound");
-        initButton(whisperingSound, 0, 0);
+        initButton(whisperingSound, 145, 655);
 
         shieldLands = new Territory("shieldLands");
-        initButton(shieldLands, 0, 0);
+        initButton(shieldLands, 145, 580);
 
         braavosianCoastland = new Territory("braavosianCoastland");
         initButton(braavosianCoastland, 0, 0);
