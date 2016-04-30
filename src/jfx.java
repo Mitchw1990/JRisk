@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 
 
 public class jfx extends Application{
-
     private Scene theScene;
 
     private Territory theWall ;
@@ -100,155 +99,155 @@ public class jfx extends Application{
 
         Image board = new Image(getClass().getResourceAsStream("westerosMap.jpg"));
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.drawImage(board, 0, 0, initWidth, initHeight);
+        gc.drawImage( board, 0, 0, initWidth, initHeight );
 
 
         theWall = new Territory("theWall");
-        initButton(theWall, 100, 90);
+        initButton(theWall, 320, 95);
 
         skagos = new Territory("skagos");
-        initButton(skagos, 225, 130);
+        initButton(skagos, 390, 95);
 
         theGrevCliffs = new Territory("theGrevCliffs");
-        initButton(theGrevCliffs, 225, 210);
+        initButton(theGrevCliffs, 360, 160);
 
         winterfell = new Territory("winterfell");
-        initButton(winterfell, 225, 315);
+        initButton(winterfell, 300, 230);
 
         theNeck = new Territory("theNeck");
-        initButton(theNeck, 325, 220);
+        initButton(theNeck, 240, 300);
 
         theFlintCliff = new Territory("theFlintCliff");
-        initButton(theFlintCliff, 395, 220);
+        initButton(theFlintCliff, 190, 335);
 
         theRills = new Territory("theRills");
-        initButton(theRills, 505, 90);
+        initButton(theRills, 140, 260);
 
         wolfsrvood = new Territory("wolfsrvood");
-        initButton(wolfsrvood, 325, 290);
+        initButton(wolfsrvood, 180, 190);
 
         theVale = new Territory("theVale");
-        initButton(theVale, 240, 405);
+        initButton(theVale, 320, 420);
 
         crorvnlands = new Territory("crorvnlands");
-        initButton(crorvnlands, 330, 510);
+        initButton(crorvnlands, 300, 495);
 
         westerlands = new Territory("westerlands");
-        initButton(westerlands, 380, 620);
+        initButton(westerlands, 170, 500);
 
         riverlands = new Territory("riverlands");
-        initButton(riverlands, 450, 600);
+        initButton(riverlands, 140, 425);
 
         ironIslands = new Territory("ironIslands");
-        initButton(ironIslands, 380, 730);
+        initButton(ironIslands, 80, 395);
 
         theReach = new Territory("theReach");
-        initButton(theReach, 625, 170);
+        initButton(theReach, 250, 515);
 
         stormlands = new Territory("stormlands");
-        initButton(stormlands, 620, 275);
+        initButton(stormlands, 320, 580);
 
         dorne = new Territory("dorne");
-        initButton(dorne, 725, 170);
+        initButton(dorne, 320, 680);
 
         redMountains = new Territory("redMountains");
-        initButton(redMountains, 860, 245);
+        initButton(redMountains, 205, 655);
 
         whisperingSound = new Territory("whisperingSound");
-        initButton(whisperingSound, 735, 300);
+        initButton(whisperingSound, 0, 0);
 
         shieldLands = new Territory("shieldLands");
-        initButton(shieldLands, 770, 380);
+        initButton(shieldLands, 0, 0);
 
         braavosianCoastland = new Territory("braavosianCoastland");
-        initButton(braavosianCoastland, 620, 425);
+        initButton(braavosianCoastland, 0, 0);
 
         hillsOfNorvos = new Territory("hillsOfNorvos");
-        initButton(hillsOfNorvos, 665, 550);
+        initButton(hillsOfNorvos, 0, 0);
 
         qhoyneLands = new Territory("qhoyneLands");
-        initButton(qhoyneLands, 785, 520);
+        initButton(qhoyneLands, 0, 0);
 
         forrestOfQohor = new Territory("forrestOfQohor");
-        initButton(forrestOfQohor, 850, 590);
+        initButton(forrestOfQohor, 0, 0);
 
         theGoldenFields = new Territory("theGoldenFields");
-        initButton(theGoldenFields, 795, 680);
+        initButton(theGoldenFields, 0, 0);
 
         theDisputedLands = new Territory("theDisputedLands");
-        initButton(theDisputedLands, 795, 795);
+        initButton(theDisputedLands, 0, 0);
 
         andalos = new Territory("andalos");
-        initButton(andalos, 915, 795);
+        initButton(andalos, 0, 0);
 
         rhoynianVeld = new Territory("rhoynianVeld");
-        initButton(rhoynianVeld, 900, 465);
+        initButton(rhoynianVeld, 0, 0);
 
         westernWaste = new Territory("westernWaste");
-        initButton(westernWaste, 985, 335);
+        initButton(westernWaste, 0, 0);
 
         seaOfsighs = new Territory("seaOfsighs");
-        initButton(seaOfsighs, 995, 350);
+        initButton(seaOfsighs, 0, 0);
 
         elyria = new Territory("elyria");
-        initButton(elyria, 1080, 155);
+        initButton(elyria, 0, 0);
 
         valyria = new Territory("valyria");
-        initButton(valyria, 1190, 110);
+        initButton(valyria, 0, 0);
 
         sarMell = new Territory("sarMell");
-        initButton(sarMell, 1325, 120);
+        initButton(sarMell, 0, 0);
 
         sarnor = new Territory("sarnor");
-        initButton(sarnor, 1180, 220);
+        initButton(sarnor, 0, 0);
 
         abandonedLand = new Territory("abandonedLand");
-        initButton(abandonedLand, 1195, 310);
+        initButton(abandonedLand, 0, 0);
 
         kingdomsOfTheIfeqevron = new Territory("kingdomsOfTheIfeqevron");
-        initButton(kingdomsOfTheIfeqevron, 1170, 405);
+        initButton(kingdomsOfTheIfeqevron, 0, 0);
 
         theFootprint = new Territory("theFootprint");
-        initButton(theFootprint, 1195, 510);
+        initButton(theFootprint, 0, 0);
 
         realmsOfShogran = new Territory("realmsOfShogran");
-        initButton(realmsOfShogran, 1070, 475);
+        initButton(realmsOfShogran, 0, 0);
 
         vaesDothrak = new Territory("vaesDothrak");
-        initButton(vaesDothrak, 1335, 325);
+        initButton(vaesDothrak, 0, 0);
 
         easternGrassSea = new Territory("easternGrassSea");
-        initButton(easternGrassSea, 1200, 640);
+        initButton(easternGrassSea, 0, 0);
 
         westernGrassSea = new Territory("westernGrassSea");
-        initButton(westernGrassSea, 1330, 635);
+        initButton(westernGrassSea, 0, 0);
 
         parchedFields = new Territory("parchedFields");
-        initButton(parchedFields, 1275, 800);
+        initButton(parchedFields, 0, 0);
 
         paintedMountains = new Territory("paintedMountains");
-        initButton(paintedMountains, 1385, 780);
+        initButton(paintedMountains, 0, 0);
 
         slaversBay = new Territory("slaversBay");
-        initButton(slaversBay, 1385, 780);
+        initButton(slaversBay, 0, 0);
 
         lhazar = new Territory("lhazar");
-        initButton(lhazar, 1385, 780);
+        initButton(lhazar, 0, 0);
 
         samyrianHills = new Territory("samyrianHills");
-        initButton(samyrianHills, 1385, 780);
+        initButton(samyrianHills, 0, 0);
 
         bayasabhad = new Territory("bayasabhad");
-        initButton(bayasabhad, 1385, 780);
+        initButton(bayasabhad, 0, 0);
 
         qarth = new Territory("qarth");
-        initButton(qarth, 1385, 780);
+        initButton(qarth, 0, 0);
 
         redWaste = new Territory("redWaste");
-        initButton(redWaste, 1385, 780);
+        initButton(redWaste, 0, 0);
 
         ghiscar = new Territory("ghiscar");
-        initButton(ghiscar, 1385, 780);
+        initButton(ghiscar, 0, 0);
 
         Player p1 = new Player("Attacker");
         Player p2 = new Player("Defender");
@@ -299,7 +298,7 @@ public class jfx extends Application{
                                 "        linear-gradient(from 0% 93% to 0% 100%, #02a300 0%, #34fa0c 100%),\n" +
                                 "        #1d9d33,\n" +
                                 "        #32d836,\n" +
-                                "        radial-gradient(center 50% 50%, radius 100%, #35d8ca, #3cc54f);\n" +
+                                "        radial-gradient(center 50% 50%, radius 100%, #35d8ca, #c54e2c);\n" +
                                 "    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\n" +
                                 "    -fx-font-weight: bold;\n" +
                                 "    -fx-font-size: 1.1em;");
