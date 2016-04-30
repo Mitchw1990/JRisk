@@ -25,39 +25,37 @@ public class Battle {
     }
 
     public ArrayList engage() {
-        Player winner = null, loser = null;
-        int casualties = 0;
+        int attackerCasualties = 0, defenderCasualties = 0;
         ArrayList result = new ArrayList();
 
         int[] attackerResults = attacker.rollDice(attackerDice),
                 defenderResults = defender.rollDice(defenderDice);
 
-        for (int i = 1; i <= attackerDice; i++) {
+        for (int i = 1; i <= defenderDice; i++) {
+            if(attackerDice - i < 0 || defenderDice - i < 0)
+                break;
             int attackerDieValue = attackerResults[attackerDice - i];
             int defenderDieValue = defenderResults[defenderDice - i];
 
             if (attackerDieValue == 0 || defenderDieValue == 0)
                 continue;
             if (attackerDieValue <= defenderDieValue) {
-                winner = defender;
-                loser = attacker;
-                casualties = attackerDice;
+                attackerCasualties++;
+                System.out.println("Defender wins pair.");
+                System.out.println("Winning die: " + defenderDieValue);
             } else if (attackerDieValue > defenderDieValue) {
-                winner = attacker;
-                loser = defender;
-                casualties = defenderDice;
+                System.out.println("Attacker wins pair.");
+                System.out.println("Winning die: " + attackerDieValue);
+                defenderCasualties++;
             }
         }
 
-        result.add(winner);
-        result.add(casualties);
-
+        attacker.getCurrentTerritory().updateTroopCount(attackerCasualties * -1);
+        defender.getCurrentTerritory().updateTroopCount(defenderCasualties * -1);
         attacker.resetPlayerDice();
         defender.resetPlayerDice();
         attacker.resetCurrentTerritory();
         defender.resetCurrentTerritory();
-
-        loser.getCurrentTerritory().updateTroopCount(casualties * -1);//update troop count at territory
 
         return result; //returns an arraylist with the winning player and casualties for the loser}
     }

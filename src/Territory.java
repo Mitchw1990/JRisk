@@ -40,7 +40,7 @@ public class Territory extends Button {
     }
 
     public void updateTroopCount(int troops){//can update with negative or positive integer for troops
-        if(troopCount + troops <= 0){
+        if(troopCount + troops >= 0){
             troopCount += troops;
         }else
             troopCount = 0;
@@ -71,5 +71,11 @@ public class Territory extends Button {
         this.currentOccupant = currentOccupant;
     }
 
+    public int getTroopCount() {
+        return troopCount;
+    }
 
+    public void setTroopCount(int troopCount) {
+        this.troopCount = troopCount;
+    }
 }

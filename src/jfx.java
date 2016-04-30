@@ -257,9 +257,20 @@ public class jfx extends Application{
         initButton(easternAustralia, 1385, 780);
         easternAustralia.setStyle("-fx-font: 0 arial; -fx-base: purple;");
 
+        Player p1 = new Player("Attacker");
+        Player p2 = new Player("Defender");
 
+        alaska.updateTroopCount(15);
+        eastAfrica.updateTroopCount(20);
 
+        System.out.println("Alaska troops before battle: " + alaska.getTroopCount());
+        System.out.println("East Africa troops before battle: " + eastAfrica.getTroopCount());
 
+        Battle battle = new Battle(p1, 1, alaska, p2, 2, eastAfrica);
+        battle.engage();
+
+        System.out.println("Alaska troops after battle: " + alaska.getTroopCount());
+        System.out.println("East Africa troops after battle: " + eastAfrica.getTroopCount());
 
 
         theStage.show();
