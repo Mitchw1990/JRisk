@@ -1,4 +1,7 @@
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import sun.audio.*;
 import javafx.application.Application;
@@ -12,6 +15,9 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.net.URL;
 
 
 public class jfx extends Application{
@@ -86,8 +92,14 @@ public class jfx extends Application{
     @Override
     public void start(Stage theStage)
     {
+        URL url = getClass().getResource("got.mp3");
+        AudioClip themesong = new AudioClip(url.toString());
+
         final double initWidth = 1480;
         final double initHeight = 920;
+
+
+
 
         theStage.setTitle("Timeline Example");
         Group root = new Group();
@@ -101,6 +113,8 @@ public class jfx extends Application{
         Image board = new Image(getClass().getResourceAsStream("westerosMap.jpg"));
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.drawImage( board, 0, 0, initWidth, initHeight );
+
+
 
 
         jbben = new Territory("jbben");
@@ -164,43 +178,43 @@ public class jfx extends Application{
         initButton(shieldLands, 145, 580);
 
         braavosianCoastland = new Territory("braavosianCoastland");
-        initButton(braavosianCoastland, 0, 0);
+        initButton(braavosianCoastland, 525, 370);
 
         hillsOfNorvos = new Territory("hillsOfNorvos");
-        initButton(hillsOfNorvos, 0, 0);
+        initButton(hillsOfNorvos, 595, 465);
 
         qhoyneLands = new Territory("qhoyneLands");
-        initButton(qhoyneLands, 0, 0);
+        initButton(qhoyneLands, 655, 505);
 
         forrestOfQohor = new Territory("forrestOfQohor");
-        initButton(forrestOfQohor, 0, 0);
+        initButton(forrestOfQohor, 770, 490);
 
         theGoldenFields = new Territory("theGoldenFields");
-        initButton(theGoldenFields, 0, 0);
+        initButton(theGoldenFields, 595, 600);
 
         theDisputedLands = new Territory("theDisputedLands");
-        initButton(theDisputedLands, 0, 0);
+        initButton(theDisputedLands, 595, 670);
 
         andalos = new Territory("andalos");
-        initButton(andalos, 0, 0);
+        initButton(andalos, 545, 495);
 
         rhoynianVeld = new Territory("rhoynianVeld");
-        initButton(rhoynianVeld, 0, 0);
+        initButton(rhoynianVeld, 715, 565);
 
         westernWaste = new Territory("westernWaste");
-        initButton(westernWaste, 0, 0);
+        initButton(westernWaste, 770, 620);
 
         seaOfsighs = new Territory("seaOfsighs");
-        initButton(seaOfsighs, 0, 0);
+        initButton(seaOfsighs, 820, 640);
 
         elyria = new Territory("elyria");
-        initButton(elyria, 0, 0);
+        initButton(elyria, 840, 710);
 
         valyria = new Territory("valyria");
-        initButton(valyria, 0, 0);
+        initButton(valyria, 815, 805);
 
         sarMell = new Territory("sarMell");
-        initButton(sarMell, 0, 0);
+        initButton(sarMell, 710, 665);
 
         sarnor = new Territory("sarnor");
         initButton(sarnor, 0, 0);
@@ -376,8 +390,8 @@ public class jfx extends Application{
 
 
 
-
         theStage.show();
+        themesong.play(1.0);
     }
 
 
