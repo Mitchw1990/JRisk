@@ -1,3 +1,5 @@
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import sun.audio.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -98,7 +100,7 @@ public class jfx extends Application{
 
         Image board = new Image(getClass().getResourceAsStream("westerosMap.jpg"));
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.drawImage( board, 0, 0, initWidth, initHeight );
+        gc.drawImage(board, 0, 0, initWidth, initHeight);
 
 
         theWall = new Territory("theWall");
@@ -280,6 +282,48 @@ public class jfx extends Application{
                 "    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\n" +
                 "    -fx-font-weight: bold;\n" +
                 "    -fx-font-size: 1.1em;");
+
+
+        DropShadow shadow = new DropShadow();
+        shadow.setColor(Color.CORAL);
+        shadow.setOffsetX(70);
+        shadow.setOffsetY(70);
+//Adding the shadow when the mouse cursor is on
+        territory.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                new EventHandler<MouseEvent>() {
+                    @Override public void handle(MouseEvent e) {
+                        territory.setStyle("  -fx-padding: 1 5 5 5;\n" +
+                                "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
+                                "    -fx-background-radius: 4;\n" +
+                                "    -fx-background-color: \n" +
+                                "        linear-gradient(from 0% 93% to 0% 100%, #02a300 0%, #34fa0c 100%),\n" +
+                                "        #1d9d33,\n" +
+                                "        #32d836,\n" +
+                                "        radial-gradient(center 50% 50%, radius 100%, #35d8ca, #3cc54f);\n" +
+                                "    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\n" +
+                                "    -fx-font-weight: bold;\n" +
+                                "    -fx-font-size: 1.1em;");
+                    }
+                });
+//Removing the shadow when the mouse cursor is off
+        territory.addEventHandler(MouseEvent.MOUSE_EXITED,
+                new EventHandler<MouseEvent>() {
+                    @Override public void handle(MouseEvent e) {
+                        territory.setStyle("  -fx-padding: 1 5 5 5;\n" +
+                                "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
+                                "    -fx-background-radius: 4;\n" +
+                                "    -fx-background-color: \n" +
+                                "        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),\n" +
+                                "        #9d4024,\n" +
+                                "        #d86e3a,\n" +
+                                "        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);\n" +
+                                "    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\n" +
+                                "    -fx-font-weight: bold;\n" +
+                                "    -fx-font-size: 1.1em;");
+                    }
+                });
+
+
         //territory.setStyle("-fx-background-radius: 30;");
         //territory.setStyle("-fx-background-insets: 0;");
         //territory.setStyle("-fx-text-fill: white;");
