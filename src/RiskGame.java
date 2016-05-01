@@ -4,6 +4,7 @@ import javafx.application.Application;
  */
 public class RiskGame {
     public static void main(String[] args){
+
         Application.launch(jfx.class, args);
     }
 }

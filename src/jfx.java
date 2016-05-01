@@ -15,6 +15,7 @@ import java.net.URL;
 
 public class jfx extends Application{
     private Scene theScene;
+    private  Scene menuScene;
 
     private Territory theWall ;
     private Territory skagos;
@@ -37,7 +38,6 @@ public class jfx extends Application{
     private Territory redMountains;
     private Territory whisperingSound;
     private Territory shieldLands;
-
 
     private Territory braavosianCoastland;
     private Territory hillsOfNorvos;
@@ -82,8 +82,6 @@ public class jfx extends Application{
     private Continent theDothrakiSea;
     private Continent Ghiscar;
 
-
-
     public static void main(String[] args)
     {
         launch(args);
@@ -98,7 +96,7 @@ public class jfx extends Application{
         URL url2 = getClass().getResource("gotQuote.mp3");
         AudioClip quote = new AudioClip(url2.toString());
 
-
+        //Dice *************************
 
         DiceAnimation da = new DiceAnimation();
         da.setFitHeight(80);
@@ -106,14 +104,11 @@ public class jfx extends Application{
         da.setLayoutX(400);
         da.setLayoutY(775);
 
-
-
         DiceAnimation da2 = new DiceAnimation();
         da2.setFitHeight(80);
         da2.setFitWidth(80);
         da2.setLayoutX(490);
         da2.setLayoutY(775);
-
 
         DiceAnimation da3 = new DiceAnimation();
         da3.setFitHeight(80);
@@ -121,33 +116,113 @@ public class jfx extends Application{
         da3.setLayoutX(580);
         da3.setLayoutY(775);
 
+        //Dice *************************
+
+        //MainMenu ************************
+        Group menuRoot = new Group();
+        Scene menuScene = new Scene(menuRoot,400,400);
+        Button play = new Button("Play");
+        play.prefWidthProperty().bind(theStage.widthProperty());
+        play.setOnAction(e ->{
+                theStage.setScene(theScene);
+                themesong.stop();
+                quote.play(.2);
+        });
+        menuRoot.getChildren().add(play);
+        //MainMenu ************************
 
 
-
+        //Board ************************
         final double initWidth = 1480;
         final double initHeight = 920;
 
         theStage.setTitle("Timeline Example");
         Group root = new Group();
-
-        theScene = new Scene(root, initWidth, initHeight);
-        theStage.setScene( theScene );
-
         Canvas canvas = new Canvas( initWidth, initHeight );
         root.getChildren().add( canvas );
-
+        theScene = new Scene(root, initWidth, initHeight);
+        theStage.setScene( menuScene );
         Image board = new Image(getClass().getResourceAsStream("westerosMap.jpg"));
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.drawImage( board, 0, 0, initWidth, initHeight );
 
+        Button attackButton = new Button("Attack");
+        Button endTurnButton = new Button("End Turn");
+
+        attackButton.setStyle("-fx-background-color: \n" +
+                "        #090a0c,\n" +
+                "        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),\n" +
+                "        linear-gradient(#20262b, #191d22),\n" +
+                "        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));\n" +
+                "    -fx-background-radius: 5,4,3,5;\n" +
+                "    -fx-background-insets: 0,1,2,0;\n" +
+                "    -fx-text-fill: white;\n" +
+                "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
+                "    -fx-font-family: \"Helvetica\";\n" +
+                "    -fx-text-fill: linear-gradient(#ff3440, #d0d0d0);\n" +
+                "    -fx-font-size: 20px;\n" +
+                "    -fx-padding: 10 20 10 20;");
+        endTurnButton.setStyle("-fx-background-color: \n" +
+                "        #090a0c,\n" +
+                "        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),\n" +
+                "        linear-gradient(#20262b, #191d22),\n" +
+                "        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));\n" +
+                "    -fx-background-radius: 5,4,3,5;\n" +
+                "    -fx-background-insets: 0,1,2,0;\n" +
+                "    -fx-text-fill: white;\n" +
+                "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
+                "    -fx-font-family: \"Helvetica\";\n" +
+                "    -fx-text-fill: linear-gradient(#437aff, #d0d0d0);\n" +
+                "    -fx-font-size: 20px;\n" +
+                "    -fx-padding: 10 20 10 20;");
+
+        attackButton.setLayoutX(100);
+        attackButton.setLayoutY(800);
+        attackButton.setOnAction(e -> {
+            System.out.println("clickedAttack");
+            URL u = getClass().getResource("sword.aif");
+            AudioClip sword = new AudioClip(u.toString());
+            sword.setVolume(999999999);
+            sword.play();
+            da.roll();
+            da2.roll();
+            da3.roll();
+        });
+
+        endTurnButton.setLayoutX(210);
+        endTurnButton.setLayoutY(800);
+        endTurnButton.setOnAction(e -> {
+            System.out.println("clickedDefend");
+            URL end = getClass().getResource("horn.mp3");
+            AudioClip horn = new AudioClip(end.toString());
+            horn.setVolume(999999999);
+            horn.play();
+        });
+
+        MenuBar menuBar = new MenuBar();
+        menuBar.setStyle("-fx-font-size: 9pt;\n" +
+                "    -fx-font-family: \"Segoe UI Semibold\";\n" +
+                "    -fx-text-fill: green;\n" +
+                "    -fx-background-color : darkslategrey;\n" +
+                "    -fx-opacity: .9;");
+        Menu menu = new Menu("Options");
+        MenuItem menuPause = new MenuItem("Pause");
+        MenuItem menuQuit = new MenuItem("Quit");
+        //menuBar.prefWidthProperty().bind(theStage.widthProperty());
+        menu.getItems().addAll(menuPause, menuQuit);
+        menuBar.getMenus().addAll(menu);
+        ((Group)theScene.getRoot()).getChildren().addAll(attackButton, endTurnButton, menuBar, da,da2,da3);
+        //Board ************************
 
 
+
+
+
+        //init territories**********************
         theWall = new Territory("theWall");
         initButton(theWall, 320, 95);
-
         skagos = new Territory("skagos");
         initButton(skagos, 390, 95);
-
         theGrevCliffs = new Territory("theGrevCliffs");
         initButton(theGrevCliffs, 360, 160);
 
@@ -292,247 +367,89 @@ public class jfx extends Application{
         ghiscar = new Territory("ghiscar");
         initButton(ghiscar, 1060, 785);
 
-        Player p1 = new Player("Attacker");
-        Player p2 = new Player("Defender");
+        //init territories**********************
 
-        theWall.updateTroopCount(15);
-        westerlands.updateTroopCount(20);
-
-        System.out.println("Alaska troops before battle: " + theWall.getTroopCount());
-        System.out.println("East Africa troops before battle: " + westerlands.getTroopCount());
-
-        Battle battle = new Battle(p1, 1, theWall, p2, 2, westerlands);
-        battle.engage();
-
-        System.out.println("Alaska troops after battle: " + theWall.getTroopCount());
-        System.out.println("East Africa troops after battle: " + westerlands.getTroopCount());
-
-
+        //define borders**********************
         theWall.addBorderTerritory(skagos, theGrevCliffs, wolfsrvood);
-
         skagos.addBorderTerritory(theWall, theGrevCliffs);
-
         theGrevCliffs.addBorderTerritory(theWall, skagos, winterfell, wolfsrvood);
-
         theNeck.addBorderTerritory(theFlintCliff, theRills, theVale, winterfell, wolfsrvood);
-
         theFlintCliff.addBorderTerritory(ironIslands, theNeck, theVale);
-
         theRills.addBorderTerritory(theNeck, wolfsrvood);
-
         wolfsrvood.addBorderTerritory(theNeck, theRills, theGrevCliffs, theWall, winterfell);
-
         theVale.addBorderTerritory(crorvnlands, riverlands, theFlintCliff, theNeck);
-
         crorvnlands.addBorderTerritory(andalos, riverlands, stormlands, theReach, theVale, westerlands);
-
         westerlands.addBorderTerritory(crorvnlands, shieldLands, riverlands, theReach);
-
         riverlands.addBorderTerritory(crorvnlands, ironIslands, realmsOfShogran, theVale, westerlands);
-
         ironIslands.addBorderTerritory(riverlands, theFlintCliff);
-
         theReach.addBorderTerritory(crorvnlands, redMountains, shieldLands, stormlands, westerlands, whisperingSound);
-
         stormlands.addBorderTerritory(andalos, crorvnlands, redMountains, theReach);
-
         dorne.addBorderTerritory(redMountains, theDisputedLands);
-
         redMountains.addBorderTerritory(dorne, stormlands, theReach, whisperingSound);
-
         whisperingSound.addBorderTerritory(redMountains, shieldLands, theReach);
-
         shieldLands.addBorderTerritory(theReach, westerlands, whisperingSound);
-
         braavosianCoastland.addBorderTerritory(andalos, hillsOfNorvos);
-
         hillsOfNorvos.addBorderTerritory(andalos, braavosianCoastland, theGoldenFields, qhoyneLands);
-
         qhoyneLands.addBorderTerritory(forrestOfQohor, hillsOfNorvos, rhoynianVeld, theGoldenFields);
-
         forrestOfQohor.addBorderTerritory(parchedFields, qhoyneLands, rhoynianVeld, sarnor);
-
         theGoldenFields.addBorderTerritory(andalos, hillsOfNorvos, qhoyneLands, rhoynianVeld, sarMell,
                 theDisputedLands);
-
         theDisputedLands.addBorderTerritory(dorne, sarMell, theGoldenFields);
-
         andalos.addBorderTerritory(braavosianCoastland, crorvnlands, hillsOfNorvos, stormlands, theGoldenFields);
-
         rhoynianVeld.addBorderTerritory(forrestOfQohor, parchedFields, qhoyneLands, sarMell, theGoldenFields,
                 westernWaste);
-
         westernWaste.addBorderTerritory(paintedMountains, parchedFields, rhoynianVeld, sarMell, seaOfsighs);
-
         seaOfsighs.addBorderTerritory(elyria, sarMell, valyria, westernWaste);
-
         elyria.addBorderTerritory(paintedMountains, seaOfsighs, valyria);
-
         valyria.addBorderTerritory(elyria, seaOfsighs);
-
         sarMell.addBorderTerritory(theDisputedLands, theGoldenFields, rhoynianVeld, seaOfsighs, westernWaste);
-
         sarnor.addBorderTerritory(abandonedLand, forrestOfQohor, parchedFields);
-
         abandonedLand.addBorderTerritory(kingdomsOfTheIfeqevron, parchedFields, sarnor, westernGrassSea);
-
         kingdomsOfTheIfeqevron.addBorderTerritory(abandonedLand, easternGrassSea, theFootprint, vaesDothrak,
                 westernGrassSea);
-
         theFootprint.addBorderTerritory(kingdomsOfTheIfeqevron, realmsOfShogran, vaesDothrak, jbben);
-
         jbben.addBorderTerritory(theFootprint);
-
         realmsOfShogran.addBorderTerritory( theFootprint, riverlands, vaesDothrak);
-
         vaesDothrak.addBorderTerritory(easternGrassSea, kingdomsOfTheIfeqevron, realmsOfShogran, theFootprint,
                 samyrianHills);
-
         easternGrassSea.addBorderTerritory(kingdomsOfTheIfeqevron, lhazar, samyrianHills, vaesDothrak, westernGrassSea);
-
         westernGrassSea.addBorderTerritory(abandonedLand, easternGrassSea, kingdomsOfTheIfeqevron, paintedMountains,
                 parchedFields, lhazar);
-
         parchedFields.addBorderTerritory(abandonedLand, forrestOfQohor, rhoynianVeld, paintedMountains, sarnor,
                 westernGrassSea, westernWaste);
-
         paintedMountains.addBorderTerritory(elyria, lhazar, parchedFields, slaversBay, westernGrassSea, westernWaste);
-
         slaversBay.addBorderTerritory(ghiscar, lhazar, paintedMountains, redWaste);
-
         lhazar.addBorderTerritory(bayasabhad, easternGrassSea, paintedMountains, redWaste, samyrianHills, slaversBay,
                 westernGrassSea);
-
         samyrianHills.addBorderTerritory(bayasabhad, easternGrassSea, lhazar, vaesDothrak);
-
         bayasabhad.addBorderTerritory(lhazar, redWaste, qarth, samyrianHills);
-
         qarth.addBorderTerritory(bayasabhad, redWaste);
-
         redWaste.addBorderTerritory(bayasabhad, ghiscar, lhazar, qarth, slaversBay);
-
         ghiscar.addBorderTerritory(redWaste, slaversBay);
+        //define borders **********************
 
+        //init continents **********************
         theNorth = new Continent("theNorth", 4, skagos, theFlintCliff, theGrevCliffs,
                 theNeck, theRills, theWall, wolfsrvood, winterfell);
-
         theKingsLands = new Continent("the King's Lands", 3, crorvnlands, ironIslands, riverlands, theVale,
                 westerlands);
-
         theSouth = new Continent("the South", 3, dorne, redMountains, shieldLands, stormlands,
                 whisperingSound);
-
         theFreeCities = new Continent("the Free Cities", 4, andalos, braavosianCoastland, forrestOfQohor, hillsOfNorvos,
                 theDisputedLands, theGoldenFields);
-
         valyrianFreehold = new Continent("Valyrian Freehold", 3, elyria, rhoynianVeld, sarMell, seaOfsighs, valyria,
                 westernWaste);
-
         theDothrakiSea = new Continent("the Dothraki Sea", 5, abandonedLand, easternGrassSea, jbben,
                 kingdomsOfTheIfeqevron, parchedFields, realmsOfShogran, sarnor,  theFootprint,
                 vaesDothrak, westernGrassSea);
-
         Ghiscar = new Continent("Ghiscar", 4, bayasabhad, ghiscar, lhazar, paintedMountains, qarth, redWaste,
                 samyrianHills, slaversBay);
-
-
-
-        Button attackButton = new Button("Attack");
-        Button endTurnButton = new Button("End Turn");
-
-        attackButton.setStyle("-fx-background-color: \n" +
-                "        #090a0c,\n" +
-                "        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),\n" +
-                "        linear-gradient(#20262b, #191d22),\n" +
-                "        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));\n" +
-                "    -fx-background-radius: 5,4,3,5;\n" +
-                "    -fx-background-insets: 0,1,2,0;\n" +
-                "    -fx-text-fill: white;\n" +
-                "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
-                "    -fx-font-family: \"Helvetica\";\n" +
-                "    -fx-text-fill: linear-gradient(#ff3440, #d0d0d0);\n" +
-                "    -fx-font-size: 20px;\n" +
-                "    -fx-padding: 10 20 10 20;");
-        endTurnButton.setStyle("-fx-background-color: \n" +
-                "        #090a0c,\n" +
-                "        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),\n" +
-                "        linear-gradient(#20262b, #191d22),\n" +
-                "        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));\n" +
-                "    -fx-background-radius: 5,4,3,5;\n" +
-                "    -fx-background-insets: 0,1,2,0;\n" +
-                "    -fx-text-fill: white;\n" +
-                "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
-                "    -fx-font-family: \"Helvetica\";\n" +
-                "    -fx-text-fill: linear-gradient(#437aff, #d0d0d0);\n" +
-                "    -fx-font-size: 20px;\n" +
-                "    -fx-padding: 10 20 10 20;");
-
-
-
-        attackButton.setLayoutX(100);
-        attackButton.setLayoutY(800);
-        attackButton.setOnAction(e -> {
-            System.out.println("clickedAttack");
-            URL u = getClass().getResource("sword.aif");
-            AudioClip sword = new AudioClip(u.toString());
-            sword.setVolume(999999999);
-            sword.play();
-            da.roll();
-            da2.roll();
-            da3.roll();
-
-        });
-
-        endTurnButton.setLayoutX(210);
-        endTurnButton.setLayoutY(800);
-        endTurnButton.setOnAction(e -> {
-            System.out.println("clickedDefend");
-            URL end = getClass().getResource("horn.mp3");
-            AudioClip horn = new AudioClip(end.toString());
-            horn.setVolume(999999999);
-            horn.play();
-        });
-
-        MenuBar menuBar = new MenuBar();
-        menuBar.setStyle("-fx-font-size: 9pt;\n" +
-                "    -fx-font-family: \"Segoe UI Semibold\";\n" +
-                "    -fx-text-fill: green;\n" +
-                "    -fx-background-color : darkslategrey;\n" +
-                "    -fx-opacity: .9;");
-        Menu menu = new Menu("Options");
-        MenuItem menuPause = new MenuItem("Pause");
-        MenuItem menuQuit = new MenuItem("Quit");
-        //menuBar.prefWidthProperty().bind(theStage.widthProperty());
-        menu.getItems().addAll(menuPause, menuQuit);
-        menuBar.getMenus().addAll(menu);
-
-        Label label = new Label("Current Player: ");
-        label.setLayoutX(100);
-        label.setLayoutY(100);
-
-
-        ((Group)theScene.getRoot()).getChildren().add(attackButton);
-        ((Group)theScene.getRoot()).getChildren().add(endTurnButton);
-        ((Group)theScene.getRoot()).getChildren().addAll(menuBar);
-        ((Group)theScene.getRoot()).getChildren().add(label);
-        ((Group)theScene.getRoot()).getChildren().addAll(da,da2,da3);
-
-        da.roll();
-
+        //init continents **********************
 
         theStage.show();
-
-
-
         themesong.setVolume(.3);
         themesong.play();
-        quote.play(.2);
-
     }
-
-
-
-
 
     public void initButton(Territory territory, int x, int y){
 
