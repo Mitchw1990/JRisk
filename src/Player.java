@@ -11,8 +11,11 @@ public class Player {
     private String name, playerColor;
     private ArrayList<Die> playerDies;
     private Territory currentTerritory;
+    private Territory currentTerritoryToAttack;
 
     public Player(String name){
+        currentTerritory = null;
+        currentTerritoryToAttack = null;
         this.name = name;
         conqueredContinents = new ArrayList<Continent>();
         conqueredTerritories = new ArrayList<Territory>();
@@ -63,6 +66,18 @@ public class Player {
 
     public void setCurrentTerritory(Territory currentTerritory) {
         this.currentTerritory = currentTerritory;
+    }
+
+    public Territory getCurrentTerritoryToAttack() {
+        return currentTerritoryToAttack;
+    }
+
+    public void setCurrentTerritoryToAttack(Territory currentTerritoryToAttack) {
+        this.currentTerritoryToAttack = currentTerritoryToAttack;
+    }
+
+    public void resetCurrentTerritoryToAttack(){
+        currentTerritoryToAttack = null;
     }
 
     public void resetPlayerDice(){

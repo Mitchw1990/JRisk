@@ -31,12 +31,17 @@ public class jfx extends Application{
     private ArrayList<Player> players;
     int playerIndex;
     private ArrayList<Territory> allTerritories;
+    private boolean gameOver;
+    private int numberOfArmiesToRecieveCurrent;
+    private Label numberOfArmiesToPlaceLabel;
+    private Button doneButton;
+    private Button endTurnButton;
+    private DiceAnimation da;
+    private DiceAnimation da2;
+    private DiceAnimation da3;
 
 
-
-
-
-    private Scene theScene;
+    private Scene boardScene;
     private Scene menuScene;
 
     private Territory theWall ;
@@ -113,9 +118,23 @@ public class jfx extends Application{
     public void start(Stage theStage)
     {
 
+        players = new ArrayList<Player>();
+        Player player = new Player("pimp");
+        Player player2 = new Player("stud");
+
+        players.add(player);
+        players.add(player2);
+
+        currentPlayer = player;
+
+        currentPhase = phaseType.PLACE_TROOPS;
+
+
+        numberOfArmiesToPlaceLabel = new Label();
+
+
+        numberOfArmiesToRecieveCurrent = 0;
         playerIndex = 0;
-
-
 
         URL url = getClass().getResource("got.mp3");
         AudioClip themesong = new AudioClip(url.toString());
@@ -199,17 +218,22 @@ public class jfx extends Application{
                 "    -fx-text-fill: white;\n" +
                 "    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);");
 
-        Button play = new Button("Play");
-        play.setLayoutY(365);
-        play.setLayoutX(50);
-        play.setPrefSize(600,25);
-        play.setOnAction(e ->{
-            theStage.setScene(theScene);
+        Button playButton = new Button("Play");
+        playButton.setLayoutY(365);
+        playButton.setLayoutX(50);
+        playButton.setPrefSize(600,25);
+        playButton.setOnAction(e ->{
+            initControlButtons();
+            ((Group) boardScene.getRoot()).getChildren().addAll(doneButton, endTurnButton);
+            endTurnButton.setVisible(true);
+            doneButton.setVisible(true);
+            theStage.setScene(boardScene);
             themesong.stop();
             quote.play(.2);
             theStage.centerOnScreen();
+
         });
-        play.setStyle(" -fx-background-color: \n" +
+        playButton.setStyle(" -fx-background-color: \n" +
                 "        linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),\n" +
                 "        linear-gradient(#020b02, #3a3a3a),\n" +
                 "        linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),\n" +
@@ -302,7 +326,7 @@ public class jfx extends Application{
         numberPlayersCombo.setLayoutX(50);
         numberPlayersCombo.setPrefSize(600,25);
 
-        menuRoot.getChildren().addAll(logo,play, familyCombo, familyLabel, numberPlayersCombo, numberPlayersLabel, quitButton);
+        menuRoot.getChildren().addAll(logo,playButton, familyCombo, familyLabel, numberPlayersCombo, numberPlayersLabel, quitButton);
         //MainMenu ************************
 
 
@@ -314,65 +338,14 @@ public class jfx extends Application{
         Group root = new Group();
         Canvas canvas = new Canvas( initWidth, initHeight );
         root.getChildren().add( canvas );
-        theScene = new Scene(root, initWidth, initHeight);
+        boardScene = new Scene(root, initWidth, initHeight);
         theStage.setScene(menuScene);
         theStage.initStyle(StageStyle.UNDECORATED);
         Image backGround = new Image(getClass().getResourceAsStream("westerosMap.jpg"));
         GraphicsContext mainMenuGc = canvas.getGraphicsContext2D();
         mainMenuGc.drawImage( backGround, 0, 0, initWidth, initHeight );
 
-        Button attackButton = new Button("Attack");
-        Button endTurnButton = new Button("End Turn");
 
-        attackButton.setStyle("-fx-background-color: \n" +
-                "        #090a0c,\n" +
-                "        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),\n" +
-                "        linear-gradient(#20262b, #191d22),\n" +
-                "        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));\n" +
-                "    -fx-background-radius: 5,4,3,5;\n" +
-                "    -fx-background-insets: 0,1,2,0;\n" +
-                "    -fx-text-fill: white;\n" +
-                "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
-                "    -fx-font-family: \"Helvetica\";\n" +
-                "    -fx-text-fill: linear-gradient(#ff3440, #d0d0d0);\n" +
-                "    -fx-font-size: 20px;\n" +
-                "    -fx-padding: 10 20 10 20;");
-        endTurnButton.setStyle("-fx-background-color: \n" +
-                "        #090a0c,\n" +
-                "        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),\n" +
-                "        linear-gradient(#20262b, #191d22),\n" +
-                "        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));\n" +
-                "    -fx-background-radius: 5,4,3,5;\n" +
-                "    -fx-background-insets: 0,1,2,0;\n" +
-                "    -fx-text-fill: white;\n" +
-                "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
-                "    -fx-font-family: \"Helvetica\";\n" +
-                "    -fx-text-fill: linear-gradient(#437aff, #d0d0d0);\n" +
-                "    -fx-font-size: 20px;\n" +
-                "    -fx-padding: 10 20 10 20;");
-
-        attackButton.setLayoutX(100);
-        attackButton.setLayoutY(800);
-        attackButton.setOnAction(e -> {
-            System.out.println("clickedAttack");
-            URL u = getClass().getResource("sword.aif");
-            AudioClip sword = new AudioClip(u.toString());
-            sword.setVolume(999999999);
-            sword.play();
-            da.roll();
-            da2.roll();
-            da3.roll();
-        });
-
-        endTurnButton.setLayoutX(210);
-        endTurnButton.setLayoutY(800);
-        endTurnButton.setOnAction(e -> {
-            System.out.println("clickedDefend");
-            URL end = getClass().getResource("horn.mp3");
-            AudioClip horn = new AudioClip(end.toString());
-            horn.setVolume(999999999);
-            horn.play();
-        });
 
         MenuBar menuBar = new MenuBar();
         menuBar.setStyle("-fx-font-size: 9pt;\n" +
@@ -387,159 +360,162 @@ public class jfx extends Application{
         //menuBar.prefWidthProperty().bind(theStage.widthProperty());
         menu.getItems().addAll(menuPause, menuQuit);
         menuBar.getMenus().addAll(menu);
-        ((Group)theScene.getRoot()).getChildren().addAll(attackButton, endTurnButton, menuBar, da,da2,da3);
+        ((Group) boardScene.getRoot()).getChildren().addAll( menuBar, da,da2,da3);
+
+
         //Board ************************
+
 
         //init territories**********************
         theWall = new Territory("theWall");
-        initButton(theWall, 320, 95);
+        initTerritoryButton(theWall, 320, 95);
 
         skagos = new Territory("skagos");
-        initButton(skagos, 390, 95);
+        initTerritoryButton(skagos, 390, 95);
 
         theGrevCliffs = new Territory("theGrevCliffs");
-        initButton(theGrevCliffs, 360, 160);
+        initTerritoryButton(theGrevCliffs, 360, 160);
 
         winterfell = new Territory("winterfell");
-        initButton(winterfell, 300, 230);
+        initTerritoryButton(winterfell, 300, 230);
 
         theNeck = new Territory("theNeck");
-        initButton(theNeck, 240, 300);
+        initTerritoryButton(theNeck, 240, 300);
 
         theFlintCliff = new Territory("theFlintCliff");
-        initButton(theFlintCliff, 190, 335);
+        initTerritoryButton(theFlintCliff, 190, 335);
 
         theRills = new Territory("theRills");
-        initButton(theRills, 140, 260);
+        initTerritoryButton(theRills, 140, 260);
 
         wolfsrvood = new Territory("wolfsrvood");
-        initButton(wolfsrvood, 180, 190);
+        initTerritoryButton(wolfsrvood, 180, 190);
 
         theVale = new Territory("theVale");
-        initButton(theVale, 320, 420);
+        initTerritoryButton(theVale, 320, 420);
 
         crorvnlands = new Territory("crorvnlands");
-        initButton(crorvnlands, 300, 495);
+        initTerritoryButton(crorvnlands, 300, 495);
 
         westerlands = new Territory("westerlands");
-        initButton(westerlands, 170, 500);
+        initTerritoryButton(westerlands, 170, 500);
 
         riverlands = new Territory("riverlands");
-        initButton(riverlands, 140, 425);
+        initTerritoryButton(riverlands, 140, 425);
 
         ironIslands = new Territory("ironIslands");
-        initButton(ironIslands, 80, 395);
+        initTerritoryButton(ironIslands, 80, 395);
 
         theReach = new Territory("theReach");
-        initButton(theReach, 250, 515);
+        initTerritoryButton(theReach, 250, 515);
 
         stormlands = new Territory("stormlands");
-        initButton(stormlands, 320, 580);
+        initTerritoryButton(stormlands, 320, 580);
 
         dorne = new Territory("dorne");
-        initButton(dorne, 320, 680);
+        initTerritoryButton(dorne, 320, 680);
 
         redMountains = new Territory("redMountains");
-        initButton(redMountains, 205, 655);
+        initTerritoryButton(redMountains, 205, 655);
 
         whisperingSound = new Territory("whisperingSound");
-        initButton(whisperingSound, 145, 655);
+        initTerritoryButton(whisperingSound, 145, 655);
 
         shieldLands = new Territory("shieldLands");
-        initButton(shieldLands, 145, 580);
+        initTerritoryButton(shieldLands, 145, 580);
 
         braavosianCoastland = new Territory("braavosianCoastland");
-        initButton(braavosianCoastland, 525, 370);
+        initTerritoryButton(braavosianCoastland, 525, 370);
 
         hillsOfNorvos = new Territory("hillsOfNorvos");
-        initButton(hillsOfNorvos, 595, 465);
+        initTerritoryButton(hillsOfNorvos, 595, 465);
 
         qhoyneLands = new Territory("qhoyneLands");
-        initButton(qhoyneLands, 655, 505);
+        initTerritoryButton(qhoyneLands, 655, 505);
 
         forrestOfQohor = new Territory("forrestOfQohor");
-        initButton(forrestOfQohor, 770, 490);
+        initTerritoryButton(forrestOfQohor, 770, 490);
 
         theGoldenFields = new Territory("theGoldenFields");
-        initButton(theGoldenFields, 595, 600);
+        initTerritoryButton(theGoldenFields, 595, 600);
 
         theDisputedLands = new Territory("theDisputedLands");
-        initButton(theDisputedLands, 595, 670);
+        initTerritoryButton(theDisputedLands, 595, 670);
 
         andalos = new Territory("andalos");
-        initButton(andalos, 545, 495);
+        initTerritoryButton(andalos, 545, 495);
 
         rhoynianVeld = new Territory("rhoynianVeld");
-        initButton(rhoynianVeld, 715, 565);
+        initTerritoryButton(rhoynianVeld, 715, 565);
 
         westernWaste = new Territory("westernWaste");
-        initButton(westernWaste, 770, 620);
+        initTerritoryButton(westernWaste, 770, 620);
 
         seaOfsighs = new Territory("seaOfsighs");
-        initButton(seaOfsighs, 820, 640);
+        initTerritoryButton(seaOfsighs, 820, 640);
 
         elyria = new Territory("elyria");
-        initButton(elyria, 840, 710);
+        initTerritoryButton(elyria, 840, 710);
 
         valyria = new Territory("valyria");
-        initButton(valyria, 815, 805);
+        initTerritoryButton(valyria, 815, 805);
 
         sarMell = new Territory("sarMell");
-        initButton(sarMell, 710, 665);
+        initTerritoryButton(sarMell, 710, 665);
 
         sarnor = new Territory("sarnor");
-        initButton(sarnor, 860, 430);
+        initTerritoryButton(sarnor, 860, 430);
 
         abandonedLand = new Territory("abandonedLand");
-        initButton(abandonedLand, 970, 470);
+        initTerritoryButton(abandonedLand, 970, 470);
 
         kingdomsOfTheIfeqevron = new Territory("kingdomsOfTheIfeqevron");
-        initButton(kingdomsOfTheIfeqevron, 1095, 485);
+        initTerritoryButton(kingdomsOfTheIfeqevron, 1095, 485);
 
         theFootprint = new Territory("theFootprint");
-        initButton(theFootprint, 1200, 395);
+        initTerritoryButton(theFootprint, 1200, 395);
 
         jbben = new Territory("theFootprint");
-        initButton(jbben, 1200, 215);
+        initTerritoryButton(jbben, 1200, 215);
 
         realmsOfShogran = new Territory("realmsOfShogran");
-        initButton(realmsOfShogran, 1360, 370);
+        initTerritoryButton(realmsOfShogran, 1360, 370);
 
         vaesDothrak = new Territory("vaesDothrak");
-        initButton(vaesDothrak, 1240, 465);
+        initTerritoryButton(vaesDothrak, 1240, 465);
 
         easternGrassSea = new Territory("easternGrassSea");
-        initButton(easternGrassSea, 1190, 550);
+        initTerritoryButton(easternGrassSea, 1190, 550);
 
         westernGrassSea = new Territory("westernGrassSea");
-        initButton(westernGrassSea, 1030, 540);
+        initTerritoryButton(westernGrassSea, 1030, 540);
 
         parchedFields = new Territory("parchedFields");
-        initButton(parchedFields, 890, 560);
+        initTerritoryButton(parchedFields, 890, 560);
 
         paintedMountains = new Territory("paintedMountains");
-        initButton(paintedMountains, 890, 610);
+        initTerritoryButton(paintedMountains, 890, 610);
 
         slaversBay = new Territory("slaversBay");
-        initButton(slaversBay, 1040, 690);
+        initTerritoryButton(slaversBay, 1040, 690);
 
         lhazar = new Territory("lhazar");
-        initButton(lhazar, 1110, 650);
+        initTerritoryButton(lhazar, 1110, 650);
 
         samyrianHills = new Territory("samyrianHills");
-        initButton(samyrianHills, 1280, 595);
+        initTerritoryButton(samyrianHills, 1280, 595);
 
         bayasabhad = new Territory("bayasabhad");
-        initButton(bayasabhad, 1285, 675);
+        initTerritoryButton(bayasabhad, 1285, 675);
 
         qarth = new Territory("qarth");
-        initButton(qarth, 1285, 745);
+        initTerritoryButton(qarth, 1285, 745);
 
         redWaste = new Territory("redWaste");
-        initButton(redWaste, 1170, 735);
+        initTerritoryButton(redWaste, 1170, 735);
 
         ghiscar = new Territory("ghiscar");
-        initButton(ghiscar, 1060, 785);
+        initTerritoryButton(ghiscar, 1060, 785);
 
         allTerritories = new ArrayList<Territory>();
         Territory[] tArray = new Territory[] {
@@ -639,10 +615,11 @@ public class jfx extends Application{
 
         theStage.show();
         themesong.setVolume(.3);
+
         themesong.play();
     }
 
-    public void initButton(Territory territory, int x, int y){
+    public void initTerritoryButton(Territory territory, int x, int y){
 
         territory.setStyle("  -fx-padding: 1 5 5 5;\n" +
                 "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
@@ -698,8 +675,34 @@ public class jfx extends Application{
             URL swordClash = getClass().getResource("swordClash.mp3");
             AudioClip swords = new AudioClip(swordClash.toString());
             swords.play();
+
+            switch(currentPhase){
+                case PLACE_TROOPS:
+                    territory.incrementTroopCount();
+                    numberOfArmiesToRecieveCurrent--;
+                    numberOfArmiesToPlaceLabel.setText(String.valueOf(numberOfArmiesToRecieveCurrent));
+                    break;
+                case ATTACK:
+                    if(currentPlayer.ownsTerritory(territory) && currentPlayer.getCurrentTerritory() == null){
+                        territory.select();
+                    }else if(currentPlayer.getCurrentTerritory() == territory){
+                        currentPlayer.resetCurrentTerritory();
+                        territory.deSelect();
+                    }
+                    if(currentPlayer.getCurrentTerritory() != null){
+                        if(territory.canAttack(currentPlayer)){
+                            if(currentPlayer.getCurrentTerritoryToAttack() == null)
+                                territory.selectForAttack();
+                            else if(currentPlayer.getCurrentTerritoryToAttack() != null && currentPlayer.getCurrentTerritoryToAttack() == territory)
+                                territory.deselectForAttack();
+                        }
+                    }
+            }
+
+
+
         });
-        ((Group)theScene.getRoot()).getChildren().add(territory);
+        ((Group) boardScene.getRoot()).getChildren().add(territory);
     }
 
     public void incrementPlayerIndex(){
@@ -710,43 +713,120 @@ public class jfx extends Application{
             playerIndex++;
     }
 
+    public void initControlButtons(){
+        doneButton = new Button("Done");
+        endTurnButton = new Button("End Turn");
 
+        doneButton.setStyle("-fx-background-color: \n" +
+                "        #090a0c,\n" +
+                "        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),\n" +
+                "        linear-gradient(#20262b, #191d22),\n" +
+                "        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));\n" +
+                "    -fx-background-radius: 5,4,3,5;\n" +
+                "    -fx-background-insets: 0,1,2,0;\n" +
+                "    -fx-text-fill: white;\n" +
+                "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
+                "    -fx-font-family: \"Helvetica\";\n" +
+                "    -fx-text-fill: linear-gradient(#ff3440, #d0d0d0);\n" +
+                "    -fx-font-size: 20px;\n" +
+                "    -fx-padding: 10 20 10 20;");
+        endTurnButton.setStyle("-fx-background-color: \n" +
+                "        #090a0c,\n" +
+                "        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),\n" +
+                "        linear-gradient(#20262b, #191d22),\n" +
+                "        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));\n" +
+                "    -fx-background-radius: 5,4,3,5;\n" +
+                "    -fx-background-insets: 0,1,2,0;\n" +
+                "    -fx-text-fill: white;\n" +
+                "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );\n" +
+                "    -fx-font-family: \"Helvetica\";\n" +
+                "    -fx-text-fill: linear-gradient(#437aff, #d0d0d0);\n" +
+                "    -fx-font-size: 20px;\n" +
+                "    -fx-padding: 10 20 10 20;");
 
-
-    public void takeTurn(Player player){
-
-        currentPhase = phaseType.PLACE_TROOPS;
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Choose Action");
-        alert.setHeaderText("Awaiting your decision, my lord.");
-        alert.setContentText("Attack or fortify?");
-
-        ButtonType attack = new ButtonType("Attack");
-        ButtonType fortify = new ButtonType("Fortify");
-
-        alert.getButtonTypes().setAll(attack, fortify);
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == attack){
+        doneButton.setLayoutX(100);
+        doneButton.setLayoutY(800);
+        doneButton.setOnAction(e -> {
+            System.out.println("clickedAttack");
+            URL u = getClass().getResource("sword.aif");
+            AudioClip sword = new AudioClip(u.toString());
+            sword.setVolume(999999999);
+            sword.play();
             currentPhase = phaseType.ATTACK;
-        } else{
-            currentPhase = phaseType.FORTIFY;
+            endTurnButton.setVisible(true);
+            Attack();
+        });
+
+        endTurnButton.setLayoutX(210);
+        endTurnButton.setLayoutY(800);
+        endTurnButton.setOnAction(e -> {
+            System.out.println("clickedDefend");
+            URL end = getClass().getResource("horn.mp3");
+            AudioClip horn = new AudioClip(end.toString());
+            horn.setVolume(999999999);
+            horn.play();
+        });
+    }
+    public void play(Player player){
+
+        while(!gameOver) {
+            setCurrentPlayer();
+            placeTroops();
+
+            currentPhase = phaseType.PLACE_TROOPS;
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Choose Action");
+            alert.setHeaderText("Awaiting your decision, my lord.");
+            alert.setContentText("Attack or fortify?");
+
+            ButtonType attack = new ButtonType("Attack");
+            ButtonType fortify = new ButtonType("Fortify");
+
+            alert.getButtonTypes().setAll(attack, fortify);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == attack) {
+                currentPhase = phaseType.ATTACK;
+            } else {
+                currentPhase = phaseType.FORTIFY;
+            }
+
+
+
+            incrementPlayerIndex();
         }
     }
 
-    public void fortify(){
+    public void setCurrentPlayer(){
+        currentPlayer = players.get(playerIndex);
+    }
+
+
+    public void Attack(){
+        numberOfArmiesToPlaceLabel.setVisible(false);
+        numberOfArmiesToRecieveCurrent = 0;
+        for(Territory t : allTerritories){
+            if(!t.canAttack(currentPlayer)){
+                t.setVisible(false);
+            }
+        }
+    }
+
+
+    public void placeTroops(){
         int armies = currentPlayer.getNumberOfArmiesToRecieve();
+        currentPlayer.resetCurrentTerritory();
+        currentPlayer.resetCurrentTerritoryToAttack();
+        numberOfArmiesToRecieveCurrent = armies;
+        numberOfArmiesToPlaceLabel.setVisible(true);
+        doneButton.setVisible(true);
 
         for(Territory t : allTerritories){
-
+            if(!currentPlayer.getConqueredTerritories().contains(t)){
+                t.setAvailable(false);
+            }
         }
-
-
-
     }
-
-
-
 
 }

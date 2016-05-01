@@ -12,6 +12,7 @@ public class Territory extends Button {
     private int troopCount;
     private ArrayList<Territory> sharedBorderTerritories;
     private boolean selected;
+    private boolean selectedForAttack;
 
     public Territory(String name){
         troopCount = 0;
@@ -20,6 +21,7 @@ public class Territory extends Button {
         this.name = name;
         this.setText(String.valueOf(troopCount));
         selected = false;
+        selectedForAttack = false;
     }
 
 
@@ -41,6 +43,11 @@ public class Territory extends Button {
         this.name = name;
         troopCount = 0;
         this.continent = continent;
+    }
+
+    public void incrementTroopCount(){
+        troopCount++;
+        this.setText(String.valueOf(troopCount));
     }
 
     public void updateTroopCount(int troops){//can update with negative or positive integer for troops
@@ -118,15 +125,39 @@ public class Territory extends Button {
                 "    -fx-font-size: 1.1em;");
     }
 
+    public void setColorAttack(){ this.setStyle("  -fx-padding: 1 5 5 5;\n" +
+            "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
+            "    -fx-background-radius: 10;\n" +
+            "    -fx-background-color: \n" +
+            "        linear-gradient(from 0% 93% to 0% 100%, #a30d1b 0%, #90252b 100%),\n" +
+            "        #9d1800,\n" +
+            "        #d84028,\n" +
+            "        radial-gradient(center 50% 50%, radius 100%, #d81918, #810411);\n" +
+            "    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\n" +
+            "    -fx-font-weight: bold;\n" +
+            "    -fx-font-size: 1.1em;");
+    }
+
     public void select(){
         this.setColorSelected();
         selected = true;
     }
 
     public void deSelect(){
-        this.setColorSelected();
+        this.setColorStandard();
         selected = false;
     }
+
+    public void selectForAttack(){
+        this.setColorAttack();
+        selectedForAttack = true;
+    }
+
+    public void deselectForAttack(){
+        this.setColorStandard();
+        selectedForAttack = false;
+    }
+
 
     public void setAvailable(Boolean bool){
         this.setVisible(bool);
