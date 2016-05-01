@@ -101,7 +101,26 @@ public class jfx extends Application{
 
 
         DiceAnimation da = new DiceAnimation();
-da.roll();
+        da.setFitHeight(80);
+        da.setFitWidth(80);
+        da.setLayoutX(400);
+        da.setLayoutY(775);
+
+
+
+        DiceAnimation da2 = new DiceAnimation();
+        da2.setFitHeight(80);
+        da2.setFitWidth(80);
+        da2.setLayoutX(490);
+        da2.setLayoutY(775);
+
+
+        DiceAnimation da3 = new DiceAnimation();
+        da3.setFitHeight(80);
+        da3.setFitWidth(80);
+        da3.setLayoutX(580);
+        da3.setLayoutY(775);
+
 
 
 
@@ -454,11 +473,13 @@ da.roll();
         attackButton.setLayoutY(800);
         attackButton.setOnAction(e -> {
             System.out.println("clickedAttack");
-            URL horn = getClass().getResource("horn.mp3");
-            AudioClip battleHorn = new AudioClip(horn.toString());
-            battleHorn.setVolume(999999999);
-            battleHorn.play();
+            URL u = getClass().getResource("sword.aif");
+            AudioClip sword = new AudioClip(u.toString());
+            sword.setVolume(999999999);
+            sword.play();
             da.roll();
+            da2.roll();
+            da3.roll();
 
         });
 
@@ -466,10 +487,10 @@ da.roll();
         endTurnButton.setLayoutY(800);
         endTurnButton.setOnAction(e -> {
             System.out.println("clickedDefend");
-            URL end = getClass().getResource("sword.aif");
-            AudioClip endturn = new AudioClip(end.toString());
-            endturn.setVolume(999999999);
-            endturn.play();
+            URL end = getClass().getResource("horn.mp3");
+            AudioClip horn = new AudioClip(end.toString());
+            horn.setVolume(999999999);
+            horn.play();
         });
 
         MenuBar menuBar = new MenuBar();
@@ -494,7 +515,7 @@ da.roll();
         ((Group)theScene.getRoot()).getChildren().add(endTurnButton);
         ((Group)theScene.getRoot()).getChildren().addAll(menuBar);
         ((Group)theScene.getRoot()).getChildren().add(label);
-        ((Group)theScene.getRoot()).getChildren().add(da);
+        ((Group)theScene.getRoot()).getChildren().addAll(da,da2,da3);
 
         da.roll();
 
