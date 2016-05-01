@@ -1,29 +1,16 @@
-import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
-import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
-import sun.audio.*;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.GaussianBlur;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
-import javax.sound.sampled.FloatControl;
-import java.io.File;
 import java.net.URL;
-import javafx.scene.layout.VBox;
 
 
 public class jfx extends Application{
@@ -113,7 +100,8 @@ public class jfx extends Application{
 
 
 
-
+        DiceAnimation da = new DiceAnimation();
+da.roll();
 
 
 
@@ -470,6 +458,7 @@ public class jfx extends Application{
             AudioClip battleHorn = new AudioClip(horn.toString());
             battleHorn.setVolume(999999999);
             battleHorn.play();
+            da.roll();
 
         });
 
@@ -505,6 +494,9 @@ public class jfx extends Application{
         ((Group)theScene.getRoot()).getChildren().add(endTurnButton);
         ((Group)theScene.getRoot()).getChildren().addAll(menuBar);
         ((Group)theScene.getRoot()).getChildren().add(label);
+        ((Group)theScene.getRoot()).getChildren().add(da);
+
+        da.roll();
 
 
         theStage.show();
