@@ -16,11 +16,28 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Optional;
 
 
 public class jfx extends Application{
+
+    public enum phaseType {ATTACK, PLACE_TROOPS, FORTIFY};
+    public phaseType currentPhase;
+    private int numberOfPlayers;
+    private Player selectedCharacter;
+    private Player currentPlayer;
+    private ArrayList<Player> players;
+    int playerIndex;
+    private ArrayList<Territory> allTerritories;
+
+
+
+
+
     private Scene theScene;
-    private  Scene menuScene;
+    private Scene menuScene;
 
     private Territory theWall ;
     private Territory skagos;
@@ -95,6 +112,11 @@ public class jfx extends Application{
     @Override
     public void start(Stage theStage)
     {
+
+        playerIndex = 0;
+
+
+
         URL url = getClass().getResource("got.mp3");
         AudioClip themesong = new AudioClip(url.toString());
 
@@ -368,15 +390,13 @@ public class jfx extends Application{
         ((Group)theScene.getRoot()).getChildren().addAll(attackButton, endTurnButton, menuBar, da,da2,da3);
         //Board ************************
 
-
-
-
-
         //init territories**********************
         theWall = new Territory("theWall");
         initButton(theWall, 320, 95);
+
         skagos = new Territory("skagos");
         initButton(skagos, 390, 95);
+
         theGrevCliffs = new Territory("theGrevCliffs");
         initButton(theGrevCliffs, 360, 160);
 
@@ -521,6 +541,23 @@ public class jfx extends Application{
         ghiscar = new Territory("ghiscar");
         initButton(ghiscar, 1060, 785);
 
+        allTerritories = new ArrayList<Territory>();
+        Territory[] tArray = new Territory[] {
+                theWall, skagos, theGrevCliffs, winterfell,
+                theNeck, theFlintCliff, theRills, wolfsrvood, theVale,
+                crorvnlands, westerlands, riverlands,ironIslands, theReach,
+                stormlands, dorne, redMountains, whisperingSound, shieldLands,
+                braavosianCoastland, hillsOfNorvos, qhoyneLands, forrestOfQohor,
+                theGoldenFields, theDisputedLands, andalos, rhoynianVeld,
+                westernWaste, seaOfsighs, elyria, valyria, sarMell,sarnor,
+                abandonedLand, kingdomsOfTheIfeqevron, theFootprint, jbben,
+                realmsOfShogran, vaesDothrak, easternGrassSea, westernGrassSea,
+                parchedFields,paintedMountains,slaversBay, lhazar, samyrianHills,
+                bayasabhad,qarth, redWaste,ghiscar};
+        allTerritories.addAll(Arrays.asList(tArray));
+
+
+
         //init territories**********************
 
         //define borders**********************
@@ -664,6 +701,51 @@ public class jfx extends Application{
         });
         ((Group)theScene.getRoot()).getChildren().add(territory);
     }
+
+    public void incrementPlayerIndex(){
+
+        if(playerIndex + 1 < players.size() )
+            playerIndex = 0;
+        else
+            playerIndex++;
+    }
+
+
+
+
+    public void takeTurn(Player player){
+
+        currentPhase = phaseType.PLACE_TROOPS;
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Choose Action");
+        alert.setHeaderText("Awaiting your decision, my lord.");
+        alert.setContentText("Attack or fortify?");
+
+        ButtonType attack = new ButtonType("Attack");
+        ButtonType fortify = new ButtonType("Fortify");
+
+        alert.getButtonTypes().setAll(attack, fortify);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == attack){
+            currentPhase = phaseType.ATTACK;
+        } else{
+            currentPhase = phaseType.FORTIFY;
+        }
+    }
+
+    public void fortify(){
+        int armies = currentPlayer.getNumberOfArmiesToRecieve();
+
+        for(Territory t : allTerritories){
+
+        }
+
+
+
+    }
+
 
 
 

@@ -87,4 +87,38 @@ public class Player {
     public void setPlayerColor(String color) {
         this.playerColor = color;
     }
+
+    public ArrayList<Territory> getConqueredTerritories() {
+        return conqueredTerritories;
+    }
+
+    public ArrayList<Continent> getConqueredContinents() {
+        return conqueredContinents;
+    }
+
+    public boolean ownsTerritory(Territory territory){
+        return conqueredTerritories.contains(territory);
+    }
+
+    public boolean ownsContinent(Continent continent){
+        return conqueredContinents.contains(continent);
+    }
+
+    public int getNumberOfTerritories(){
+        return conqueredTerritories.size();
+    }
+
+    public int getNumberOfArmiesToRecieve(){
+        int armies = getNumberOfTerritories()/ 3;
+        if(armies < 3){
+            armies = 3;
+        }
+
+        for(Continent continent : conqueredContinents){
+            armies += continent.getBonus();
+        }
+        return armies;
+    }
+
 }
+
