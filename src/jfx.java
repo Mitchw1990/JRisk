@@ -1,4 +1,7 @@
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -6,9 +9,11 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.net.URL;
 
@@ -119,16 +124,163 @@ public class jfx extends Application{
         //Dice *************************
 
         //MainMenu ************************
+        Canvas canvasMainMenu = new Canvas(700, 600);
+        Image board = new Image(getClass().getResourceAsStream("menuBackground.jpg"));
+        GraphicsContext gc = canvasMainMenu.getGraphicsContext2D();
+        gc.drawImage( board, 0, 0, 700, 600 );
         Group menuRoot = new Group();
-        Scene menuScene = new Scene(menuRoot,400,400);
+        menuRoot.getChildren().add(canvasMainMenu);
+        Scene menuScene = new Scene(menuRoot,700,600);
+        ImageView logo = new ImageView("logo.jpg");
+        logo.setFitWidth(600);
+        logo.setFitHeight(100);
+        logo.setLayoutX(50);
+
+
+
+        Label familyLabel = new Label("Family");
+        familyLabel.setLayoutY(95);
+        familyLabel.setLayoutX(50);
+        familyLabel.setPrefSize(600,25);
+        familyLabel.setStyle(" -fx-background-color: \n" +
+                "        linear-gradient(#393e68 0%, #0c1f27 25%, #373837 75%, #4c5675 100%),\n" +
+                "        linear-gradient(#020b02, #334a6b),\n" +
+                "        linear-gradient(#425d9e 0%, #334a6b 20%, #323e77 80%, #4c5675 100%),\n" +
+                "        linear-gradient(#365c8a 0%, #2e446b 20%, #425d9e 80%, #4c5675 100%),\n" +
+                "        linear-gradient(#323e77 0%, #252660 50%, #425d9e 51%, #252660 100%);\n" +
+                "    -fx-background-insets: 0,1,4,5,6;\n" +
+                "    -fx-background-radius: 9,8,5,4,3;\n" +
+                "    -fx-padding: 15 30 15 30;\n" +
+                "    -fx-font-family: \"Helvetica\";\n" +
+                "    -fx-font-size: 12px;\n" +
+                "    -fx-font-weight: bold;\n" +
+                "    -fx-text-fill: white;\n" +
+                "    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);");
+
+
+        Label numberPlayersLabel = new Label("Number of Players");
+        numberPlayersLabel.setLayoutY(215);
+        numberPlayersLabel.setLayoutX(50);
+        numberPlayersLabel.setPrefSize(600,25);
+        numberPlayersLabel.setStyle(" -fx-background-color: \n" +
+                "        linear-gradient(#393e68 0%, #0c1f27 25%, #373837 75%, #4c5675 100%),\n" +
+                "        linear-gradient(#020b02, #334a6b),\n" +
+                "        linear-gradient(#425d9e 0%, #334a6b 20%, #323e77 80%, #4c5675 100%),\n" +
+                "        linear-gradient(#365c8a 0%, #2e446b 20%, #425d9e 80%, #4c5675 100%),\n" +
+                "        linear-gradient(#323e77 0%, #252660 50%, #425d9e 51%, #252660 100%);\n" +
+                "    -fx-background-insets: 0,1,4,5,6;\n" +
+                "    -fx-background-radius: 9,8,5,4,3;\n" +
+                "    -fx-padding: 15 30 15 30;\n" +
+                "    -fx-font-family: \"Helvetica\";\n" +
+                "    -fx-font-size: 12px;\n" +
+                "    -fx-font-weight: bold;\n" +
+                "    -fx-text-fill: white;\n" +
+                "    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);");
+
         Button play = new Button("Play");
-        play.prefWidthProperty().bind(theStage.widthProperty());
+        play.setLayoutY(365);
+        play.setLayoutX(50);
+        play.setPrefSize(600,25);
         play.setOnAction(e ->{
-                theStage.setScene(theScene);
-                themesong.stop();
-                quote.play(.2);
+            theStage.setScene(theScene);
+            themesong.stop();
+            quote.play(.2);
+            theStage.centerOnScreen();
         });
-        menuRoot.getChildren().add(play);
+        play.setStyle(" -fx-background-color: \n" +
+                "        linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),\n" +
+                "        linear-gradient(#020b02, #3a3a3a),\n" +
+                "        linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),\n" +
+                "        linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),\n" +
+                "        linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);\n" +
+                "    -fx-background-insets: 0,1,4,5,6;\n" +
+                "    -fx-background-radius: 9,8,5,4,3;\n" +
+                "    -fx-padding: 15 30 15 30;\n" +
+                "    -fx-font-family: \"Helvetica\";\n" +
+                "    -fx-font-size: 18px;\n" +
+                "    -fx-font-weight: bold;\n" +
+                "    -fx-text-fill: white;\n" +
+                "    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);");
+
+
+        Button quitButton = new Button("Quit");
+        quitButton.setLayoutX(50);
+        quitButton.setLayoutY(425);
+        quitButton.setPrefSize(600,25);
+        quitButton.setOnAction(e-> Platform.exit());
+        quitButton.setStyle(" -fx-background-color: \n" +
+                "        linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),\n" +
+                "        linear-gradient(#020b02, #3a3a3a),\n" +
+                "        linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),\n" +
+                "        linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),\n" +
+                "        linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);\n" +
+                "    -fx-background-insets: 0,1,4,5,6;\n" +
+                "    -fx-background-radius: 9,8,5,4,3;\n" +
+                "    -fx-padding: 15 30 15 30;\n" +
+                "    -fx-font-family: \"Helvetica\";\n" +
+                "    -fx-font-size: 18px;\n" +
+                "    -fx-font-weight: bold;\n" +
+                "    -fx-text-fill: white;\n" +
+                "    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);");
+
+
+        ObservableList<String> houseOptions =
+                FXCollections.observableArrayList(
+                        "House Targaryen",
+                        "House Lannister",
+                        "House Baratheon",
+                        "House Greyjoy",
+                        "House Martel",
+                        "House Tully"
+                );
+        ObservableList<String> numberOfPlayers =
+                FXCollections.observableArrayList(
+                        "2",
+                        "3",
+                        "4",
+                        "5",
+                        "6"
+                );
+        ComboBox familyCombo = new ComboBox(houseOptions);
+        familyCombo.setStyle(" -fx-background-color: \n" +
+                "        linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),\n" +
+                "        linear-gradient(#020b02, #3a3a3a),\n" +
+                "        linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),\n" +
+                "        linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),\n" +
+                "        linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);\n" +
+                "    -fx-background-insets: 0,1,4,5,6;\n" +
+                "    -fx-background-radius: 9,8,5,4,3;\n" +
+                "    -fx-padding: 15 30 15 30;\n" +
+                "    -fx-font-family: \"Helvetica\";\n" +
+                "    -fx-font-size: 18px;\n" +
+                "    -fx-font-weight: bold;\n" +
+                "    -fx-text-fill: white;\n" +
+                "    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);");
+
+        familyCombo.setLayoutY(140);
+        familyCombo.setLayoutX(50);
+        familyCombo.setPrefSize(600,25);
+
+        ComboBox numberPlayersCombo = new ComboBox(numberOfPlayers);
+        numberPlayersCombo.setStyle(" -fx-background-color: \n" +
+                "        linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),\n" +
+                "        linear-gradient(#020b02, #3a3a3a),\n" +
+                "        linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),\n" +
+                "        linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),\n" +
+                "        linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);\n" +
+                "    -fx-background-insets: 0,1,4,5,6;\n" +
+                "    -fx-background-radius: 9,8,5,4,3;\n" +
+                "    -fx-padding: 15 30 15 30;\n" +
+                "    -fx-font-family: \"Helvetica\";\n" +
+                "    -fx-font-size: 18px;\n" +
+                "    -fx-font-weight: bold;\n" +
+                "    -fx-text-fill: white;\n" +
+                "    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);");
+        numberPlayersCombo.setLayoutY(260);
+        numberPlayersCombo.setLayoutX(50);
+        numberPlayersCombo.setPrefSize(600,25);
+
+        menuRoot.getChildren().addAll(logo,play, familyCombo, familyLabel, numberPlayersCombo, numberPlayersLabel, quitButton);
         //MainMenu ************************
 
 
@@ -136,15 +288,16 @@ public class jfx extends Application{
         final double initWidth = 1480;
         final double initHeight = 920;
 
-        theStage.setTitle("Timeline Example");
+        theStage.setTitle("RiskGOT");
         Group root = new Group();
         Canvas canvas = new Canvas( initWidth, initHeight );
         root.getChildren().add( canvas );
         theScene = new Scene(root, initWidth, initHeight);
-        theStage.setScene( menuScene );
-        Image board = new Image(getClass().getResourceAsStream("westerosMap.jpg"));
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.drawImage( board, 0, 0, initWidth, initHeight );
+        theStage.setScene(menuScene);
+        theStage.initStyle(StageStyle.UNDECORATED);
+        Image backGround = new Image(getClass().getResourceAsStream("westerosMap.jpg"));
+        GraphicsContext mainMenuGc = canvas.getGraphicsContext2D();
+        mainMenuGc.drawImage( backGround, 0, 0, initWidth, initHeight );
 
         Button attackButton = new Button("Attack");
         Button endTurnButton = new Button("End Turn");
@@ -207,7 +360,8 @@ public class jfx extends Application{
                 "    -fx-opacity: .9;");
         Menu menu = new Menu("Options");
         MenuItem menuPause = new MenuItem("Pause");
-        MenuItem menuQuit = new MenuItem("Quit");
+        MenuItem menuQuit = new MenuItem("Forfeit");
+        menuQuit.setOnAction(e-> Platform.exit());
         //menuBar.prefWidthProperty().bind(theStage.widthProperty());
         menu.getItems().addAll(menuPause, menuQuit);
         menuBar.getMenus().addAll(menu);
