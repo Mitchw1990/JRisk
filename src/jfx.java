@@ -703,8 +703,12 @@ public class jfx extends Application{
                    if(currentPlayer.ownsTerritory(territory)){
                        if(currentPlayer.getCurrentTerritory() != null){
                            if(currentPlayer.getCurrentTerritory() == territory) {
-                               currentPlayer.resetCurrentTerritory();
                                territory.deSelect();
+                               currentPlayer.resetCurrentTerritory();
+                               if(currentPlayer.getCurrentTerritoryToAttack() != null){
+                                   currentPlayer.getCurrentTerritoryToAttack().deSelect();
+                                   currentPlayer.resetCurrentTerritoryToAttack();
+                               }
                            }
                        }else {
                            currentPlayer.setCurrentTerritory(territory);
@@ -714,8 +718,8 @@ public class jfx extends Application{
                     if(territory.canAttack(currentPlayer) && currentPlayer.getCurrentTerritory() != null){
                         if(currentPlayer.getCurrentTerritoryToAttack() != null){
                             if(currentPlayer.getCurrentTerritoryToAttack() == territory) {
-                                currentPlayer.resetCurrentTerritoryToAttack();
                                 territory.deselectForAttack();
+                                currentPlayer.resetCurrentTerritoryToAttack();
                             }
                         }else {
                             currentPlayer.setCurrentTerritoryToAttack(territory);
@@ -728,16 +732,20 @@ public class jfx extends Application{
                     if(currentPlayer.ownsTerritory(territory)){
                         if(currentPlayer.getCurrentTerritory() != null){
                             if(currentPlayer.getCurrentTerritory() == territory){
-                                currentPlayer.resetCurrentTerritory();
                                 currentPlayer.getCurrentTerritory().deSelect();
+                                currentPlayer.resetCurrentTerritory();
+                                if(currentPlayer.getCurrentTerritoryFortifyTo() != null){
+                                    currentPlayer.getCurrentTerritoryFortifyTo().deSelect();
+                                    currentPlayer.resetCurrentTerritoryFortifyTo();
+                                }
                             }else{
                                 if(currentPlayer.getCurrentTerritory().sharesBorder(territory)){
                                     if(currentPlayer.getCurrentTerritory().getTroopCount() > 1){
                                         currentPlayer.getCurrentTerritory().decrementTroopCount();
                                         territory.incrementTroopCount();
                                         if(currentPlayer.getCurrentTerritory().getTroopCount() < 2){
-                                            currentPlayer.resetCurrentTerritory();
                                             currentPlayer.getCurrentTerritory().deSelect();
+                                            currentPlayer.resetCurrentTerritory();
                                         }
                                     }
                                 }else {
