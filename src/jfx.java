@@ -34,13 +34,14 @@ public class jfx extends Application{
     private boolean gameOver;
     private int numberOfArmiesToRecieveCurrent;
     private Label numberOfArmiesToPlaceLabel;
+    private Button rollButton;
     private Button doneButton;
-    private Button endTurnButton;
+    private Button chargeButton;
     private DiceAnimation da;
     private DiceAnimation da2;
     private DiceAnimation da3;
 
-
+    
     private Scene boardScene;
     private Scene menuScene;
 
@@ -215,14 +216,17 @@ public class jfx extends Application{
         playButton.setPrefSize(600,25);
         playButton.setOnAction(e ->{
             initControlButtons();
-            ((Group) boardScene.getRoot()).getChildren().addAll(doneButton, endTurnButton);
-            endTurnButton.setVisible(true);
+            ((Group) boardScene.getRoot()).getChildren().addAll(rollButton, doneButton);
             doneButton.setVisible(true);
+            rollButton.setVisible(true);
             theStage.setScene(boardScene);
             themesong.stop();
             quote.play(.2);
             theStage.centerOnScreen();
-            attack();
+
+
+
+
 
         });
         playButton.setStyle(" -fx-background-color: \n" +
@@ -718,10 +722,10 @@ public class jfx extends Application{
     }
 
     public void initControlButtons(){
-        doneButton = new Button("Done");
-        endTurnButton = new Button("End Turn");
+        rollButton = new Button("Done");
+        doneButton = new Button("Roll");
 
-        doneButton.setStyle("-fx-background-color: \n" +
+        rollButton.setStyle("-fx-background-color: \n" +
                 "        #090a0c,\n" +
                 "        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),\n" +
                 "        linear-gradient(#20262b, #191d22),\n" +
@@ -734,7 +738,7 @@ public class jfx extends Application{
                 "    -fx-text-fill: linear-gradient(#ff3440, #d0d0d0);\n" +
                 "    -fx-font-size: 20px;\n" +
                 "    -fx-padding: 10 20 10 20;");
-        endTurnButton.setStyle("-fx-background-color: \n" +
+        doneButton.setStyle("-fx-background-color: \n" +
                 "        #090a0c,\n" +
                 "        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),\n" +
                 "        linear-gradient(#20262b, #191d22),\n" +
@@ -748,66 +752,111 @@ public class jfx extends Application{
                 "    -fx-font-size: 20px;\n" +
                 "    -fx-padding: 10 20 10 20;");
 
-        doneButton.setLayoutX(100);
-        doneButton.setLayoutY(800);
-        doneButton.setOnAction(e -> {
+        rollButton.setLayoutX(100);
+        rollButton.setLayoutY(800);
+        rollButton.setOnAction(e -> {
             System.out.println("clickedAttack");
             URL u = getClass().getResource("sword.aif");
             AudioClip sword = new AudioClip(u.toString());
             sword.setVolume(999999999);
             sword.play();
-
-            switch(currentPhase){
-                case PLACE_TROOPS:
-                    currentPhase = phaseType.ATTACK;
-
-
-
-
-            }
-
-
-
-
-
         });
 
-        endTurnButton.setLayoutX(210);
-        endTurnButton.setLayoutY(800);
-        endTurnButton.setOnAction(e -> {
+        doneButton.setLayoutX(210);
+        doneButton.setLayoutY(800);
+        doneButton.setOnAction(e -> {
             System.out.println("clickedDefend");
             URL end = getClass().getResource("horn.mp3");
             AudioClip horn = new AudioClip(end.toString());
             horn.setVolume(999999999);
             horn.play();
+
+            switch(currentPhase){
+                case PLACE_TROOPS:
+                    if(numberOfArmiesToRecieveCurrent == 0){
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Choose Action");
+                        alert.setHeaderText("Awaiting your decision, my lord.");
+                        alert.setContentText("Attack or fortify?");
+
+                        ButtonType attack = new ButtonType("Attack");
+                        ButtonType fortify = new ButtonType("Fortify");
+
+                        alert.getButtonTypes().setAll(attack, fortify);
+
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.get() == attack) {
+                            setBoard(phaseType.ATTACK);
+
+                        } else {
+                            setBoard(phaseType.FORTIFY);
+                        }
+                        if(currentPhase == phaseType.PLACE_TROOPS){
+                            System.out.println("Error: Failed to switch from PLACE_TROOPS.");
+                        }
+                    }else{
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Place Armies");
+                        alert.setHeaderText("'The troops are awaiting your orders, my lord.'");
+                        alert.setContentText("All armies must be placed to proceed!");
+                        alert.showAndWait();
+                    }
+
+
+                case ATTACK:
+                    setBoard(phaseType.FORTIFY);
+                case FORTIFY:
+                    setBoard(phaseType.PLACE_TROOPS);
+                    moveToNextPlayer();
+            }
+
+
+
         });
     }
 
-    public void placeTroops(){
-        currentPhase = phaseType.PLACE_TROOPS;
-        int armies = currentPlayer.getNumberOfArmiesToRecieve();
-        currentPlayer.resetCurrentTerritory();
-        currentPlayer.resetCurrentTerritoryToAttack();
-        numberOfArmiesToRecieveCurrent = armies;
-        numberOfArmiesToPlaceLabel.setVisible(true);
-        doneButton.setVisible(true);
 
+    
+    public void setBoard(phaseType phase){
+
+        currentPhase = phase;
+        currentPlayer.resetAllSelections();
         for(Territory t : allTerritories){
-            if(!currentPlayer.getConqueredTerritories().contains(t)){
-                t.setAvailable(false);
-            }
+            t.setColorStandard();
+        }
+
+        switch(currentPhase){
+            case PLACE_TROOPS:
+                numberOfArmiesToRecieveCurrent = currentPlayer.getNumberOfArmiesToRecieve();
+                numberOfArmiesToPlaceLabel.setVisible(true);
+                doneButton.setText("Done");
+                rollButton.setVisible(false);
+                chargeButton.setVisible(false);
+
+            case ATTACK:
+                rollButton.setVisible(true);
+                numberOfArmiesToPlaceLabel.setVisible(false);
+                doneButton.setText("End Turn");
+                rollButton.setVisible(true);
+                chargeButton.setVisible(true);
+
+            case FORTIFY:
+                rollButton.setVisible(false);
+                numberOfArmiesToPlaceLabel.setVisible(false);
+                doneButton.setText("Done");
+                rollButton.setVisible(false);
+                chargeButton.setVisible(false);
         }
     }
 
     public void attack(){
-        currentPhase = phaseType.ATTACK;
         numberOfArmiesToPlaceLabel.setVisible(false);
         numberOfArmiesToRecieveCurrent = 0;
-    //    for(Territory t : allTerritories){
-    //        if(!t.canAttack(currentPlayer)){
-    //            t.setVisible(false);
-    //        }
-    //    }
+        for(Territory t : allTerritories){
+            if(!t.canAttack(currentPlayer)){
+                t.setVisible(false);
+            }
+        }
     }
 
     public void fortify(){
@@ -847,11 +896,15 @@ public class jfx extends Application{
         currentPlayer = players.get(playerIndex);
     }
 
+    public void moveToNextPlayer(){
+        incrementPlayerIndex();
+        setCurrentPlayer();
+    }
     public void play(Player player){
 
         while(!gameOver) {
             setCurrentPlayer();
-            placeTroops();
+
 
             currentPhase = phaseType.PLACE_TROOPS;
 
@@ -877,6 +930,4 @@ public class jfx extends Application{
             incrementPlayerIndex();
         }
     }
-
-
 }

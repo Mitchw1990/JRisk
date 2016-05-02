@@ -162,5 +162,13 @@ public class Player {
         return armies;
     }
 
+    public void resetAllSelections(){
+        resetCurrentTerritoryFortifyTo();
+        resetCurrentTerritoryFortifyFrom();
+        resetCurrentTerritoryToAttack();
+        resetCurrentTerritory();
+    }
+
+
 }
 
