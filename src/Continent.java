@@ -59,4 +59,7 @@ public class Continent {
     public void setRuler(Player ruler) {
         this.ruler = ruler;
     }
+
+
+
 }

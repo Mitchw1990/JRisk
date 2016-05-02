@@ -119,12 +119,12 @@ public class jfx extends Application{
         numberOfArmiesToRecieveCurrent = 0;
         playerIndex = 0;
 
-        numberOfArmiesToPlaceLabel = new Label();
         URL url = getClass().getResource("got.mp3");
         AudioClip themesong = new AudioClip(url.toString());
 
         URL url2 = getClass().getResource("gotQuote.mp3");
         AudioClip quote = new AudioClip(url2.toString());
+
 
         //Dice *************************
 
@@ -208,7 +208,7 @@ public class jfx extends Application{
         playButton.setPrefSize(600,25);
         playButton.setOnAction(e ->{
             initControlButtons();
-            ((Group) boardScene.getRoot()).getChildren().addAll(rollButton, doneButton);
+            ((Group) boardScene.getRoot()).getChildren().addAll(rollButton, doneButton, numberOfArmiesToPlaceLabel);
             doneButton.setVisible(true);
             rollButton.setVisible(true);
             theStage.setScene(boardScene);
@@ -216,6 +216,9 @@ public class jfx extends Application{
             quote.play(.2);
             theStage.centerOnScreen();
             testGame();
+            numberOfArmiesToPlaceLabel.setVisible(true);
+            updateNumberOfArmiesToPlaceLabel();
+
         });
 
         playButton.setStyle(" -fx-background-color: \n" +
@@ -697,6 +700,7 @@ public class jfx extends Application{
                     if(currentPlayer.ownsTerritory(territory) && numberOfArmiesToRecieveCurrent > 0){
                             territory.incrementTroopCount();
                             numberOfArmiesToRecieveCurrent--;
+                            updateNumberOfArmiesToPlaceLabel();
                         }
                     break;
                 case ATTACK:
@@ -773,6 +777,23 @@ public class jfx extends Application{
         rollButton = new Button("Done");
         doneButton = new Button("Roll");
         chargeButton = new Button("Charge");
+        numberOfArmiesToPlaceLabel = new Label("Armies: " + String.valueOf(numberOfArmiesToRecieveCurrent));
+
+        numberOfArmiesToPlaceLabel.setStyle(" -fx-padding: 8 15 15 15;\n" +
+                "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
+                "    -fx-background-radius: 8;\n" +
+                "    -fx-background-color: \n" +
+                "        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),\n" +
+                "        #9d4024,\n" +
+                "        #d86e3a,\n" +
+                "        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);\n" +
+                "    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\n" +
+                "    -fx-font-weight: bold;\n" +
+                "    -fx-font-size: 1.1em;");
+
+        numberOfArmiesToPlaceLabel.setLayoutX(400);
+        numberOfArmiesToPlaceLabel.setLayoutY(200);
+        //numberOfArmiesToPlaceLabel.setPrefSize(50,50);
 
         rollButton.setStyle("-fx-background-color: \n" +
                 "        #090a0c,\n" +
@@ -814,7 +835,7 @@ public class jfx extends Application{
         doneButton.setLayoutX(210);
         doneButton.setLayoutY(800);
         doneButton.setOnAction(e -> {
-            System.out.println("clickedDefend");
+            System.out.println("clickedDone");
             URL end = getClass().getResource("horn.mp3");
             AudioClip horn = new AudioClip(end.toString());
             horn.setVolume(999999999);
@@ -850,17 +871,25 @@ public class jfx extends Application{
                         alert.setContentText("All armies must be placed to proceed!");
                         alert.showAndWait();
                     }
+                    System.out.println("Phase: " + currentPhase.toString() +
+                            "\nCurrent Player: " + currentPlayer.getName());
                     break;
                 case ATTACK:
                     setBoard(phaseType.FORTIFY);
+                    System.out.println("Phase: " + currentPhase.toString() +
+                            "\nCurrent Player: " + currentPlayer.getName());
                     break;
                 case FORTIFY:
                     setBoard(phaseType.PLACE_TROOPS);
                     moveToNextPlayer();
+                    System.out.println("Phase: " + currentPhase.toString() +
+                            "\nCurrent Player: " + currentPlayer.getName());
+                    System.out.println("Turn Complete.");
                     break;
                 default:
                     System.out.println("Error: Phase not set.");
             }
+
         });
     }
 
@@ -878,6 +907,7 @@ public class jfx extends Application{
         switch(currentPhase){
             case PLACE_TROOPS:
                 numberOfArmiesToRecieveCurrent = currentPlayer.getNumberOfArmiesToRecieve();
+                updateNumberOfArmiesToPlaceLabel();
                 numberOfArmiesToPlaceLabel.setVisible(true);
                 doneButton.setText("Done");
                 rollButton.setVisible(false);
@@ -896,16 +926,6 @@ public class jfx extends Application{
                 doneButton.setText("Done");
                 rollButton.setVisible(false);
                 chargeButton.setVisible(false);
-        }
-    }
-
-    public void attack(){
-        numberOfArmiesToPlaceLabel.setVisible(false);
-        numberOfArmiesToRecieveCurrent = 0;
-        for(Territory t : allTerritories){
-            if(!t.canAttack(currentPlayer)){
-                t.setVisible(false);
-            }
         }
     }
 
@@ -931,12 +951,12 @@ public class jfx extends Application{
     }
 
     public void updateNumberOfArmiesToPlaceLabel(){
-        numberOfArmiesToPlaceLabel.setText(String.valueOf(numberOfArmiesToRecieveCurrent));
+        numberOfArmiesToPlaceLabel.setText("Armies: " + String.valueOf(numberOfArmiesToRecieveCurrent));
     }
 
     public void incrementPlayerIndex(){
 
-        if(playerIndex + 1 < players.size() )
+        if(playerIndex + 1 == players.size())
             playerIndex = 0;
         else
             playerIndex++;
