@@ -912,20 +912,22 @@ public class jfx extends Application{
                 doneButton.setText("Done");
                 rollButton.setVisible(false);
                 chargeButton.setVisible(false);
-
+                break;
             case ATTACK:
                 rollButton.setVisible(true);
+                System.out.println(rollButton.isVisible());
                 numberOfArmiesToPlaceLabel.setVisible(false);
                 doneButton.setText("End Turn");
                 rollButton.setVisible(true);
                 chargeButton.setVisible(true);
-
+                break;
             case FORTIFY:
                 rollButton.setVisible(false);
                 numberOfArmiesToPlaceLabel.setVisible(false);
                 doneButton.setText("Done");
                 rollButton.setVisible(false);
                 chargeButton.setVisible(false);
+                break;
         }
     }
 
