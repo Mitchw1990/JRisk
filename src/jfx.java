@@ -38,6 +38,7 @@ public class jfx extends Application{
     private DiceAnimation da;
     private DiceAnimation da2;
     private DiceAnimation da3;
+    private ImageView bannerView;
 
     
     private Scene boardScene;
@@ -208,7 +209,7 @@ public class jfx extends Application{
         playButton.setPrefSize(600,25);
         playButton.setOnAction(e ->{
             initControlButtons();
-            ((Group) boardScene.getRoot()).getChildren().addAll(rollButton, doneButton, numberOfArmiesToPlaceLabel);
+            ((Group) boardScene.getRoot()).getChildren().addAll(rollButton, doneButton, numberOfArmiesToPlaceLabel, bannerView);
             doneButton.setVisible(true);
             rollButton.setVisible(true);
             theStage.setScene(boardScene);
@@ -218,7 +219,7 @@ public class jfx extends Application{
             testGame();
             numberOfArmiesToPlaceLabel.setVisible(true);
             updateNumberOfArmiesToPlaceLabel();
-
+            placeBanner();
         });
 
         playButton.setStyle(" -fx-background-color: \n" +
@@ -264,7 +265,7 @@ public class jfx extends Application{
                         "House Lannister",
                         "House Baratheon",
                         "House Greyjoy",
-                        "House Martel",
+                        "House Martell",
                         "House Tully"
                 );
         ObservableList<String> numberOfPlayersList =
@@ -599,11 +600,6 @@ public class jfx extends Application{
                 samyrianHills, slaversBay);
         //init continents **********************
 
-        //****************testGame********************
-
-        //**************endTestGame*****************
-
-
         theStage.show();
         themesong.setVolume(.3);
         themesong.play();
@@ -611,7 +607,7 @@ public class jfx extends Application{
 
     public void testGame(){
         Player player1 = new Player("Tully");
-        Player player2 = new Player("Martel");
+        Player player2 = new Player("Martell");
 
         Territory[] terrPlayerOne = new Territory[] {bayasabhad, ghiscar, lhazar, paintedMountains, qarth, redWaste,
                 samyrianHills, slaversBay};
@@ -774,25 +770,26 @@ public class jfx extends Application{
     }
 
     public void initControlButtons(){
-        rollButton = new Button("Done");
-        doneButton = new Button("Roll");
+        rollButton = new Button("Roll");
+        doneButton = new Button("Done");
         chargeButton = new Button("Charge");
+        bannerView = new ImageView();
         numberOfArmiesToPlaceLabel = new Label("Armies: " + String.valueOf(numberOfArmiesToRecieveCurrent));
 
         numberOfArmiesToPlaceLabel.setStyle(" -fx-padding: 8 15 15 15;\n" +
                 "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
                 "    -fx-background-radius: 8;\n" +
                 "    -fx-background-color: \n" +
-                "        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),\n" +
-                "        #9d4024,\n" +
-                "        #d86e3a,\n" +
-                "        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);\n" +
+                "        linear-gradient(from 0% 93% to 0% 100%, #434252 0%, #2b2b35 100%),\n" +
+                "        #4b4b5d,\n" +
+                "        #63637a,\n" +
+                "        radial-gradient(center 50% 50%, radius 100%, #8484a3, #4b4b5d);\n" +
                 "    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\n" +
                 "    -fx-font-weight: bold;\n" +
-                "    -fx-font-size: 1.1em;");
+                "    -fx-font-size: 3em;");
 
-        numberOfArmiesToPlaceLabel.setLayoutX(400);
-        numberOfArmiesToPlaceLabel.setLayoutY(200);
+        numberOfArmiesToPlaceLabel.setLayoutX(700);
+        numberOfArmiesToPlaceLabel.setLayoutY(210);
         //numberOfArmiesToPlaceLabel.setPrefSize(50,50);
 
         rollButton.setStyle("-fx-background-color: \n" +
@@ -843,6 +840,7 @@ public class jfx extends Application{
 
             switch(currentPhase){
                 case PLACE_TROOPS:
+                    placeBanner();
                     if(numberOfArmiesToRecieveCurrent == 0){
                         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                         alert.setTitle("Choose Action");
@@ -885,6 +883,7 @@ public class jfx extends Application{
                     System.out.println("Phase: " + currentPhase.toString() +
                             "\nCurrent Player: " + currentPlayer.getName());
                     System.out.println("Turn Complete.");
+                    placeBanner();
                     break;
                 default:
                     System.out.println("Error: Phase not set.");
@@ -971,5 +970,9 @@ public class jfx extends Application{
     public void moveToNextPlayer(){
         incrementPlayerIndex();
         setCurrentPlayer();
+    }
+
+    public void placeBanner(){
+        currentPlayer.setBanner(bannerView);
     }
 }

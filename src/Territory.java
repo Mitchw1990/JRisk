@@ -171,7 +171,7 @@ public class Territory extends Button {
                     "    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\n" +
                     "    -fx-font-weight: bold;\n" +
                     "    -fx-font-size: 1.1em;");
-        } else if (playerName == "Martel") {
+        } else if (playerName == "Martell") {
 
             this.setStyle("  -fx-padding: 1 5 5 5;\n" +
                     "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +

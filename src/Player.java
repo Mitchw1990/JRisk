@@ -1,3 +1,6 @@
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -176,5 +179,38 @@ public class Player {
             t.setColorStandard();
         }
     }
+
+
+    public void setBanner(ImageView banner) {
+
+
+        banner.setFitHeight(130);
+        banner.setFitWidth(240);
+        banner.setLayoutX(1211);
+        banner.setLayoutY(26);
+
+        if(name == "Baratheon"){
+            Image img = new Image("House Baratheon.png");
+            banner.setImage(img);
+        }else if(name == "Greyjoy") {
+            Image img = new Image("House Greyjoy.png");
+            banner.setImage(img);
+        }else if(name == "Lannister") {
+            Image img = new Image("House Lannister.png");
+            banner.setImage(img);
+        }else if(name == "Martell") {
+            Image img = new Image("House Martell.png");
+            banner.setImage(img);
+        }else if(name == "Targaryen") {
+            Image img = new Image("House Targaryen.png");
+            banner.setImage(img);
+        }else{
+            Image img = new Image("House Tully.png");
+            banner.setImage(img);
+        }
+    }
+
+
+
 }
 
