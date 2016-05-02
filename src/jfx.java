@@ -608,29 +608,62 @@ public class jfx extends Application{
     public void testGame(){
         Player player1 = new Player("Tully");
         Player player2 = new Player("Martell");
+        Player player3 = new Player("Targaryen");
+        Player player4 = new Player("Lannister");
+        Player player5 = new Player("Greyjoy");
+        Player player6 = new Player("Baratheon");
+
 
         Territory[] terrPlayerOne = new Territory[] {bayasabhad, ghiscar, lhazar, paintedMountains, qarth, redWaste,
-                samyrianHills, slaversBay};
-
+                samyrianHills, slaversBay, skagos, theFlintCliff, theGrevCliffs,
+                theNeck, theRills, theWall, wolfsrvood, winterfell};
         Territory[] terrPlayerTwo = new Territory[] {abandonedLand, easternGrassSea, jbben,
                 kingdomsOfTheIfeqevron, parchedFields, realmsOfShogran, sarnor,  theFootprint,
                 vaesDothrak, westernGrassSea};
 
+        Territory[] terrPlayerThree = new Territory[]{elyria, rhoynianVeld, sarMell, seaOfsighs, valyria,
+                westernWaste};
+        Territory[] terrPlayerFour = new Territory[]{andalos, braavosianCoastland, forrestOfQohor, hillsOfNorvos,
+                theDisputedLands, theGoldenFields};
+        Territory[] terrPlayerFive = new Territory[]{dorne, redMountains, shieldLands, stormlands,
+                whisperingSound};
+        Territory[] terrPlayerSix = new Territory[]{crorvnlands, ironIslands, riverlands, theVale,
+                westerlands};
+
         player1.setConqueredTerritories(terrPlayerOne);
         player2.setConqueredTerritories(terrPlayerTwo);
+        player3.setConqueredTerritories(terrPlayerThree);
+        player4.setConqueredTerritories(terrPlayerFour);
+        player5.setConqueredTerritories(terrPlayerFive);
+        player6.setConqueredTerritories(terrPlayerSix);
 
         player1.addContinent(Ghiscar);
+        player1.addContinent(theNorth);
         player2.addContinent(theDothrakiSea);
+        player3.addContinent(valyrianFreehold);
+        player4.addContinent(theFreeCities);
+        player5.addContinent(theSouth);
+        player6.addContinent(theKingsLands);
+
 
         player1.setTerritoryColors();
         player2.setTerritoryColors();
+        player3.setTerritoryColors();
+        player4.setTerritoryColors();
+        player5.setTerritoryColors();
+        player6.setTerritoryColors();
+
 
         players = new ArrayList<>();
         players.add(player1);
         players.add(player2);
-        numberOfPlayers = 2;
-        setCurrentPlayer();
+        players.add(player3);
+        players.add(player4);
+        players.add(player5);
+        players.add(player6);
 
+        numberOfPlayers = 6;
+        setCurrentPlayer();
         setBoard(phaseType.PLACE_TROOPS);
     }
 
@@ -827,6 +860,27 @@ public class jfx extends Application{
             AudioClip sword = new AudioClip(u.toString());
             sword.setVolume(999999999);
             sword.play();
+            if(currentPlayer.getCurrentTerritory() != null && currentPlayer.getCurrentTerritoryToAttack() != null) {
+                if (currentPlayer.getCurrentTerritory().getTroopCount() > 2) {
+                    Battle battle = new Battle(currentPlayer, 3, currentPlayer.getCurrentTerritory(),
+                            currentPlayer.getCurrentTerritoryToAttack().getCurrentOccupant(), 2,
+                            currentPlayer.getCurrentTerritoryToAttack());
+                    battle.engage();
+                }
+
+                if (currentPlayer.getCurrentTerritoryToAttack().getTroopCount() == 0) {
+                    currentPlayer.getCurrentTerritoryToAttack().incrementTroopCount();
+                    currentPlayer.getCurrentTerritory().decrementTroopCount();
+                    currentPlayer.addTerritory(currentPlayer.getCurrentTerritoryToAttack());
+                    currentPlayer.getCurrentTerritoryToAttack().getCurrentOccupant().removeTerritory(currentPlayer.getCurrentTerritoryToAttack());
+                    currentPlayer.getCurrentTerritory().deSelect();
+                    currentPlayer.resetCurrentTerritory();
+                    currentPlayer.getCurrentTerritoryToAttack().deSelect();
+                    currentPlayer.resetCurrentTerritoryToAttack();
+                    currentPlayer.setTerritoryColors();
+                }
+            }
+
         });
 
         doneButton.setLayoutX(210);

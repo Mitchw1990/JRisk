@@ -1,7 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-
 /**
  * Created by Mitch on 4/29/2016.
  */
@@ -24,10 +20,8 @@ public class Battle {
         defender.setCurrentTerritory(defenderTerritory);
     }
 
-    public ArrayList engage() {
+    public void engage() {
         int attackerCasualties = 0, defenderCasualties = 0;
-        ArrayList result = new ArrayList();
-
         int[] attackerResults = attacker.rollDice(attackerDice),
                 defenderResults = defender.rollDice(defenderDice);
 
@@ -52,11 +46,8 @@ public class Battle {
 
         attacker.getCurrentTerritory().updateTroopCount(attackerCasualties * -1);
         defender.getCurrentTerritory().updateTroopCount(defenderCasualties * -1);
+
         attacker.resetPlayerDice();
         defender.resetPlayerDice();
-        attacker.resetCurrentTerritory();
-        defender.resetCurrentTerritory();
-
-        return result; //returns an arraylist with the winning player and casualties for the loser}
     }
 }

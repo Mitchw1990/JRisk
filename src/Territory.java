@@ -200,7 +200,6 @@ public class Territory extends Button {
         }
     }
 
-
     public void setColorAttack(){ this.setStyle("  -fx-padding: 1 5 5 5;\n" +
             "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
             "    -fx-background-radius: 10;\n" +
