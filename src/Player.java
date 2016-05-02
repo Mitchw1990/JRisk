@@ -12,10 +12,14 @@ public class Player {
     private ArrayList<Die> playerDies;
     private Territory currentTerritory;
     private Territory currentTerritoryToAttack;
+    private Territory currentTerritoryFortifyFrom;
+    private Territory currentTerritoryFortifyTo;
 
     public Player(String name){
         currentTerritory = null;
         currentTerritoryToAttack = null;
+        currentTerritoryFortifyFrom = null;
+        currentTerritoryFortifyTo = null;
         this.name = name;
         conqueredContinents = new ArrayList<Continent>();
         conqueredTerritories = new ArrayList<Territory>();
@@ -25,7 +29,6 @@ public class Player {
         playerDies.add(new Die());
     }
 
-    //Added attribute  String color and a function to Territory that allows you to change button color owned by Territory
 
     public int[]  rollDice(int numberOfDice){
 
@@ -74,6 +77,30 @@ public class Player {
 
     public void setCurrentTerritoryToAttack(Territory currentTerritoryToAttack) {
         this.currentTerritoryToAttack = currentTerritoryToAttack;
+    }
+
+    public Territory getCurrentTerritoryFortifyFrom() {
+        return currentTerritoryFortifyFrom;
+    }
+
+    public void setCurrentTerritoryFortifyFrom(Territory currentTerritoryFortifyFrom) {
+        this.currentTerritoryFortifyFrom = currentTerritoryFortifyFrom;
+    }
+
+    public void resetCurrentTerritoryFortifyFrom() {
+        currentTerritoryFortifyFrom = null;
+    }
+
+    public Territory getCurrentTerritoryFortifyTo() {
+        return currentTerritoryFortifyTo;
+    }
+
+    public void setCurrentTerritoryFortifyTo(Territory currentTerritoryFortifyTo) {
+        this.currentTerritoryFortifyTo = currentTerritoryFortifyTo;
+    }
+
+    public void resetCurrentTerritoryFortifyTo() {
+        currentTerritoryFortifyTo = null;
     }
 
     public void resetCurrentTerritoryToAttack(){

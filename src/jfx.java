@@ -118,16 +118,7 @@ public class jfx extends Application{
     public void start(Stage theStage)
     {
 
-        players = new ArrayList<Player>();
-        Player player = new Player("pimp");
-        Player player2 = new Player("stud");
 
-        players.add(player);
-        players.add(player2);
-
-        currentPlayer = player;
-
-        currentPhase = phaseType.PLACE_TROOPS;
 
 
         numberOfArmiesToPlaceLabel = new Label();
@@ -231,6 +222,7 @@ public class jfx extends Application{
             themesong.stop();
             quote.play(.2);
             theStage.centerOnScreen();
+            attack();
 
         });
         playButton.setStyle(" -fx-background-color: \n" +
@@ -532,8 +524,6 @@ public class jfx extends Application{
                 bayasabhad,qarth, redWaste,ghiscar};
         allTerritories.addAll(Arrays.asList(tArray));
 
-
-
         //init territories**********************
 
         //define borders**********************
@@ -615,13 +605,23 @@ public class jfx extends Application{
 
         theStage.show();
         themesong.setVolume(.3);
-
         themesong.play();
+
+        Player p1 = new Player("p1");
+        currentPlayer = p1;
+        currentPlayer.addTerritory(bayasabhad);
+
+        currentPlayer.addTerritory(ghiscar);
+        currentPlayer.addTerritory(lhazar);
+        currentPlayer.addTerritory(paintedMountains);
+        currentPlayer.addTerritory(qarth);
+
+
     }
 
     public void initTerritoryButton(Territory territory, int x, int y){
 
-        territory.setStyle("  -fx-padding: 1 5 5 5;\n" +
+        territory.setStyle(" -fx-padding: 1 5 5 5;\n" +
                 "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
                 "    -fx-background-radius: 10;\n" +
                 "    -fx-background-color: \n" +
@@ -654,7 +654,7 @@ public class jfx extends Application{
         territory.addEventHandler(MouseEvent.MOUSE_EXITED,
                 new EventHandler<MouseEvent>() {
                     @Override public void handle(MouseEvent e) {
-                        territory.setStyle("-fx-padding: 1 5 5 5;\n" +
+                        territory.setStyle(" -fx-padding: 1 5 5 5;\n" +
                                 "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
                                 "    -fx-background-radius: 10;\n" +
                                 "    -fx-background-color: \n" +
@@ -678,9 +678,11 @@ public class jfx extends Application{
 
             switch(currentPhase){
                 case PLACE_TROOPS:
-                    territory.incrementTroopCount();
-                    numberOfArmiesToRecieveCurrent--;
-                    numberOfArmiesToPlaceLabel.setText(String.valueOf(numberOfArmiesToRecieveCurrent));
+                    if(numberOfArmiesToRecieveCurrent > 0) {
+                        territory.incrementTroopCount();
+                        numberOfArmiesToRecieveCurrent--;
+                        updateNumberOfArmiesToPlaceLabel();
+                    }
                     break;
                 case ATTACK:
                     if(currentPlayer.ownsTerritory(territory) && currentPlayer.getCurrentTerritory() == null){
@@ -697,20 +699,22 @@ public class jfx extends Application{
                                 territory.deselectForAttack();
                         }
                     }
+                    break;
+                case FORTIFY:
+                    if(currentPlayer.getCurrentTerritoryFortifyFrom() == territory) {
+                        currentPlayer.resetCurrentTerritoryFortifyFrom();
+                    }
+                    if(currentPlayer.getCurrentTerritoryFortifyFrom() != null && currentPlayer.getCurrentTerritoryFortifyFrom() != territory){
+                        territory.incrementTroopCount();
+                        numberOfArmiesToRecieveCurrent--;
+                        updateNumberOfArmiesToPlaceLabel();
+
+                    }
+
             }
-
-
 
         });
         ((Group) boardScene.getRoot()).getChildren().add(territory);
-    }
-
-    public void incrementPlayerIndex(){
-
-        if(playerIndex + 1 < players.size() )
-            playerIndex = 0;
-        else
-            playerIndex++;
     }
 
     public void initControlButtons(){
@@ -752,9 +756,20 @@ public class jfx extends Application{
             AudioClip sword = new AudioClip(u.toString());
             sword.setVolume(999999999);
             sword.play();
-            currentPhase = phaseType.ATTACK;
-            endTurnButton.setVisible(true);
-            Attack();
+
+            switch(currentPhase){
+                case PLACE_TROOPS:
+                    currentPhase = phaseType.ATTACK;
+
+
+
+
+            }
+
+
+
+
+
         });
 
         endTurnButton.setLayoutX(210);
@@ -767,6 +782,71 @@ public class jfx extends Application{
             horn.play();
         });
     }
+
+    public void placeTroops(){
+        currentPhase = phaseType.PLACE_TROOPS;
+        int armies = currentPlayer.getNumberOfArmiesToRecieve();
+        currentPlayer.resetCurrentTerritory();
+        currentPlayer.resetCurrentTerritoryToAttack();
+        numberOfArmiesToRecieveCurrent = armies;
+        numberOfArmiesToPlaceLabel.setVisible(true);
+        doneButton.setVisible(true);
+
+        for(Territory t : allTerritories){
+            if(!currentPlayer.getConqueredTerritories().contains(t)){
+                t.setAvailable(false);
+            }
+        }
+    }
+
+    public void attack(){
+        currentPhase = phaseType.ATTACK;
+        numberOfArmiesToPlaceLabel.setVisible(false);
+        numberOfArmiesToRecieveCurrent = 0;
+    //    for(Territory t : allTerritories){
+    //        if(!t.canAttack(currentPlayer)){
+    //            t.setVisible(false);
+    //        }
+    //    }
+    }
+
+    public void fortify(){
+        for(Territory t : allTerritories){
+            if(!currentPlayer.getConqueredTerritories().contains(t)){
+                t.setAvailable(false);
+            }
+        }
+
+    }
+
+    public void setAllTerritoriesInvisible(){
+        for(Territory t : allTerritories){
+            t.setAvailable(false);
+        }
+    }
+
+    public void setAllTerritoriesVisible(){
+        for(Territory t : allTerritories){
+            t.setAvailable(true);
+        }
+    }
+
+    public void updateNumberOfArmiesToPlaceLabel(){
+        numberOfArmiesToPlaceLabel.setText(String.valueOf(numberOfArmiesToRecieveCurrent));
+    }
+
+    public void incrementPlayerIndex(){
+
+        if(playerIndex + 1 < players.size() )
+            playerIndex = 0;
+        else
+            playerIndex++;
+    }
+
+    public void setCurrentPlayer(){
+        currentPlayer = players.get(playerIndex);
+    }
+
     public void play(Player player){
 
         while(!gameOver) {
@@ -798,35 +878,5 @@ public class jfx extends Application{
         }
     }
 
-    public void setCurrentPlayer(){
-        currentPlayer = players.get(playerIndex);
-    }
-
-
-    public void Attack(){
-        numberOfArmiesToPlaceLabel.setVisible(false);
-        numberOfArmiesToRecieveCurrent = 0;
-        for(Territory t : allTerritories){
-            if(!t.canAttack(currentPlayer)){
-                t.setVisible(false);
-            }
-        }
-    }
-
-
-    public void placeTroops(){
-        int armies = currentPlayer.getNumberOfArmiesToRecieve();
-        currentPlayer.resetCurrentTerritory();
-        currentPlayer.resetCurrentTerritoryToAttack();
-        numberOfArmiesToRecieveCurrent = armies;
-        numberOfArmiesToPlaceLabel.setVisible(true);
-        doneButton.setVisible(true);
-
-        for(Territory t : allTerritories){
-            if(!currentPlayer.getConqueredTerritories().contains(t)){
-                t.setAvailable(false);
-            }
-        }
-    }
 
 }
