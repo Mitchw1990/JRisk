@@ -49,6 +49,12 @@ public class Territory extends Button {
         troopCount++;
         this.setText(String.valueOf(troopCount));
     }
+    public void decrementTroopCount(){
+        if(troopCount > 0) {
+            troopCount--;
+            this.setText(String.valueOf(troopCount));
+        }
+    }
 
     public void updateTroopCount(int troops){//can update with negative or positive integer for troops
         if(troopCount + troops >= 0){

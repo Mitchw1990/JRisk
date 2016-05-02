@@ -690,20 +690,59 @@ public class jfx extends Application{
                 case ATTACK:
                    if(currentPlayer.ownsTerritory(territory)){
                        if(currentPlayer.getCurrentTerritory() != null){
-                           if(currentPlayer.getCurrentTerritory() == territory)
+                           if(currentPlayer.getCurrentTerritory() == territory) {
                                currentPlayer.resetCurrentTerritory();
-                       }else
+                               territory.deSelect();
+                           }
+                       }else {
                            currentPlayer.setCurrentTerritory(territory);
+                           territory.select();
+                       }
                    }
                     if(territory.canAttack(currentPlayer) && currentPlayer.getCurrentTerritory() != null){
                         if(currentPlayer.getCurrentTerritoryToAttack() != null){
-                            if(currentPlayer.getCurrentTerritoryToAttack() == territory)
+                            if(currentPlayer.getCurrentTerritoryToAttack() == territory) {
                                 currentPlayer.resetCurrentTerritoryToAttack();
-                        }else
+                                territory.deselectForAttack();
+                            }
+                        }else {
                             currentPlayer.setCurrentTerritoryToAttack(territory);
+                            territory.selectForAttack();
+                        }
                     }
                     break;
                 case FORTIFY:
+
+                    if(currentPlayer.ownsTerritory(territory)){
+                        if(currentPlayer.getCurrentTerritory() != null){
+                            if(currentPlayer.getCurrentTerritory() == territory){
+                                currentPlayer.resetCurrentTerritory();
+                                currentPlayer.getCurrentTerritory().deSelect();
+                            }else{
+                                if(currentPlayer.getCurrentTerritory().sharesBorder(territory)){
+                                    if(currentPlayer.getCurrentTerritory().getTroopCount() > 1){
+                                        currentPlayer.getCurrentTerritory().decrementTroopCount();
+                                        territory.incrementTroopCount();
+                                        if(currentPlayer.getCurrentTerritory().getTroopCount() < 2){
+                                            currentPlayer.resetCurrentTerritory();
+                                            currentPlayer.getCurrentTerritory().deSelect();
+                                        }
+                                    }
+                                }else {
+                                    String tName = territory.getName();
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setTitle("Fortify");
+                                    alert.setHeaderText("'I'm afraid " + tName + " is out of reach, my lord'");
+                                    alert.setContentText("Only territories which share a border with " +
+                                            currentPlayer.getCurrentTerritory().getName() + " may be fortified.");
+                                    alert.showAndWait();
+                                }
+                            }
+                        }else{
+                            currentPlayer.setCurrentTerritory(territory);
+                            territory.select();
+                        }
+                    }
                     break;
             }
         });
