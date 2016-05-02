@@ -51,4 +51,12 @@ public class Continent {
             name = territory.getCurrentOccupant().getName();
         }
     }
+
+    public Player getRuler() {
+        return ruler;
+    }
+
+    public void setRuler(Player ruler) {
+        this.ruler = ruler;
+    }
 }

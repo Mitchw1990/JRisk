@@ -93,9 +93,6 @@ public class Territory extends Button {
         return troopCount;
     }
 
-    public void setColor(String color){
-        this.setStyle("-fx-font: 0 arial; -fx-base: " + color + ";");
-    }
 
     public void setTroopCount(int troopCount) {
         this.troopCount = troopCount;
@@ -103,6 +100,7 @@ public class Territory extends Button {
     }
 
     public void setColorSelected() {
+
         this.setStyle("-fx-padding: 15 15 15 15;\n" +
                 "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
                 "    -fx-background-radius: 15;\n" +
@@ -117,19 +115,91 @@ public class Territory extends Button {
     }
 
 
-    public void setColorStandard(){
-        this.setStyle("  -fx-padding: 1 5 5 5;\n" +
-                "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
-                "    -fx-background-radius: 10;\n" +
-                "    -fx-background-color: \n" +
-                "        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),\n" +
-                "        #9d4024,\n" +
-                "        #d86e3a,\n" +
-                "        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);\n" +
-                "    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\n" +
-                "    -fx-font-weight: bold;\n" +
-                "    -fx-font-size: 1.1em;");
+    public void setColorStandard() {
+        String playerName = currentOccupant.getName();
+
+
+        if (playerName == "Targaryen") {
+            this.setStyle("  -fx-padding: 1 5 5 5;\n" +
+                    "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
+                    "    -fx-background-radius: 10;\n" +
+                    "    -fx-background-color: \n" +
+                    "        linear-gradient(from 0% 93% to 0% 100%, rgba(197, 102, 25, 0.82) 0%, #7a390e 100%),\n" +
+                    "        #ad5014,\n" +
+                    "        #944c13,\n" +
+                    "        radial-gradient(center 50% 50%, radius 100%, #944213, #843d0f);\n" +
+                    "    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\n" +
+                    "    -fx-font-weight: bold;\n" +
+                    "    -fx-font-size: 1.1em;");
+        } else if (playerName == "Lannister") {
+
+            this.setStyle("  -fx-padding: 1 5 5 5;\n" +
+                    "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
+                    "    -fx-background-radius: 10;\n" +
+                    "    -fx-background-color: \n" +
+                    "        linear-gradient(from 0% 93% to 0% 100%, #d53e18 0%, #ac3814 100%),\n" +
+                    "        #f34b34,\n" +
+                    "        #d8663f,\n" +
+                    "        radial-gradient(center 50% 50%, radius 100%, #d82f1b, #992b19);\n" +
+                    "    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\n" +
+                    "    -fx-font-weight: bold;\n" +
+                    "    -fx-font-size: 1.1em;");
+
+        } else if (playerName == "Baratheon") {
+
+            this.setStyle("  -fx-padding: 1 5 5 5;\n" +
+                    "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
+                    "    -fx-background-radius: 10;\n" +
+                    "    -fx-background-color: \n" +
+                    "        linear-gradient(from 0% 93% to 0% 100%, #fe7b0d 0%, #b54a17 100%),\n" +
+                    "        #d16325,\n" +
+                    "        #fe7b0d,\n" +
+                    "        radial-gradient(center 50% 50%, radius 100%, #f67b1d, #b1480a);\n" +
+                    "    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\n" +
+                    "    -fx-font-weight: bold;\n" +
+                    "    -fx-font-size: 1.1em;");
+        } else if (playerName == "Greyjoy") {
+
+            this.setStyle("  -fx-padding: 1 5 5 5;\n" +
+                    "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
+                    "    -fx-background-radius: 10;\n" +
+                    "    -fx-background-color: \n" +
+                    "        linear-gradient(from 0% 93% to 0% 100%, #8c38c8 0%, #5a2b71 100%),\n" +
+                    "        #563575,\n" +
+                    "        #aa48d8,\n" +
+                    "        radial-gradient(center 50% 50%, radius 100%, #ba52eb, #5a10aa);\n" +
+                    "    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\n" +
+                    "    -fx-font-weight: bold;\n" +
+                    "    -fx-font-size: 1.1em;");
+        } else if (playerName == "Martel") {
+
+            this.setStyle("  -fx-padding: 1 5 5 5;\n" +
+                    "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
+                    "    -fx-background-radius: 10;\n" +
+                    "    -fx-background-color: \n" +
+                    "        linear-gradient(from 0% 93% to 0% 100%, #c02b94 0%, #9f2379 100%),\n" +
+                    "        #9d386e,\n" +
+                    "        #d855a4,\n" +
+                    "        radial-gradient(center 50% 50%, radius 100%, #d855a4, #b0447f);\n" +
+                    "    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\n" +
+                    "    -fx-font-weight: bold;\n" +
+                    "    -fx-font-size: 1.1em;");
+        }else if (playerName == "Tully") {
+
+            this.setStyle("  -fx-padding: 1 5 5 5;\n" +
+                    "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
+                    "    -fx-background-radius: 10;\n" +
+                    "    -fx-background-color: \n" +
+                    "        linear-gradient(from 0% 93% to 0% 100%, #5dbcae 0%, #418982 100%),\n" +
+                    "        #388976,\n" +
+                    "        #54bc9b,\n" +
+                    "        radial-gradient(center 50% 50%, radius 100%, #6cd8bd, #498c6f);\n" +
+                    "    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\n" +
+                    "    -fx-font-weight: bold;\n" +
+                    "    -fx-font-size: 1.1em;");
+        }
     }
+
 
     public void setColorAttack(){ this.setStyle("  -fx-padding: 1 5 5 5;\n" +
             "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +

@@ -2,7 +2,6 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -10,7 +9,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -118,16 +116,10 @@ public class jfx extends Application{
     @Override
     public void start(Stage theStage)
     {
-
-
-
-
-        numberOfArmiesToPlaceLabel = new Label();
-
-
         numberOfArmiesToRecieveCurrent = 0;
         playerIndex = 0;
 
+        numberOfArmiesToPlaceLabel = new Label();
         URL url = getClass().getResource("got.mp3");
         AudioClip themesong = new AudioClip(url.toString());
 
@@ -223,12 +215,9 @@ public class jfx extends Application{
             themesong.stop();
             quote.play(.2);
             theStage.centerOnScreen();
-
-
-
-
-
+            testGame();
         });
+
         playButton.setStyle(" -fx-background-color: \n" +
                 "        linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),\n" +
                 "        linear-gradient(#020b02, #3a3a3a),\n" +
@@ -275,7 +264,7 @@ public class jfx extends Application{
                         "House Martel",
                         "House Tully"
                 );
-        ObservableList<String> numberOfPlayers =
+        ObservableList<String> numberOfPlayersList =
                 FXCollections.observableArrayList(
                         "2",
                         "3",
@@ -303,7 +292,7 @@ public class jfx extends Application{
         familyCombo.setLayoutX(50);
         familyCombo.setPrefSize(600,25);
 
-        ComboBox numberPlayersCombo = new ComboBox(numberOfPlayers);
+        ComboBox numberPlayersCombo = new ComboBox(numberOfPlayersList);
         numberPlayersCombo.setStyle(" -fx-background-color: \n" +
                 "        linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),\n" +
                 "        linear-gradient(#020b02, #3a3a3a),\n" +
@@ -607,20 +596,43 @@ public class jfx extends Application{
                 samyrianHills, slaversBay);
         //init continents **********************
 
+        //****************testGame********************
+
+        //**************endTestGame*****************
+
+
         theStage.show();
         themesong.setVolume(.3);
         themesong.play();
+    }
 
-        Player p1 = new Player("p1");
-        currentPlayer = p1;
-        currentPlayer.addTerritory(bayasabhad);
+    public void testGame(){
+        Player player1 = new Player("Tully");
+        Player player2 = new Player("Martel");
 
-        currentPlayer.addTerritory(ghiscar);
-        currentPlayer.addTerritory(lhazar);
-        currentPlayer.addTerritory(paintedMountains);
-        currentPlayer.addTerritory(qarth);
+        Territory[] terrPlayerOne = new Territory[] {bayasabhad, ghiscar, lhazar, paintedMountains, qarth, redWaste,
+                samyrianHills, slaversBay};
 
+        Territory[] terrPlayerTwo = new Territory[] {abandonedLand, easternGrassSea, jbben,
+                kingdomsOfTheIfeqevron, parchedFields, realmsOfShogran, sarnor,  theFootprint,
+                vaesDothrak, westernGrassSea};
 
+        player1.setConqueredTerritories(terrPlayerOne);
+        player2.setConqueredTerritories(terrPlayerTwo);
+
+        player1.addContinent(Ghiscar);
+        player2.addContinent(theDothrakiSea);
+
+        player1.setTerritoryColors();
+        player2.setTerritoryColors();
+
+        players = new ArrayList<>();
+        players.add(player1);
+        players.add(player2);
+        numberOfPlayers = 2;
+        setCurrentPlayer();
+
+        setBoard(phaseType.PLACE_TROOPS);
     }
 
     public void initTerritoryButton(Territory territory, int x, int y){
@@ -638,39 +650,39 @@ public class jfx extends Application{
                 "    -fx-font-size: 1.1em;");
 
 
-        territory.addEventHandler(MouseEvent.MOUSE_ENTERED,
-                new EventHandler<MouseEvent>() {
-                    @Override public void handle(MouseEvent e) {
-                        territory.setStyle("  -fx-padding: 1 5 5 5;\n" +
-                                "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
-                                "    -fx-background-radius: 10;\n" +
-                                "    -fx-background-color: \n" +
-                                "        linear-gradient(from 0% 93% to 0% 100%, #02a300 0%, #34fa0c 100%),\n" +
-                                "        #1d9d33,\n" +
-                                "        #32d836,\n" +
-                                "        radial-gradient(center 50% 50%, radius 100%, #35d8ca, #c54e2c);\n" +
-                                "    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\n" +
-                                "    -fx-font-weight: bold;\n" +
-                                "    -fx-font-size: 1.1em;");
-                    }
-                });
-
-        territory.addEventHandler(MouseEvent.MOUSE_EXITED,
-                new EventHandler<MouseEvent>() {
-                    @Override public void handle(MouseEvent e) {
-                        territory.setStyle(" -fx-padding: 1 5 5 5;\n" +
-                                "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
-                                "    -fx-background-radius: 10;\n" +
-                                "    -fx-background-color: \n" +
-                                "        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),\n" +
-                                "        #9d4024,\n" +
-                                "        #d86e3a,\n" +
-                                "        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);\n" +
-                                "    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\n" +
-                                "    -fx-font-weight: bold;\n" +
-                                "    -fx-font-size: 1.1em;");
-                    }
-                });
+//        territory.addEventHandler(MouseEvent.MOUSE_ENTERED,
+//                new EventHandler<MouseEvent>() {
+//                    @Override public void handle(MouseEvent e) {
+//                        territory.setStyle("  -fx-padding: 1 5 5 5;\n" +
+//                                "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
+//                                "    -fx-background-radius: 10;\n" +
+//                                "    -fx-background-color: \n" +
+//                                "        linear-gradient(from 0% 93% to 0% 100%, #02a300 0%, #34fa0c 100%),\n" +
+//                                "        #1d9d33,\n" +
+//                                "        #32d836,\n" +
+//                                "        radial-gradient(center 50% 50%, radius 100%, #35d8ca, #c54e2c);\n" +
+//                                "    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\n" +
+//                                "    -fx-font-weight: bold;\n" +
+//                                "    -fx-font-size: 1.1em;");
+//                    }
+//                });
+//
+//        territory.addEventHandler(MouseEvent.MOUSE_EXITED,
+//                new EventHandler<MouseEvent>() {
+//                    @Override public void handle(MouseEvent e) {
+//                        territory.setStyle(" -fx-padding: 1 5 5 5;\n" +
+//                                "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
+//                                "    -fx-background-radius: 10;\n" +
+//                                "    -fx-background-color: \n" +
+//                                "        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),\n" +
+//                                "        #9d4024,\n" +
+//                                "        #d86e3a,\n" +
+//                                "        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);\n" +
+//                                "    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\n" +
+//                                "    -fx-font-weight: bold;\n" +
+//                                "    -fx-font-size: 1.1em;");
+//                    }
+//                });
 
         territory.setLayoutX(x);
         territory.setLayoutY(y);
@@ -752,6 +764,7 @@ public class jfx extends Application{
     public void initControlButtons(){
         rollButton = new Button("Done");
         doneButton = new Button("Roll");
+        chargeButton = new Button("Charge");
 
         rollButton.setStyle("-fx-background-color: \n" +
                 "        #090a0c,\n" +
@@ -850,7 +863,8 @@ public class jfx extends Application{
         currentPhase = phase;
         currentPlayer.resetAllSelections();
         for(Territory t : allTerritories){
-            t.setColorStandard();
+            if(t.getCurrentOccupant() != null)
+                t.setColorStandard();
         }
 
         switch(currentPhase){

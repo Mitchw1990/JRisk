@@ -8,7 +8,7 @@ public class Player {
 
     private ArrayList<Territory> conqueredTerritories;
     private ArrayList<Continent> conqueredContinents;
-    private String name, playerColor;
+    private String name;
     private ArrayList<Die> playerDies;
     private Territory currentTerritory;
     private Territory currentTerritoryToAttack;
@@ -45,9 +45,20 @@ public class Player {
 
     public void addTerritory(Territory territory){
         conqueredTerritories.add(territory);
+        territory.setCurrentOccupant(this);
     }
+
     public void addContinent(Continent continent){
         conqueredContinents.add(continent);
+        continent.setRuler(this);
+    }
+
+    public void removeTerritory(Territory territory){
+        conqueredTerritories.remove(territory);
+    }
+
+    public void removeContinent(Continent continent){
+        conqueredContinents.remove(continent);
     }
 
     public String getName() {
@@ -108,14 +119,6 @@ public class Player {
         conqueredTerritories.get(index).updateTroopCount(troops);
     }
 
-    public String getPlayerColor() {
-        return playerColor;
-    }
-
-    public void setPlayerColor(String color) {
-        this.playerColor = color;
-    }
-
     public ArrayList<Territory> getConqueredTerritories() {
         return conqueredTerritories;
     }
@@ -154,6 +157,24 @@ public class Player {
         resetCurrentTerritory();
     }
 
+    public void setConqueredTerritories(Territory[] territories) {
+        conqueredTerritories.addAll(Arrays.asList(territories));
+        for(Territory t : conqueredTerritories){
+            t.setCurrentOccupant(this);
+        }
+    }
 
+    public void setConqueredContinents(Continent[] continents) {
+        conqueredContinents.addAll(Arrays.asList(continents));
+        for(Continent c : conqueredContinents){
+            c.setRuler(this);
+        }
+    }
+
+    public void setTerritoryColors(){
+        for(Territory t : conqueredTerritories){
+            t.setColorStandard();
+        }
+    }
 }
 
