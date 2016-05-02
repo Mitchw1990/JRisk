@@ -682,41 +682,30 @@ public class jfx extends Application{
 
             switch(currentPhase){
                 case PLACE_TROOPS:
-                    if(numberOfArmiesToRecieveCurrent > 0) {
-                        territory.incrementTroopCount();
-                        numberOfArmiesToRecieveCurrent--;
-                        updateNumberOfArmiesToPlaceLabel();
-                    }
+                    if(currentPlayer.ownsTerritory(territory) && numberOfArmiesToRecieveCurrent > 0){
+                            territory.incrementTroopCount();
+                            numberOfArmiesToRecieveCurrent--;
+                        }
                     break;
                 case ATTACK:
-                    if(currentPlayer.ownsTerritory(territory) && currentPlayer.getCurrentTerritory() == null){
-                        territory.select();
-                    }else if(currentPlayer.getCurrentTerritory() == territory){
-                        currentPlayer.resetCurrentTerritory();
-                        territory.deSelect();
-                    }
-                    if(currentPlayer.getCurrentTerritory() != null){
-                        if(territory.canAttack(currentPlayer)){
-                            if(currentPlayer.getCurrentTerritoryToAttack() == null)
-                                territory.selectForAttack();
-                            else if(currentPlayer.getCurrentTerritoryToAttack() != null && currentPlayer.getCurrentTerritoryToAttack() == territory)
-                                territory.deselectForAttack();
-                        }
+                   if(currentPlayer.ownsTerritory(territory)){
+                       if(currentPlayer.getCurrentTerritory() != null){
+                           if(currentPlayer.getCurrentTerritory() == territory)
+                               currentPlayer.resetCurrentTerritory();
+                       }else
+                           currentPlayer.setCurrentTerritory(territory);
+                   }
+                    if(territory.canAttack(currentPlayer) && currentPlayer.getCurrentTerritory() != null){
+                        if(currentPlayer.getCurrentTerritoryToAttack() != null){
+                            if(currentPlayer.getCurrentTerritoryToAttack() == territory)
+                                currentPlayer.resetCurrentTerritoryToAttack();
+                        }else
+                            currentPlayer.setCurrentTerritoryToAttack(territory);
                     }
                     break;
                 case FORTIFY:
-                    if(currentPlayer.getCurrentTerritoryFortifyFrom() == territory) {
-                        currentPlayer.resetCurrentTerritoryFortifyFrom();
-                    }
-                    if(currentPlayer.getCurrentTerritoryFortifyFrom() != null && currentPlayer.getCurrentTerritoryFortifyFrom() != territory){
-                        territory.incrementTroopCount();
-                        numberOfArmiesToRecieveCurrent--;
-                        updateNumberOfArmiesToPlaceLabel();
-
-                    }
-
+                    break;
             }
-
         });
         ((Group) boardScene.getRoot()).getChildren().add(territory);
     }
@@ -801,17 +790,17 @@ public class jfx extends Application{
                         alert.setContentText("All armies must be placed to proceed!");
                         alert.showAndWait();
                     }
-
-
+                    break;
                 case ATTACK:
                     setBoard(phaseType.FORTIFY);
+                    break;
                 case FORTIFY:
                     setBoard(phaseType.PLACE_TROOPS);
                     moveToNextPlayer();
+                    break;
+                default:
+                    System.out.println("Error: Phase not set.");
             }
-
-
-
         });
     }
 
@@ -899,35 +888,5 @@ public class jfx extends Application{
     public void moveToNextPlayer(){
         incrementPlayerIndex();
         setCurrentPlayer();
-    }
-    public void play(Player player){
-
-        while(!gameOver) {
-            setCurrentPlayer();
-
-
-            currentPhase = phaseType.PLACE_TROOPS;
-
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Choose Action");
-            alert.setHeaderText("Awaiting your decision, my lord.");
-            alert.setContentText("Attack or fortify?");
-
-            ButtonType attack = new ButtonType("Attack");
-            ButtonType fortify = new ButtonType("Fortify");
-
-            alert.getButtonTypes().setAll(attack, fortify);
-
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == attack) {
-                currentPhase = phaseType.ATTACK;
-            } else {
-                currentPhase = phaseType.FORTIFY;
-            }
-
-
-
-            incrementPlayerIndex();
-        }
     }
 }

@@ -12,13 +12,11 @@ public class Player {
     private ArrayList<Die> playerDies;
     private Territory currentTerritory;
     private Territory currentTerritoryToAttack;
-    private Territory currentTerritoryFortifyFrom;
     private Territory currentTerritoryFortifyTo;
 
     public Player(String name){
         currentTerritory = null;
         currentTerritoryToAttack = null;
-        currentTerritoryFortifyFrom = null;
         currentTerritoryFortifyTo = null;
         this.name = name;
         conqueredContinents = new ArrayList<Continent>();
@@ -77,18 +75,6 @@ public class Player {
 
     public void setCurrentTerritoryToAttack(Territory currentTerritoryToAttack) {
         this.currentTerritoryToAttack = currentTerritoryToAttack;
-    }
-
-    public Territory getCurrentTerritoryFortifyFrom() {
-        return currentTerritoryFortifyFrom;
-    }
-
-    public void setCurrentTerritoryFortifyFrom(Territory currentTerritoryFortifyFrom) {
-        this.currentTerritoryFortifyFrom = currentTerritoryFortifyFrom;
-    }
-
-    public void resetCurrentTerritoryFortifyFrom() {
-        currentTerritoryFortifyFrom = null;
     }
 
     public Territory getCurrentTerritoryFortifyTo() {
@@ -164,7 +150,6 @@ public class Player {
 
     public void resetAllSelections(){
         resetCurrentTerritoryFortifyTo();
-        resetCurrentTerritoryFortifyFrom();
         resetCurrentTerritoryToAttack();
         resetCurrentTerritory();
     }
