@@ -35,6 +35,11 @@ public class jfx extends Application{
     private Button rollButton;
     private Button doneButton;
     private Button chargeButton;
+    private Button plusButton;
+    private Button minusButton;
+    private Button checkButton;
+    private boolean buttonsActive;
+
     private DiceAnimation da;
     private DiceAnimation da2;
     private DiceAnimation da3;
@@ -119,6 +124,7 @@ public class jfx extends Application{
     {
         numberOfArmiesToRecieveCurrent = 0;
         playerIndex = 0;
+        buttonsActive = true;
 
         URL url = getClass().getResource("got.mp3");
         AudioClip themesong = new AudioClip(url.toString());
@@ -161,8 +167,6 @@ public class jfx extends Application{
         logo.setFitWidth(600);
         logo.setFitHeight(100);
         logo.setLayoutX(50);
-
-
 
         Label familyLabel = new Label("Family");
         familyLabel.setLayoutY(95);
@@ -209,7 +213,8 @@ public class jfx extends Application{
         playButton.setPrefSize(600,25);
         playButton.setOnAction(e ->{
             initControlButtons();
-            ((Group) boardScene.getRoot()).getChildren().addAll(rollButton, doneButton, numberOfArmiesToPlaceLabel, bannerView);
+            ((Group) boardScene.getRoot()).getChildren().addAll(rollButton, doneButton, numberOfArmiesToPlaceLabel, bannerView, checkButton,
+                    plusButton, minusButton);
             doneButton.setVisible(true);
             rollButton.setVisible(true);
             theStage.setScene(boardScene);
@@ -358,153 +363,249 @@ public class jfx extends Application{
         //init territories**********************
         theWall = new Territory("theWall");
         initTerritoryButton(theWall, 320, 95);
+        theWall.setTroopCount(5);
 
         skagos = new Territory("skagos");
         initTerritoryButton(skagos, 390, 95);
+        skagos.setTroopCount(5);
 
         theGrevCliffs = new Territory("theGrevCliffs");
         initTerritoryButton(theGrevCliffs, 360, 160);
+        theGrevCliffs.setTroopCount(5);
+
 
         winterfell = new Territory("winterfell");
         initTerritoryButton(winterfell, 300, 230);
+        winterfell.setTroopCount(5);
+
 
         theNeck = new Territory("theNeck");
         initTerritoryButton(theNeck, 240, 300);
+        theNeck.setTroopCount(5);
+
 
         theFlintCliff = new Territory("theFlintCliff");
         initTerritoryButton(theFlintCliff, 190, 335);
+        theFlintCliff.setTroopCount(5);
+
 
         theRills = new Territory("theRills");
         initTerritoryButton(theRills, 140, 260);
+        theRills.setTroopCount(5);
+
 
         wolfsrvood = new Territory("wolfsrvood");
         initTerritoryButton(wolfsrvood, 180, 190);
+        wolfsrvood.setTroopCount(5);
 
         theVale = new Territory("theVale");
         initTerritoryButton(theVale, 320, 420);
+        theVale.setTroopCount(5);
 
         crorvnlands = new Territory("crorvnlands");
         initTerritoryButton(crorvnlands, 300, 495);
+        crorvnlands.setTroopCount(5);
+
 
         westerlands = new Territory("westerlands");
         initTerritoryButton(westerlands, 170, 500);
+        westerlands.setTroopCount(5);
+
 
         riverlands = new Territory("riverlands");
         initTerritoryButton(riverlands, 140, 425);
+        riverlands.setTroopCount(5);
+
 
         ironIslands = new Territory("ironIslands");
         initTerritoryButton(ironIslands, 80, 395);
+        ironIslands.setTroopCount(5);
+
 
         theReach = new Territory("theReach");
         initTerritoryButton(theReach, 250, 515);
+        theReach.setTroopCount(5);
+
 
         stormlands = new Territory("stormlands");
         initTerritoryButton(stormlands, 320, 580);
+        stormlands.setTroopCount(5);
+
 
         dorne = new Territory("dorne");
         initTerritoryButton(dorne, 320, 680);
+        dorne.setTroopCount(5);
+
 
         redMountains = new Territory("redMountains");
         initTerritoryButton(redMountains, 205, 655);
+        redMountains.setTroopCount(5);
+
 
         whisperingSound = new Territory("whisperingSound");
         initTerritoryButton(whisperingSound, 145, 655);
+        whisperingSound.setTroopCount(5);
+
 
         shieldLands = new Territory("shieldLands");
         initTerritoryButton(shieldLands, 145, 580);
+        shieldLands.setTroopCount(5);
+
 
         braavosianCoastland = new Territory("braavosianCoastland");
         initTerritoryButton(braavosianCoastland, 525, 370);
+        braavosianCoastland.setTroopCount(5);
+
 
         hillsOfNorvos = new Territory("hillsOfNorvos");
         initTerritoryButton(hillsOfNorvos, 595, 465);
+        hillsOfNorvos.setTroopCount(5);
+
 
         qhoyneLands = new Territory("qhoyneLands");
         initTerritoryButton(qhoyneLands, 655, 505);
+        qhoyneLands.setTroopCount(5);
+
 
         forrestOfQohor = new Territory("forrestOfQohor");
         initTerritoryButton(forrestOfQohor, 770, 490);
+        forrestOfQohor.setTroopCount(5);
+
 
         theGoldenFields = new Territory("theGoldenFields");
         initTerritoryButton(theGoldenFields, 595, 600);
+        theGoldenFields.setTroopCount(5);
+
 
         theDisputedLands = new Territory("theDisputedLands");
         initTerritoryButton(theDisputedLands, 595, 670);
+        theDisputedLands.setTroopCount(5);
+
 
         andalos = new Territory("andalos");
         initTerritoryButton(andalos, 545, 495);
+        andalos.setTroopCount(5);
+
 
         rhoynianVeld = new Territory("rhoynianVeld");
         initTerritoryButton(rhoynianVeld, 715, 565);
+        rhoynianVeld.setTroopCount(5);
+
 
         westernWaste = new Territory("westernWaste");
         initTerritoryButton(westernWaste, 770, 620);
+        westernWaste.setTroopCount(5);
+
 
         seaOfsighs = new Territory("seaOfsighs");
         initTerritoryButton(seaOfsighs, 820, 640);
+        seaOfsighs.setTroopCount(5);
+
 
         elyria = new Territory("elyria");
         initTerritoryButton(elyria, 840, 710);
+        elyria.setTroopCount(5);
+
 
         valyria = new Territory("valyria");
         initTerritoryButton(valyria, 815, 805);
+        valyria.setTroopCount(5);
+
 
         sarMell = new Territory("sarMell");
         initTerritoryButton(sarMell, 710, 665);
+        sarMell.setTroopCount(5);
+
 
         sarnor = new Territory("sarnor");
         initTerritoryButton(sarnor, 860, 430);
+        sarnor.setTroopCount(5);
+
 
         abandonedLand = new Territory("abandonedLand");
         initTerritoryButton(abandonedLand, 970, 470);
+        abandonedLand.setTroopCount(5);
+
 
         kingdomsOfTheIfeqevron = new Territory("kingdomsOfTheIfeqevron");
         initTerritoryButton(kingdomsOfTheIfeqevron, 1095, 485);
+        kingdomsOfTheIfeqevron.setTroopCount(5);
+
 
         theFootprint = new Territory("theFootprint");
         initTerritoryButton(theFootprint, 1200, 395);
+        theFootprint.setTroopCount(5);
+
 
         jbben = new Territory("theFootprint");
         initTerritoryButton(jbben, 1200, 215);
+        jbben.setTroopCount(5);
+
 
         realmsOfShogran = new Territory("realmsOfShogran");
         initTerritoryButton(realmsOfShogran, 1360, 370);
+        realmsOfShogran.setTroopCount(5);
+
 
         vaesDothrak = new Territory("vaesDothrak");
         initTerritoryButton(vaesDothrak, 1240, 465);
+        vaesDothrak.setTroopCount(5);
+
 
         easternGrassSea = new Territory("easternGrassSea");
         initTerritoryButton(easternGrassSea, 1190, 550);
+        easternGrassSea.setTroopCount(5);
+
 
         westernGrassSea = new Territory("westernGrassSea");
         initTerritoryButton(westernGrassSea, 1030, 540);
+        westernGrassSea.setTroopCount(5);
+
 
         parchedFields = new Territory("parchedFields");
         initTerritoryButton(parchedFields, 890, 560);
+        parchedFields.setTroopCount(5);
+
 
         paintedMountains = new Territory("paintedMountains");
         initTerritoryButton(paintedMountains, 890, 610);
+        paintedMountains.setTroopCount(5);
+
 
         slaversBay = new Territory("slaversBay");
         initTerritoryButton(slaversBay, 1040, 690);
+        slaversBay.setTroopCount(5);
+
 
         lhazar = new Territory("lhazar");
         initTerritoryButton(lhazar, 1110, 650);
+        lhazar.setTroopCount(5);
+
 
         samyrianHills = new Territory("samyrianHills");
         initTerritoryButton(samyrianHills, 1280, 595);
+        samyrianHills.setTroopCount(5);
+
 
         bayasabhad = new Territory("bayasabhad");
         initTerritoryButton(bayasabhad, 1285, 675);
+        bayasabhad.setTroopCount(5);
+
 
         qarth = new Territory("qarth");
         initTerritoryButton(qarth, 1285, 745);
+        qarth.setTroopCount(5);
+
 
         redWaste = new Territory("redWaste");
         initTerritoryButton(redWaste, 1170, 735);
+        redWaste.setTroopCount(5);
+
 
         ghiscar = new Territory("ghiscar");
         initTerritoryButton(ghiscar, 1060, 785);
+        ghiscar.setTroopCount(5);
+
 
         allTerritories = new ArrayList<Territory>();
         Territory[] tArray = new Territory[] {
@@ -719,90 +820,141 @@ public class jfx extends Application{
         territory.setLayoutX(x);
         territory.setLayoutY(y);
         territory.setOnAction(e -> {
-            System.out.println("clicked");
             URL swordClash = getClass().getResource("swordClash.mp3");
             AudioClip swords = new AudioClip(swordClash.toString());
             swords.play();
-
-            switch(currentPhase){
-                case PLACE_TROOPS:
-                    if(currentPlayer.ownsTerritory(territory) && numberOfArmiesToRecieveCurrent > 0){
+            System.out.println(territory.getCurrentOccupant().getName());
+            if(buttonsActive) {
+                switch (currentPhase) {
+                    case PLACE_TROOPS:
+                        if (currentPlayer.ownsTerritory(territory) && numberOfArmiesToRecieveCurrent > 0) {
                             territory.incrementTroopCount();
                             numberOfArmiesToRecieveCurrent--;
                             updateNumberOfArmiesToPlaceLabel();
                         }
-                    break;
-                case ATTACK:
-                   if(currentPlayer.ownsTerritory(territory)){
-                       if(currentPlayer.getCurrentTerritory() != null){
-                           if(currentPlayer.getCurrentTerritory() == territory) {
-                               territory.deSelect();
-                               currentPlayer.resetCurrentTerritory();
-                               if(currentPlayer.getCurrentTerritoryToAttack() != null){
-                                   currentPlayer.getCurrentTerritoryToAttack().deSelect();
-                                   currentPlayer.resetCurrentTerritoryToAttack();
-                               }
-                           }
-                       }else {
-                           currentPlayer.setCurrentTerritory(territory);
-                           territory.select();
-                       }
-                   }
-                    if(territory.canAttack(currentPlayer) && currentPlayer.getCurrentTerritory() != null){
-                        if(currentPlayer.getCurrentTerritoryToAttack() != null){
-                            if(currentPlayer.getCurrentTerritoryToAttack() == territory) {
-                                territory.deselectForAttack();
-                                currentPlayer.resetCurrentTerritoryToAttack();
-                            }
-                        }else {
-                            currentPlayer.setCurrentTerritoryToAttack(territory);
-                            territory.selectForAttack();
-                        }
-                    }
-                    break;
-                case FORTIFY:
+                        break;
+                    case ATTACK:
 
-                    if(currentPlayer.ownsTerritory(territory)){
-                        if(currentPlayer.getCurrentTerritory() != null){
-                            if(currentPlayer.getCurrentTerritory() == territory){
-                                currentPlayer.getCurrentTerritory().deSelect();
-                                currentPlayer.resetCurrentTerritory();
-                                if(currentPlayer.getCurrentTerritoryFortifyTo() != null){
-                                    currentPlayer.getCurrentTerritoryFortifyTo().deSelect();
-                                    currentPlayer.resetCurrentTerritoryFortifyTo();
-                                }
-                            }else{
-                                if(currentPlayer.getCurrentTerritory().sharesBorder(territory)){
-                                    if(currentPlayer.getCurrentTerritory().getTroopCount() > 1){
-                                        currentPlayer.getCurrentTerritory().decrementTroopCount();
-                                        territory.incrementTroopCount();
-                                        if(currentPlayer.getCurrentTerritory().getTroopCount() < 2){
-                                            currentPlayer.getCurrentTerritory().deSelect();
-                                            currentPlayer.resetCurrentTerritory();
-                                        }
+                        if (currentPlayer.getConqueredTerritories().contains(territory)) {
+                            if (currentPlayer.getCurrentTerritory() != null) {
+                                if (currentPlayer.getCurrentTerritory() == territory) {
+                                    territory.deSelect();
+                                    currentPlayer.resetCurrentTerritory();
+                                    if (currentPlayer.getCurrentTerritoryToAttack() != null) {
+                                        currentPlayer.getCurrentTerritoryToAttack().deSelect();
+                                        currentPlayer.resetCurrentTerritoryToAttack();
                                     }
-                                }else {
-                                    String tName = territory.getName();
-                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                                    alert.setTitle("Fortify");
-                                    alert.setHeaderText("'I'm afraid " + tName + " is out of reach, my lord'");
-                                    alert.setContentText("Only territories which share a border with " +
-                                            currentPlayer.getCurrentTerritory().getName() + " may be fortified.");
-                                    alert.showAndWait();
                                 }
+                            } else {
+                                currentPlayer.setCurrentTerritory(territory);
+                                territory.select();
                             }
-                        }else{
-                            currentPlayer.setCurrentTerritory(territory);
-                            territory.select();
                         }
-                    }
-                    break;
+                        if (territory.canAttack(currentPlayer) && currentPlayer.getCurrentTerritory() != null) {
+                            if (currentPlayer.getCurrentTerritoryToAttack() != null) {
+                                if (currentPlayer.getCurrentTerritoryToAttack() == territory) {
+                                    territory.deselectForAttack();
+                                    currentPlayer.resetCurrentTerritoryToAttack();
+                                }
+                            } else {
+                                currentPlayer.setCurrentTerritoryToAttack(territory);
+                                territory.selectForAttack();
+                            }
+                        }
+                        break;
+                    case FORTIFY:
+
+                        if (currentPlayer.ownsTerritory(territory)) {
+                            if (currentPlayer.getCurrentTerritory() != null) {
+                                if (currentPlayer.getCurrentTerritory() == territory) {
+                                    currentPlayer.getCurrentTerritory().deSelect();
+                                    currentPlayer.resetCurrentTerritory();
+                                    if (currentPlayer.getCurrentTerritoryFortifyTo() != null) {
+                                        currentPlayer.getCurrentTerritoryFortifyTo().deSelect();
+                                        currentPlayer.resetCurrentTerritoryFortifyTo();
+                                    }
+                                } else {
+                                    if (currentPlayer.getCurrentTerritory().sharesBorder(territory)) {
+                                        if (currentPlayer.getCurrentTerritory().getTroopCount() > 1) {
+                                            currentPlayer.getCurrentTerritory().decrementTroopCount();
+                                            territory.incrementTroopCount();
+                                            if (currentPlayer.getCurrentTerritory().getTroopCount() < 2) {
+                                                currentPlayer.getCurrentTerritory().deSelect();
+                                                currentPlayer.resetCurrentTerritory();
+                                            }
+                                        }
+                                    } else {
+                                        String tName = territory.getName();
+                                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                        alert.setTitle("Fortify");
+                                        alert.setHeaderText("'I'm afraid " + tName + " is out of reach, my lord'");
+                                        alert.setContentText("Only territories which share a border with " +
+                                                currentPlayer.getCurrentTerritory().getName() + " may be fortified.");
+                                        alert.showAndWait();
+                                    }
+                                }
+                            } else {
+                                currentPlayer.setCurrentTerritory(territory);
+                                territory.select();
+                            }
+                        }
+                        break;
+                }
             }
         });
         ((Group) boardScene.getRoot()).getChildren().add(territory);
     }
 
     public void initControlButtons(){
+        Image imagePlus = new Image(getClass().getResourceAsStream("plus.png"));
+        Image imageMinus = new Image(getClass().getResourceAsStream("minus.png"));
+        Image imageCheck = new Image(getClass().getResourceAsStream("check.png"));
+
+        ImageView pView = new ImageView(imagePlus);
+        ImageView mView = new ImageView(imageMinus);
+        ImageView cView = new ImageView(imageCheck);
+
+        pView.setFitHeight(10);
+        pView.setFitWidth(10);
+        mView.setFitHeight(10);
+        mView.setFitWidth(10);
+        cView.setFitHeight(10);
+        cView.setFitWidth(10);
+
+        plusButton = new Button("",pView);
+        minusButton = new Button("",mView);
+        checkButton = new Button("", cView);
+
+        plusButton.setPrefSize(10,10);
+        minusButton.setPrefSize(10,10);
+        checkButton.setPrefSize(10,10);
+
+        setMoveTroopsButtonsVisible(false);
+
+        plusButton.setOnAction(e-> {
+            if(currentPlayer.getCurrentTerritory().getTroopCount() > 1) {
+                currentPlayer.getCurrentTerritory().decrementTroopCount();
+                currentPlayer.getCurrentTerritoryToAttack().incrementTroopCount();
+            }
+        });
+
+        minusButton.setOnAction(e-> {
+            if(currentPlayer.getCurrentTerritoryToAttack().getTroopCount() > 1) {
+                currentPlayer.getCurrentTerritoryToAttack().decrementTroopCount();
+                currentPlayer.getCurrentTerritory().incrementTroopCount();
+            }
+        });
+
+        checkButton.setOnAction(e-> {
+            minusButton.setVisible(false);
+            plusButton.setVisible(false);
+            checkButton.setVisible(false);
+            buttonsActive = true;
+            currentPlayer.resetCurrentTerritory();
+            currentPlayer.resetCurrentTerritoryToAttack();
+            rollButton.setVisible(true);
+        });
+
         rollButton = new Button("Roll");
         doneButton = new Button("Done");
         chargeButton = new Button("Charge");
@@ -855,7 +1007,6 @@ public class jfx extends Application{
         rollButton.setLayoutX(100);
         rollButton.setLayoutY(800);
         rollButton.setOnAction(e -> {
-            System.out.println("clickedAttack");
             URL u = getClass().getResource("sword.aif");
             AudioClip sword = new AudioClip(u.toString());
             sword.setVolume(999999999);
@@ -869,15 +1020,36 @@ public class jfx extends Application{
                 }
 
                 if (currentPlayer.getCurrentTerritoryToAttack().getTroopCount() == 0) {
+
+                    int offSetY = 25;
+
+                    setMoveTroopsButtonsVisible(true);
+                    rollButton.setVisible(false);
+                    buttonsActive = false;
+
+                    plusButton.setLayoutX(currentPlayer.getCurrentTerritoryToAttack().getLayoutX());
+                    plusButton.setLayoutY(currentPlayer.getCurrentTerritoryToAttack().getLayoutY() - offSetY);
+
+                    minusButton.setLayoutX(currentPlayer.getCurrentTerritoryToAttack().getLayoutX() - 30);
+                    minusButton.setLayoutY(currentPlayer.getCurrentTerritoryToAttack().getLayoutY() - offSetY);
+
+                    checkButton.setLayoutX(currentPlayer.getCurrentTerritoryToAttack().getLayoutX() + 30);
+                    checkButton.setLayoutY(currentPlayer.getCurrentTerritoryToAttack().getLayoutY() - offSetY);
                     currentPlayer.getCurrentTerritoryToAttack().incrementTroopCount();
                     currentPlayer.getCurrentTerritory().decrementTroopCount();
-                    currentPlayer.addTerritory(currentPlayer.getCurrentTerritoryToAttack());
+
                     currentPlayer.getCurrentTerritoryToAttack().getCurrentOccupant().removeTerritory(currentPlayer.getCurrentTerritoryToAttack());
+                    currentPlayer.addTerritory(currentPlayer.getCurrentTerritoryToAttack());
                     currentPlayer.getCurrentTerritory().deSelect();
-                    currentPlayer.resetCurrentTerritory();
                     currentPlayer.getCurrentTerritoryToAttack().deSelect();
-                    currentPlayer.resetCurrentTerritoryToAttack();
                     currentPlayer.setTerritoryColors();
+                }
+
+                if(currentPlayer.getCurrentTerritory().getTroopCount() < 3 && currentPlayer.getCurrentTerritoryToAttack().getTroopCount() != 0){
+                    currentPlayer.getCurrentTerritory().deSelect();
+                    currentPlayer.getCurrentTerritoryToAttack().deSelect();
+                    currentPlayer.resetCurrentTerritory();
+                    currentPlayer.resetCurrentTerritoryToAttack();
                 }
             }
 
@@ -886,7 +1058,6 @@ public class jfx extends Application{
         doneButton.setLayoutX(210);
         doneButton.setLayoutY(800);
         doneButton.setOnAction(e -> {
-            System.out.println("clickedDone");
             URL end = getClass().getResource("horn.mp3");
             AudioClip horn = new AudioClip(end.toString());
             horn.setVolume(999999999);
@@ -930,6 +1101,7 @@ public class jfx extends Application{
                     setBoard(phaseType.FORTIFY);
                     System.out.println("Phase: " + currentPhase.toString() +
                             "\nCurrent Player: " + currentPlayer.getName());
+                    setMoveTroopsButtonsVisible(false);
                     break;
                 case FORTIFY:
                     setBoard(phaseType.PLACE_TROOPS);
@@ -1028,5 +1200,11 @@ public class jfx extends Application{
 
     public void placeBanner(){
         currentPlayer.setBanner(bannerView);
+    }
+
+    public void setMoveTroopsButtonsVisible(boolean b){
+        plusButton.setVisible(b);
+        minusButton.setVisible(b);
+        checkButton.setVisible(b);
     }
 }
