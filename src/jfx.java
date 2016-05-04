@@ -1180,7 +1180,6 @@ public class jfx extends Application{
                     if(loser.getConqueredContinents().contains(conquered.getContinent())){
                         loser.getConqueredContinents().remove(conquered.getContinent());
                     }
-
                 }
 
                 if(currentPlayer.getCurrentTerritory().getTroopCount() < 2 && currentPlayer.getCurrentTerritoryToAttack().getTroopCount() != 0){
@@ -1435,6 +1434,7 @@ public class jfx extends Application{
             alert.setContentText("You are victorious.");
             alert.showAndWait();
         }
+        Platform.exit();
     }
 
 
