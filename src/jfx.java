@@ -118,6 +118,7 @@ public class jfx extends Application{
     private Territory redWaste;
     private Territory ghiscar;
 
+
     private Continent theNorth;
     private Continent theKingsLands;
     private Continent theSouth;
@@ -679,6 +680,7 @@ public class jfx extends Application{
         theFlintCliff.addBorderTerritory(ironIslands, theNeck, theVale);
         theRills.addBorderTerritory(theNeck, wolfsrvood);
         wolfsrvood.addBorderTerritory(theNeck, theRills, theGrevCliffs, theWall, winterfell);
+        winterfell.addBorderTerritory(theNeck, wolfsrvood, theGrevCliffs);
         theVale.addBorderTerritory(crorvnlands, riverlands, theFlintCliff, theNeck);
         crorvnlands.addBorderTerritory(andalos, riverlands, stormlands, theReach, theVale, westerlands);
         westerlands.addBorderTerritory(crorvnlands, shieldLands, riverlands, theReach);
