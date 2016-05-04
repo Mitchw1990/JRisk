@@ -733,7 +733,7 @@ public class jfx extends Application{
         theSouth = new Continent("the South", 3, dorne, redMountains, shieldLands, stormlands,
                 whisperingSound);
         theFreeCities = new Continent("the Free Cities", 4, andalos, braavosianCoastland, forrestOfQohor, hillsOfNorvos,
-                theDisputedLands, theGoldenFields);
+                theDisputedLands, theGoldenFields, qhoyneLands);
         valyrianFreehold = new Continent("Valyrian Freehold", 3, elyria, rhoynianVeld, sarMell, seaOfsighs, valyria,
                 westernWaste);
         theDothrakiSea = new Continent("the Dothraki Sea", 5, abandonedLand, easternGrassSea, jbben,
@@ -767,11 +767,11 @@ public class jfx extends Application{
         Territory[] terrPlayerThree = new Territory[]{elyria, rhoynianVeld, sarMell, seaOfsighs, valyria,
                 westernWaste};
         Territory[] terrPlayerFour = new Territory[]{andalos, braavosianCoastland, forrestOfQohor, hillsOfNorvos,
-                theDisputedLands, theGoldenFields};
+                theDisputedLands, theGoldenFields, qhoyneLands};
         Territory[] terrPlayerFive = new Territory[]{dorne, redMountains, shieldLands, stormlands,
                 whisperingSound};
         Territory[] terrPlayerSix = new Territory[]{crorvnlands, ironIslands, riverlands, theVale,
-                westerlands};
+                westerlands, theReach};
 
         player1.setConqueredTerritories(terrPlayerOne);
         player2.setConqueredTerritories(terrPlayerTwo);
