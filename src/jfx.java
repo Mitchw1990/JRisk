@@ -1084,12 +1084,6 @@ public class jfx extends Application{
                             currentPlayer.getCurrentTerritoryToAttack());
                     battle.engage();
 
-                    da.roll();
-                    da2.roll();
-                    da3.roll();
-                    da4.roll();
-                    da5.roll();
-
                     DiceAnimation[] attackerDice = new DiceAnimation[]{da,da2,da3};
                     ArrayList<Die> resultDiceAttacker = currentPlayer.getPlayerDice();
 
@@ -1098,7 +1092,7 @@ public class jfx extends Application{
                     for(DiceAnimation d : attackerDice){
                         int result = resultDiceAttacker.get(index).getFaceValue();
                         System.out.println("Attacker: " + result);
-                        d.setImage(dieImages[result -1]);
+                        d.setFaceValue(result - 1);
                         index++;
                     }
                     DiceAnimation[] defenderDice = new DiceAnimation[]{da4,da5};
@@ -1109,18 +1103,14 @@ public class jfx extends Application{
                     for(DiceAnimation d : defenderDice){
                         int result = resultDiceDefender.get(index).getFaceValue();
                         System.out.println("Defender: " + result);
-                        d.setImage(dieImages[result -1]);
+                        d.setFaceValue(result - 1);
                         index++;
                     }
-
-                    da.setFaceValue(0);
-                    da2.setFaceValue(0);
-                    da3.setFaceValue(0);
-                    da4.setFaceValue(0);
-                    da5.setFaceValue(0);
-
-
-
+                    da.roll();
+                    da2.roll();
+                    da3.roll();
+                    da4.roll();
+                    da5.roll();
                 }
             }
 

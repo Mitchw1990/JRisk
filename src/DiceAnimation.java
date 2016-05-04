@@ -16,7 +16,11 @@ import java.util.Random;
 
 public class DiceAnimation extends ImageView {
     // images shared amongst all instances of dice
+
     static private Image[] images = null;
+
+
+    private int faceValue;
 
     // position used for dragging die around
     private Double anchorX, anchorY;
@@ -45,14 +49,19 @@ public class DiceAnimation extends ImageView {
         return value;
     }
 
+
+
     public DiceAnimation() {
         super();
+
+        Random i = new Random();
+        faceValue = i.nextInt(6);
 
         // load images
         loadImages();
 
         // attach listener to value so that image can be adjusted
-        //attachImageUpdateBehaviour();
+        attachImageUpdateBehaviour();
 
         // add drop shadow effect to die
         createEffects();
@@ -72,6 +81,12 @@ public class DiceAnimation extends ImageView {
         // set initial value (and update image)
         roll();
     }
+
+
+    public void setFaceValue(int i){
+        faceValue = i;
+    }
+
 
     private void createEffects() {
         // create drop shadow
@@ -106,16 +121,16 @@ public class DiceAnimation extends ImageView {
         }
     }
 
-//    private void attachImageUpdateBehaviour() {
-//        value.addListener((observable, oldValue, newValue) -> {
-//            if ((newValue.intValue() >= 1) && (newValue.intValue() <= 6)) {
-//                setImage(images[newValue.intValue() - 1]);
-//            } else {
-//                // invalid value, so set to 1 rather
-//                value.setValue(1);
-//            }
-//        });
-//    }
+    private void attachImageUpdateBehaviour() {
+        value.addListener((observable, oldValue, newValue) -> {
+            if ((newValue.intValue() >= 1) && (newValue.intValue() <= 6)) {
+                setImage(images[newValue.intValue() - 1]);
+            } else {
+                // invalid value, so set to 1 rather
+                value.setValue(1);
+            }
+        });
+    }
 
     private void attachClickingBehaviour() {
         setOnMouseClicked(event -> {
@@ -179,10 +194,6 @@ public class DiceAnimation extends ImageView {
         animation.playFromStart();
     }
 
-    public void setFaceValue(int i){
-        setImage(images[i]);
-    }
-
     private void createAnimations() {
         // set up a roll animation
         rotationAnimation = new RotateTransition();
@@ -203,6 +214,7 @@ public class DiceAnimation extends ImageView {
             KeyFrame keyFrame = new KeyFrame(new Duration(i * 100), event -> {
                 Random random = new Random();
                 setImage(images[random.nextInt(6)]);
+                setImage(images[faceValue]);
             });
             animation.getKeyFrames().add(keyFrame);
         }
@@ -211,12 +223,12 @@ public class DiceAnimation extends ImageView {
             setEffect(shadow);
         }));
 
-        // listen for when the animation is done, then pick a new number
-        animation.setOnFinished(event -> {
-            // rolls a new value for the die
-            Random random = new Random();
-            value.set(random.nextInt(6) + 1);
-        });
+
+//        animation.setOnFinished(event -> {
+//            // rolls a new value for the die
+//            Random random = new Random();
+//            value.set(1);
+//        });
 
 
     }
