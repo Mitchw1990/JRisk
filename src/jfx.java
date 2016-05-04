@@ -42,6 +42,12 @@ public class jfx extends Application{
     private ImageView crestViewAttacker;
     private ImageView crestViewDefender;
 
+    private Image d;
+    private Image d2;
+    private Image d3;
+    private Image d4;
+    private Image d5;
+    private Image d6;
 
     private DiceAnimation da;
     private DiceAnimation da2;
@@ -119,6 +125,8 @@ public class jfx extends Application{
     private Continent theDothrakiSea;
     private Continent Ghiscar;
 
+    private Image[] dieImages;
+
     public static void main(String[] args)
     {
         launch(args);
@@ -127,6 +135,20 @@ public class jfx extends Application{
     @Override
     public void start(Stage theStage)
     {
+
+
+        d = new Image(getClass().getResourceAsStream("1.png"));
+        d2 = new Image(getClass().getResourceAsStream("2.png"));
+        d3 = new Image(getClass().getResourceAsStream("3.png"));
+        d4 = new Image(getClass().getResourceAsStream("4.png"));
+        d5 = new Image(getClass().getResourceAsStream("5.png"));
+        d6 = new Image(getClass().getResourceAsStream("6.png"));
+
+        dieImages = new Image[]{d,d2,d3,d4,d5,d6};
+
+
+
+
         numberOfArmiesToRecieveCurrent = 0;
         playerIndex = 0;
         buttonsActive = true;
@@ -141,31 +163,31 @@ public class jfx extends Application{
 
         //Dice *************************
 
-        DiceAnimation da = new DiceAnimation();
+        da = new DiceAnimation();
         da.setFitHeight(40);
         da.setFitWidth(40);
         da.setLayoutX(600);
         da.setLayoutY(220);
 
-        DiceAnimation da2 = new DiceAnimation();
+        da2 = new DiceAnimation();
         da2.setFitHeight(40);
         da2.setFitWidth(40);
         da2.setLayoutX(650);
         da2.setLayoutY(220);
 
-        DiceAnimation da3 = new DiceAnimation();
+        da3 = new DiceAnimation();
         da3.setFitHeight(40);
         da3.setFitWidth(40);
         da3.setLayoutX(625);
         da3.setLayoutY(270);
 
-        DiceAnimation da4 = new DiceAnimation();
+        da4 = new DiceAnimation();
         da4.setFitHeight(40);
         da4.setFitWidth(40);
         da4.setLayoutX(970);
         da4.setLayoutY(270);
 
-        DiceAnimation da5 = new DiceAnimation();
+        da5 = new DiceAnimation();
         da5.setFitHeight(40);
         da5.setFitWidth(40);
         da5.setLayoutX(970);
@@ -1061,7 +1083,46 @@ public class jfx extends Application{
                             currentPlayer.getCurrentTerritoryToAttack().getCurrentOccupant(), 2,
                             currentPlayer.getCurrentTerritoryToAttack());
                     battle.engage();
+
+                    da.roll();
+                    da2.roll();
+                    da3.roll();
+                    da4.roll();
+                    da5.roll();
+
+                    DiceAnimation[] attackerDice = new DiceAnimation[]{da,da2,da3};
+                    ArrayList<Die> resultDiceAttacker = currentPlayer.getPlayerDice();
+
+                    int index = 0;
+
+                    for(DiceAnimation d : attackerDice){
+                        int result = resultDiceAttacker.get(index).getFaceValue();
+                        System.out.println("Attacker: " + result);
+                        d.setImage(dieImages[result -1]);
+                        index++;
+                    }
+                    DiceAnimation[] defenderDice = new DiceAnimation[]{da4,da5};
+                    ArrayList<Die> resultDiceDefender = currentPlayer.getPlayerDice();
+
+                    index = 0;
+
+                    for(DiceAnimation d : defenderDice){
+                        int result = resultDiceDefender.get(index).getFaceValue();
+                        System.out.println("Defender: " + result);
+                        d.setImage(dieImages[result -1]);
+                        index++;
+                    }
+
+                    da.setFaceValue(0);
+                    da2.setFaceValue(0);
+                    da3.setFaceValue(0);
+                    da4.setFaceValue(0);
+                    da5.setFaceValue(0);
+
+
+
                 }
+            }
 
                 if (currentPlayer.getCurrentTerritoryToAttack().getTroopCount() == 0) {
 
@@ -1098,7 +1159,6 @@ public class jfx extends Application{
                     currentPlayer.resetCurrentTerritoryToAttack();
 
                 }
-            }
 
         });
 

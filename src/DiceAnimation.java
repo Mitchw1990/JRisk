@@ -52,7 +52,7 @@ public class DiceAnimation extends ImageView {
         loadImages();
 
         // attach listener to value so that image can be adjusted
-        attachImageUpdateBehaviour();
+        //attachImageUpdateBehaviour();
 
         // add drop shadow effect to die
         createEffects();
@@ -106,16 +106,16 @@ public class DiceAnimation extends ImageView {
         }
     }
 
-    private void attachImageUpdateBehaviour() {
-        value.addListener((observable, oldValue, newValue) -> {
-            if ((newValue.intValue() >= 1) && (newValue.intValue() <= 6)) {
-                setImage(images[newValue.intValue() - 1]);
-            } else {
-                // invalid value, so set to 1 rather
-                value.setValue(1);
-            }
-        });
-    }
+//    private void attachImageUpdateBehaviour() {
+//        value.addListener((observable, oldValue, newValue) -> {
+//            if ((newValue.intValue() >= 1) && (newValue.intValue() <= 6)) {
+//                setImage(images[newValue.intValue() - 1]);
+//            } else {
+//                // invalid value, so set to 1 rather
+//                value.setValue(1);
+//            }
+//        });
+//    }
 
     private void attachClickingBehaviour() {
         setOnMouseClicked(event -> {
@@ -177,6 +177,10 @@ public class DiceAnimation extends ImageView {
         // start the animations
         rotationAnimation.playFromStart();
         animation.playFromStart();
+    }
+
+    public void setFaceValue(int i){
+        setImage(images[i]);
     }
 
     private void createAnimations() {

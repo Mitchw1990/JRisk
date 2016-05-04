@@ -12,7 +12,7 @@ public class Player {
     private ArrayList<Territory> conqueredTerritories;
     private ArrayList<Continent> conqueredContinents;
     private String name;
-    private ArrayList<Die> playerDies;
+    private ArrayList<Die> playerDice;
     private Territory currentTerritory;
     private Territory currentTerritoryToAttack;
     private Territory currentTerritoryFortifyTo;
@@ -24,10 +24,10 @@ public class Player {
         this.name = name;
         conqueredContinents = new ArrayList<Continent>();
         conqueredTerritories = new ArrayList<Territory>();
-        playerDies = new ArrayList<Die>();
-        playerDies.add(new Die());
-        playerDies.add(new Die());
-        playerDies.add(new Die());
+        playerDice = new ArrayList<Die>();
+        playerDice.add(new Die());
+        playerDice.add(new Die());
+        playerDice.add(new Die());
     }
 
 
@@ -37,8 +37,8 @@ public class Player {
 
         if(numberOfDice > 0 && numberOfDice <= 3){
             for (int i = 0; i < numberOfDice; i++){
-                playerDies.get(i).roll();
-                results[i] = playerDies.get(i).getFaceValue();
+                playerDice.get(i).roll();
+                results[i] = playerDice.get(i).getFaceValue();
             }
         }else
             System.out.println("Invalid number of dice.  Must be integer between 1 and 3");
@@ -71,8 +71,8 @@ public class Player {
         this.name = name;
     }
 
-    public ArrayList<Die> getPlayerDies() {
-        return playerDies;
+    public ArrayList<Die> getPlayerDice() {
+        return playerDice;
     }
 
     public Territory getCurrentTerritory() {
@@ -108,7 +108,7 @@ public class Player {
     }
 
     public void resetPlayerDice(){
-        for(Die die : playerDies){
+        for(Die die : playerDice){
             die.setFaceValue(0);
         }
     }
