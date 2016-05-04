@@ -43,6 +43,7 @@ public class jfx extends Application{
     private ImageView crestViewDefender;
     private ImageView phaseView;
     private ImageView shieldView;
+    private  AudioClip gameplayMusic;
 
     private Image d;
     private Image d2;
@@ -1149,6 +1150,9 @@ public class jfx extends Application{
                     territorySound.setVolume(999999999);
                     territorySound.play();
 
+                    Territory conquered = currentPlayer.getCurrentTerritoryToAttack();
+                    Player loser = conquered.getCurrentOccupant();
+
                     int offSetY = 25;
 
                     setMoveTroopsButtonsVisible(true);
@@ -1173,6 +1177,9 @@ public class jfx extends Application{
                     currentPlayer.getCurrentTerritoryToAttack().deSelect();
                     currentPlayer.setTerritoryColors();
 
+                    if(loser.getConqueredContinents().contains(conquered.getContinent())){
+                        loser.getConqueredContinents().remove(conquered.getContinent());
+                    }
 
                 }
 
@@ -1413,6 +1420,25 @@ public class jfx extends Application{
                 alert.showAndWait();
             }
         }
+
+    public void playerVictoryCheck(){
+       // gameplayMusic.stop();
+        URL continentSoundUrl = getClass().getResource("got.mp3");
+        AudioClip continentSound = new AudioClip(continentSoundUrl.toString());
+        continentSound.setVolume(999999999);
+        continentSound.play();
+
+        if(currentPlayer.getConqueredTerritories().size() == allTerritories.size()){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Victory");
+            alert.setHeaderText("'The throne is yours, lord commander!'");
+            alert.setContentText("You are victorious.");
+            alert.showAndWait();
+        }
+    }
+
+
+
 
 
     public void setCrest(String attackerName, ImageView crest){
