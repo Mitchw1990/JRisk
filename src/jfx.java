@@ -1012,7 +1012,7 @@ public class jfx extends Application{
             sword.setVolume(999999999);
             sword.play();
             if(currentPlayer.getCurrentTerritory() != null && currentPlayer.getCurrentTerritoryToAttack() != null) {
-                if (currentPlayer.getCurrentTerritory().getTroopCount() > 2) {
+                if (currentPlayer.getCurrentTerritory().getTroopCount() > 1) {
                     Battle battle = new Battle(currentPlayer, 3, currentPlayer.getCurrentTerritory(),
                             currentPlayer.getCurrentTerritoryToAttack().getCurrentOccupant(), 2,
                             currentPlayer.getCurrentTerritoryToAttack());
@@ -1045,9 +1045,14 @@ public class jfx extends Application{
                     currentPlayer.setTerritoryColors();
                 }
 
-                if(currentPlayer.getCurrentTerritory().getTroopCount() < 3 && currentPlayer.getCurrentTerritoryToAttack().getTroopCount() != 0){
+                if(currentPlayer.getCurrentTerritory().getTroopCount() < 2 && currentPlayer.getCurrentTerritoryToAttack().getTroopCount() != 0){
+                    if(currentPlayer.getCurrentTerritory().getTroopCount() < 1)
+                        currentPlayer.getCurrentTerritory().setTroopCount(1);
                     currentPlayer.getCurrentTerritory().deSelect();
                     currentPlayer.getCurrentTerritoryToAttack().deSelect();
+                    currentPlayer.resetCurrentTerritory();
+                    currentPlayer.resetCurrentTerritoryToAttack();
+
                 }
             }
 
