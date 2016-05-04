@@ -1048,8 +1048,6 @@ public class jfx extends Application{
                 if(currentPlayer.getCurrentTerritory().getTroopCount() < 3 && currentPlayer.getCurrentTerritoryToAttack().getTroopCount() != 0){
                     currentPlayer.getCurrentTerritory().deSelect();
                     currentPlayer.getCurrentTerritoryToAttack().deSelect();
-                    currentPlayer.resetCurrentTerritory();
-                    currentPlayer.resetCurrentTerritoryToAttack();
                 }
             }
 
