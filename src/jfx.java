@@ -1354,9 +1354,10 @@ public class jfx extends Application{
                 alert.setContentText("You will receive a troop bonus of " +
                         c.getBonus() + " the next time you place armies.");
                 alert.showAndWait();
+                currentPlayer.getCurrentTerritoryToAttack().getCurrentOccupant().removeContinent(c);
+                currentPlayer.addContinent(c);
             }
-            currentPlayer.getCurrentTerritoryToAttack().getCurrentOccupant().removeContinent(c);
-            currentPlayer.addContinent(c);
+
         }
     }
 
