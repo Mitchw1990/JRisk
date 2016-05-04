@@ -13,8 +13,9 @@ public class Continent {
 
 
     public Continent(String name, int bonus, Territory ... territories){
+
+        territoryList = new ArrayList<Territory>();
         for (Territory t: territories){
-            territoryList = new ArrayList<Territory>();
             territoryList.add(t);
             t.setContinent(this);
         }

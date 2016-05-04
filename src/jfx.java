@@ -1155,6 +1155,7 @@ public class jfx extends Application{
                     continentCheck();
                     currentPlayer.getCurrentTerritoryToAttack().getCurrentOccupant().removeTerritory(currentPlayer.getCurrentTerritoryToAttack());
                     currentPlayer.addTerritory(currentPlayer.getCurrentTerritoryToAttack());
+                    continentCheck();
                     currentPlayer.getCurrentTerritory().deSelect();
                     currentPlayer.getCurrentTerritoryToAttack().deSelect();
                     currentPlayer.setTerritoryColors();
@@ -1347,23 +1348,31 @@ public class jfx extends Application{
     }
 
     public void continentCheck(){
-        for(Continent c : allContinents){
-            if(currentPlayer.getConqueredTerritories().containsAll(c.getTerritoryList()) && !currentPlayer.getConqueredContinents().contains(c)){
+        Continent c = currentPlayer.getCurrentTerritoryToAttack().getContinent();
+        if(currentPlayer.getConqueredTerritories().containsAll(c.getTerritoryList())){
                 String cName = c.getName();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Continent Conquered");
-                alert.setHeaderText("Praise the old gos and the new, we have take " + cName + ", lord commander!'");
+                alert.setHeaderText("Praise the old gods and the new! We have taken " + cName + ", lord commander!'");
                 alert.setContentText("You will receive a troop bonus of " +
                         c.getBonus() + " the next time you place armies.");
                 alert.showAndWait();
                 currentPlayer.getCurrentTerritoryToAttack().getCurrentOccupant().removeContinent(c);
                 currentPlayer.addContinent(c);
-            }
-
         }
+
+
+        System.out.println(c.getName() + ": ");
+        for(Territory t : c.getTerritoryList()){
+            System.out.println(t.getName());
+        }
+
+        System.out.println("\ncurrent player: ");
+        for(Territory t : currentPlayer.getConqueredTerritories()){
+            System.out.println(t.getName());
+        }
+
     }
-
-
 
     public void setCrest(String attackerName, ImageView crest){
         if(attackerName == "Baratheon"){
