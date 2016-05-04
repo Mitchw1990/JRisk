@@ -39,12 +39,14 @@ public class jfx extends Application{
     private Button minusButton;
     private Button checkButton;
     private boolean buttonsActive;
+    private ImageView crestViewAttacker;
+    private ImageView crestViewDefender;
+
 
     private DiceAnimation da;
     private DiceAnimation da2;
     private DiceAnimation da3;
     private ImageView bannerView;
-
     
     private Scene boardScene;
     private Scene menuScene;
@@ -125,6 +127,7 @@ public class jfx extends Application{
         numberOfArmiesToRecieveCurrent = 0;
         playerIndex = 0;
         buttonsActive = true;
+
 
         URL url = getClass().getResource("got.mp3");
         AudioClip themesong = new AudioClip(url.toString());
@@ -214,7 +217,7 @@ public class jfx extends Application{
         playButton.setOnAction(e ->{
             initControlButtons();
             ((Group) boardScene.getRoot()).getChildren().addAll(rollButton, doneButton, numberOfArmiesToPlaceLabel, bannerView, checkButton,
-                    plusButton, minusButton);
+                    plusButton, minusButton, crestViewAttacker, crestViewDefender);
             doneButton.setVisible(true);
             rollButton.setVisible(true);
             theStage.setScene(boardScene);
@@ -841,6 +844,7 @@ public class jfx extends Application{
                                     territory.deSelect();
                                     currentPlayer.resetCurrentTerritory();
                                     if (currentPlayer.getCurrentTerritoryToAttack() != null) {
+                                        crestViewDefender.setVisible(false);
                                         currentPlayer.getCurrentTerritoryToAttack().deSelect();
                                         currentPlayer.resetCurrentTerritoryToAttack();
                                     }
@@ -853,12 +857,14 @@ public class jfx extends Application{
                         if (territory.canAttack(currentPlayer) && currentPlayer.getCurrentTerritory() != null) {
                             if (currentPlayer.getCurrentTerritoryToAttack() != null) {
                                 if (currentPlayer.getCurrentTerritoryToAttack() == territory) {
+                                    crestViewDefender.setVisible(false);
                                     territory.deselectForAttack();
                                     currentPlayer.resetCurrentTerritoryToAttack();
                                 }
                             } else {
                                 currentPlayer.setCurrentTerritoryToAttack(territory);
                                 territory.selectForAttack();
+                                setDefendCrest();
                             }
                         }
                         break;
@@ -906,6 +912,21 @@ public class jfx extends Application{
     }
 
     public void initControlButtons(){
+
+        crestViewAttacker = new ImageView();
+        crestViewAttacker.setFitHeight(100);
+        crestViewAttacker.setFitWidth(90);
+        crestViewAttacker.setVisible(false);
+        crestViewAttacker.setLayoutX(485);
+        crestViewAttacker.setLayoutY(220);
+
+        crestViewDefender = new ImageView();
+        crestViewDefender.setFitHeight(100);
+        crestViewDefender.setFitWidth(90);
+        crestViewDefender.setVisible(false);
+        crestViewDefender.setLayoutX(1035);
+        crestViewDefender.setLayoutY(220);
+
         Image imagePlus = new Image(getClass().getResourceAsStream("plus.png"));
         Image imageMinus = new Image(getClass().getResourceAsStream("minus.png"));
         Image imageCheck = new Image(getClass().getResourceAsStream("check.png"));
@@ -923,6 +944,7 @@ public class jfx extends Application{
 
         plusButton = new Button("",pView);
         minusButton = new Button("",mView);
+        checkButton = new Button("", cView);
         checkButton = new Button("", cView);
 
         plusButton.setPrefSize(10,10);
@@ -954,6 +976,11 @@ public class jfx extends Application{
             currentPlayer.resetCurrentTerritoryToAttack();
             rollButton.setVisible(true);
         });
+
+
+
+
+
 
         rollButton = new Button("Roll");
         doneButton = new Button("Done");
@@ -1105,6 +1132,8 @@ public class jfx extends Application{
                     System.out.println("Phase: " + currentPhase.toString() +
                             "\nCurrent Player: " + currentPlayer.getName());
                     setMoveTroopsButtonsVisible(false);
+                    crestViewAttacker.setVisible(false);
+                    crestViewDefender.setVisible(false);
                     break;
                 case FORTIFY:
                     setBoard(phaseType.PLACE_TROOPS);
@@ -1148,6 +1177,7 @@ public class jfx extends Application{
                 doneButton.setText("End Turn");
                 rollButton.setVisible(true);
                 chargeButton.setVisible(true);
+                setAttackCrest();
                 break;
             case FORTIFY:
                 rollButton.setVisible(false);
@@ -1209,5 +1239,37 @@ public class jfx extends Application{
         plusButton.setVisible(b);
         minusButton.setVisible(b);
         checkButton.setVisible(b);
+    }
+
+    public void setAttackCrest(){
+        crestViewAttacker.setVisible(true);
+        setCrest(currentPlayer.getName(), crestViewAttacker);
+    }
+
+    public void setDefendCrest(){
+        crestViewDefender.setVisible(true);
+        setCrest(currentPlayer.getCurrentTerritoryToAttack().getCurrentOccupant().getName(), crestViewDefender);
+    }
+
+    public void setCrest(String attackerName, ImageView crest){
+        if(attackerName == "Baratheon"){
+            Image imageBaratheon = new Image(getClass().getResourceAsStream("Baratheon.jpg"));
+            crest.setImage(imageBaratheon);
+        }else if(attackerName == "Greyjoy"){
+            Image imageGreyjoy = new Image(getClass().getResourceAsStream("Greyjoy.jpg"));
+            crest.setImage(imageGreyjoy);
+        }else if(attackerName == "Lannister"){
+            Image imageLannister = new Image(getClass().getResourceAsStream("Lannister.jpg"));
+            crest.setImage(imageLannister);
+        }else if(attackerName == "Martell"){
+            Image imageMartell = new Image(getClass().getResourceAsStream("Martell.jpg"));
+            crest.setImage(imageMartell);
+        }else if(attackerName == "Tully"){
+            Image imageTully = new Image(getClass().getResourceAsStream("Tully.jpg"));
+            crest.setImage(imageTully);
+        }else if(attackerName == "Targaryen"){
+            Image imageTargaryen = new Image(getClass().getResourceAsStream("Targaryen.jpg"));
+            crest.setImage(imageTargaryen);
+        }
     }
 }

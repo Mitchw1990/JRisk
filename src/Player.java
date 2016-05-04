@@ -182,8 +182,6 @@ public class Player {
 
 
     public void setBanner(ImageView banner) {
-
-
         banner.setFitHeight(130);
         banner.setFitWidth(240);
         banner.setLayoutX(1211);
