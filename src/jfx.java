@@ -1165,7 +1165,7 @@ public class jfx extends Application{
                     checkButton.setLayoutY(currentPlayer.getCurrentTerritoryToAttack().getLayoutY() - offSetY);
                     currentPlayer.getCurrentTerritoryToAttack().incrementTroopCount();
                     currentPlayer.getCurrentTerritory().decrementTroopCount();
-
+                    playerEliminatedCheck();
                     currentPlayer.getCurrentTerritoryToAttack().getCurrentOccupant().removeTerritory(currentPlayer.getCurrentTerritoryToAttack());
                     currentPlayer.addTerritory(currentPlayer.getCurrentTerritoryToAttack());
                     continentCheck();
@@ -1369,36 +1369,51 @@ public class jfx extends Application{
         setCrest(currentPlayer.getCurrentTerritoryToAttack().getCurrentOccupant().getName(), crestViewDefender);
     }
 
-    public void continentCheck(){
+    public void continentCheck() {
         Continent c = currentPlayer.getCurrentTerritoryToAttack().getContinent();
-        if(currentPlayer.getConqueredTerritories().containsAll(c.getTerritoryList())){
-                String cName = c.getName();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Continent Conquered");
-                alert.setHeaderText("Praise the old gods and the new! We have taken " + cName + ", lord commander!'");
-                alert.setContentText("You will receive a troop bonus of " +
-                        c.getBonus() + " the next time you place armies.");
-                alert.showAndWait();
-                currentPlayer.getCurrentTerritoryToAttack().getCurrentOccupant().removeContinent(c);
-                currentPlayer.addContinent(c);
+        if (currentPlayer.getConqueredTerritories().containsAll(c.getTerritoryList())) {
+            String cName = c.getName();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Continent Conquered");
+            alert.setHeaderText("'Praise the old gods and the new! We have taken " + cName + ", lord commander!'");
+            alert.setContentText("You will receive a troop bonus of " +
+                    c.getBonus() + " the next time you place armies.");
+            alert.showAndWait();
+            currentPlayer.getCurrentTerritoryToAttack().getCurrentOccupant().removeContinent(c);
+            currentPlayer.addContinent(c);
             URL continentSoundUrl = getClass().getResource("conqueredContinent.mp3");
             AudioClip continentSound = new AudioClip(continentSoundUrl.toString());
             continentSound.setVolume(999999999);
             continentSound.play();
         }
-
-
-        System.out.println(c.getName() + ": ");
-        for(Territory t : c.getTerritoryList()){
-            System.out.println(t.getName());
-        }
-
-        System.out.println("\ncurrent player: ");
-        for(Territory t : currentPlayer.getConqueredTerritories()){
-            System.out.println(t.getName());
-        }
-
     }
+        public void playerEliminatedCheck() {
+            if (currentPlayer.getCurrentTerritoryToAttack().getCurrentOccupant().getConqueredTerritories().size() == 1) {
+                Player eliminated = currentPlayer.getCurrentTerritoryToAttack().getCurrentOccupant();
+                String name = eliminated.getName();
+                int eliminatedIndex = players.indexOf(eliminated);
+
+                players.remove(eliminated);
+                numberOfPlayers --;
+
+                if(playerIndex > eliminatedIndex){
+                    playerIndex--;
+                }
+
+                URL continentSoundUrl = getClass().getResource("conqueredContinent.mp3");
+                AudioClip continentSound = new AudioClip(continentSoundUrl.toString());
+                continentSound.setVolume(999999999);
+                continentSound.play();
+
+                setCurrentPlayer();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Player Eliminated");
+                alert.setHeaderText("'Let them bow to your greatness!'");
+                alert.setContentText(name + " has been eliminated from the game.");
+                alert.showAndWait();
+            }
+        }
+
 
     public void setCrest(String attackerName, ImageView crest){
         if(attackerName == "Baratheon"){
