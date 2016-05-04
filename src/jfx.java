@@ -42,6 +42,7 @@ public class jfx extends Application{
     private ImageView crestViewAttacker;
     private ImageView crestViewDefender;
     private ImageView phaseView;
+    private ImageView shieldView;
 
     private Image d;
     private Image d2;
@@ -185,14 +186,14 @@ public class jfx extends Application{
         da4 = new DiceAnimation();
         da4.setFitHeight(40);
         da4.setFitWidth(40);
-        da4.setLayoutX(970);
-        da4.setLayoutY(270);
+        da4.setLayoutX(950);
+        da4.setLayoutY(220);
 
         da5 = new DiceAnimation();
         da5.setFitHeight(40);
         da5.setFitWidth(40);
-        da5.setLayoutX(970);
-        da5.setLayoutY(220);
+        da5.setLayoutX(950);
+        da5.setLayoutY(270);
 
         daArray = new DiceAnimation[] {da, da2, da3 ,da4 ,da5};
 
@@ -259,9 +260,13 @@ public class jfx extends Application{
         playButton.setLayoutX(50);
         playButton.setPrefSize(600,25);
         playButton.setOnAction(e ->{
+            URL u = getClass().getResource("sword.aif");
+            AudioClip sword = new AudioClip(u.toString());
+            sword.setVolume(999999999);
+            sword.play();
             initControlButtons();
             ((Group) boardScene.getRoot()).getChildren().addAll(rollButton, doneButton, numberOfArmiesToPlaceLabel, bannerView, checkButton,
-                    plusButton, minusButton, crestViewAttacker, crestViewDefender, phaseView);
+                    plusButton, minusButton, crestViewAttacker, crestViewDefender, phaseView, shieldView);
             doneButton.setVisible(true);
             rollButton.setVisible(true);
             theStage.setScene(boardScene);
@@ -273,6 +278,7 @@ public class jfx extends Application{
             updateNumberOfArmiesToPlaceLabel();
             placeBanner();
             phaseView.setVisible(true);
+            shieldView.setVisible(true);
         });
 
         playButton.setStyle(" -fx-background-color: \n" +
@@ -964,6 +970,13 @@ public class jfx extends Application{
 
     public void initControlButtons(){
 
+        shieldView = new ImageView("shield.jpg");
+        shieldView.setFitHeight(115);
+        shieldView.setFitWidth(150);
+        shieldView.setVisible(true);
+        shieldView.setLayoutX(735);
+        shieldView.setLayoutY(212);
+
         phaseView = new ImageView();
         phaseView.setFitHeight(80);
         phaseView.setFitWidth(350);
@@ -1049,17 +1062,13 @@ public class jfx extends Application{
         numberOfArmiesToPlaceLabel.setStyle(" -fx-padding: 8 15 15 15;\n" +
                 "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
                 "    -fx-background-radius: 8;\n" +
-                "    -fx-background-color: \n" +
-                "        linear-gradient(from 0% 93% to 0% 100%, #434252 0%, #2b2b35 100%),\n" +
-                "        #4b4b5d,\n" +
-                "        #63637a,\n" +
-                "        radial-gradient(center 50% 50%, radius 100%, #8484a3, #4b4b5d);\n" +
-                "    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\n" +
+                "    -fx-background-color: transparent;\n" +
+                "    -fx-effect: dropshadow( gaussian , rgba(224, 217, 225, 0.75) , 4,0,0,1 );\n" +
                 "    -fx-font-weight: bold;\n" +
                 "    -fx-font-size: 3em;");
 
-        numberOfArmiesToPlaceLabel.setLayoutX(700);
-        numberOfArmiesToPlaceLabel.setLayoutY(210);
+        numberOfArmiesToPlaceLabel.setLayoutX(425);
+        numberOfArmiesToPlaceLabel.setLayoutY(710);
         //numberOfArmiesToPlaceLabel.setPrefSize(50,50);
 
         rollButton.setStyle("-fx-background-color: \n" +
@@ -1092,10 +1101,7 @@ public class jfx extends Application{
         rollButton.setLayoutX(100);
         rollButton.setLayoutY(800);
         rollButton.setOnAction(e -> {
-            URL u = getClass().getResource("sword.aif");
-            AudioClip sword = new AudioClip(u.toString());
-            sword.setVolume(999999999);
-            sword.play();
+
             if(currentPlayer.getCurrentTerritory() != null && currentPlayer.getCurrentTerritoryToAttack() != null) {
                 if (currentPlayer.getCurrentTerritory().getTroopCount() > 1) {
                     Battle battle = new Battle(currentPlayer, 3, currentPlayer.getCurrentTerritory(),
@@ -1125,6 +1131,10 @@ public class jfx extends Application{
                         d.setFaceValue(result - 1);
                         index++;
                     }
+                    URL rollUrl = getClass().getResource("dice.mp3");
+                    AudioClip rollSound = new AudioClip(rollUrl.toString());
+                    rollSound.setVolume(999999999);
+                    rollSound.play();
                     da.roll();
                     da2.roll();
                     da3.roll();
@@ -1133,7 +1143,11 @@ public class jfx extends Application{
                 }
             }
 
-                if (currentPlayer.getCurrentTerritoryToAttack().getTroopCount() == 0) {
+                if (currentPlayer.getCurrentTerritoryToAttack() != null && currentPlayer.getCurrentTerritoryToAttack().getTroopCount() == 0) {
+                    URL territorySoundUrl = getClass().getResource("conqueredTerritory.mp3");
+                    AudioClip territorySound = new AudioClip(territorySoundUrl.toString());
+                    territorySound.setVolume(999999999);
+                    territorySound.play();
 
                     int offSetY = 25;
 
@@ -1152,7 +1166,6 @@ public class jfx extends Application{
                     currentPlayer.getCurrentTerritoryToAttack().incrementTroopCount();
                     currentPlayer.getCurrentTerritory().decrementTroopCount();
 
-                    continentCheck();
                     currentPlayer.getCurrentTerritoryToAttack().getCurrentOccupant().removeTerritory(currentPlayer.getCurrentTerritoryToAttack());
                     currentPlayer.addTerritory(currentPlayer.getCurrentTerritoryToAttack());
                     continentCheck();
@@ -1178,10 +1191,7 @@ public class jfx extends Application{
         doneButton.setLayoutX(210);
         doneButton.setLayoutY(800);
         doneButton.setOnAction(e -> {
-            URL end = getClass().getResource("horn.mp3");
-            AudioClip horn = new AudioClip(end.toString());
-            horn.setVolume(999999999);
-            horn.play();
+
 
             switch(currentPhase){
                 case PLACE_TROOPS:
@@ -1216,6 +1226,10 @@ public class jfx extends Application{
                     }
                     System.out.println("Phase: " + currentPhase.toString() +
                             "\nCurrent Player: " + currentPlayer.getName());
+                    URL end = getClass().getResource("heavySwitch.mp3");
+                    AudioClip horn = new AudioClip(end.toString());
+                    horn.setVolume(999999999);
+                    horn.play();
                     break;
                 case ATTACK:
                     setBoard(phaseType.FORTIFY);
@@ -1224,6 +1238,10 @@ public class jfx extends Application{
                     setMoveTroopsButtonsVisible(false);
                     crestViewAttacker.setVisible(false);
                     crestViewDefender.setVisible(false);
+                    URL end1 = getClass().getResource("heavySwitch.mp3");
+                    AudioClip horn1 = new AudioClip(end1.toString());
+                    horn1.setVolume(999999999);
+                    horn1.play();
                     break;
                 case FORTIFY:
                     setBoard(phaseType.PLACE_TROOPS);
@@ -1232,6 +1250,10 @@ public class jfx extends Application{
                             "\nCurrent Player: " + currentPlayer.getName());
                     System.out.println("Turn Complete.");
                     placeBanner();
+                    URL end2 = getClass().getResource("horn.mp3");
+                    AudioClip horn2 = new AudioClip(end2.toString());
+                    horn2.setVolume(999999999);
+                    horn2.play();
                     break;
                 default:
                     System.out.println("Error: Phase not set.");
@@ -1269,7 +1291,7 @@ public class jfx extends Application{
                 rollButton.setVisible(true);
                 System.out.println(rollButton.isVisible());
                 numberOfArmiesToPlaceLabel.setVisible(false);
-                doneButton.setText("End Turn");
+                doneButton.setText("Done");
                 rollButton.setVisible(true);
                 chargeButton.setVisible(true);
                 setAttackCrest();
@@ -1282,7 +1304,7 @@ public class jfx extends Application{
                 phaseView.setImage(new Image(getClass().getResourceAsStream("fortify.jpg")));
                 rollButton.setVisible(false);
                 numberOfArmiesToPlaceLabel.setVisible(false);
-                doneButton.setText("Done");
+                doneButton.setText("End Turn");
                 rollButton.setVisible(false);
                 chargeButton.setVisible(false);
                 for(DiceAnimation d : daArray){
@@ -1359,6 +1381,10 @@ public class jfx extends Application{
                 alert.showAndWait();
                 currentPlayer.getCurrentTerritoryToAttack().getCurrentOccupant().removeContinent(c);
                 currentPlayer.addContinent(c);
+            URL continentSoundUrl = getClass().getResource("conqueredContinent.mp3");
+            AudioClip continentSound = new AudioClip(continentSoundUrl.toString());
+            continentSound.setVolume(999999999);
+            continentSound.play();
         }
 
 

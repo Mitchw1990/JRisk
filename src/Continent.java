@@ -11,7 +11,6 @@ public class Continent {
     private Player ruler;
     private String name;
 
-
     public Continent(String name, int bonus, Territory ... territories){
 
         territoryList = new ArrayList<Territory>();
