@@ -116,7 +116,7 @@ public class jfx extends Application{
     private Territory qarth;
     private Territory redWaste;
     private Territory ghiscar;
-    private Territory winterfell;
+
 
     private Continent theNorth;
     private Continent theKingsLands;
