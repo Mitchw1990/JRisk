@@ -41,6 +41,7 @@ public class jfx extends Application{
     private boolean buttonsActive;
     private ImageView crestViewAttacker;
     private ImageView crestViewDefender;
+    private ImageView phaseView;
 
     private Image d;
     private Image d2;
@@ -124,6 +125,7 @@ public class jfx extends Application{
     private Continent valyrianFreehold;
     private Continent theDothrakiSea;
     private Continent Ghiscar;
+    private DiceAnimation[] daArray;
 
     private Image[] dieImages;
 
@@ -135,7 +137,6 @@ public class jfx extends Application{
     @Override
     public void start(Stage theStage)
     {
-
 
         d = new Image(getClass().getResourceAsStream("1.png"));
         d2 = new Image(getClass().getResourceAsStream("2.png"));
@@ -193,7 +194,11 @@ public class jfx extends Application{
         da5.setLayoutX(970);
         da5.setLayoutY(220);
 
+        daArray = new DiceAnimation[] {da, da2, da3 ,da4 ,da5};
 
+        for(DiceAnimation d : daArray){
+            d.setVisible(false);
+        }
 
         //Dice *************************
 
@@ -256,7 +261,7 @@ public class jfx extends Application{
         playButton.setOnAction(e ->{
             initControlButtons();
             ((Group) boardScene.getRoot()).getChildren().addAll(rollButton, doneButton, numberOfArmiesToPlaceLabel, bannerView, checkButton,
-                    plusButton, minusButton, crestViewAttacker, crestViewDefender);
+                    plusButton, minusButton, crestViewAttacker, crestViewDefender, phaseView);
             doneButton.setVisible(true);
             rollButton.setVisible(true);
             theStage.setScene(boardScene);
@@ -267,6 +272,7 @@ public class jfx extends Application{
             numberOfArmiesToPlaceLabel.setVisible(true);
             updateNumberOfArmiesToPlaceLabel();
             placeBanner();
+            phaseView.setVisible(true);
         });
 
         playButton.setStyle(" -fx-background-color: \n" +
@@ -952,6 +958,13 @@ public class jfx extends Application{
 
     public void initControlButtons(){
 
+        phaseView = new ImageView();
+        phaseView.setFitHeight(80);
+        phaseView.setFitWidth(350);
+        phaseView.setVisible(true);
+        phaseView.setLayoutX(350);
+        phaseView.setLayoutY(770);
+
         crestViewAttacker = new ImageView();
         crestViewAttacker.setFitHeight(100);
         crestViewAttacker.setFitWidth(90);
@@ -1227,17 +1240,22 @@ public class jfx extends Application{
             if(t.getCurrentOccupant() != null)
                 t.setColorStandard();
         }
-
         switch(currentPhase){
             case PLACE_TROOPS:
+                phaseView.setImage(new Image(getClass().getResourceAsStream("placeArmies.jpg")));
                 numberOfArmiesToRecieveCurrent = currentPlayer.getNumberOfArmiesToRecieve();
                 updateNumberOfArmiesToPlaceLabel();
                 numberOfArmiesToPlaceLabel.setVisible(true);
                 doneButton.setText("Done");
                 rollButton.setVisible(false);
                 chargeButton.setVisible(false);
+
+                for(DiceAnimation d : daArray){
+                    d.setVisible(false);
+                }
                 break;
             case ATTACK:
+                phaseView.setImage(new Image(getClass().getResourceAsStream("attack.jpg")));
                 rollButton.setVisible(true);
                 System.out.println(rollButton.isVisible());
                 numberOfArmiesToPlaceLabel.setVisible(false);
@@ -1245,13 +1263,21 @@ public class jfx extends Application{
                 rollButton.setVisible(true);
                 chargeButton.setVisible(true);
                 setAttackCrest();
+
+                for(DiceAnimation d : daArray){
+                    d.setVisible(true);
+                }
                 break;
             case FORTIFY:
+                phaseView.setImage(new Image(getClass().getResourceAsStream("fortify.jpg")));
                 rollButton.setVisible(false);
                 numberOfArmiesToPlaceLabel.setVisible(false);
                 doneButton.setText("Done");
                 rollButton.setVisible(false);
                 chargeButton.setVisible(false);
+                for(DiceAnimation d : daArray){
+                    d.setVisible(false);
+                }
                 break;
         }
     }
@@ -1317,6 +1343,10 @@ public class jfx extends Application{
         crestViewDefender.setVisible(true);
         setCrest(currentPlayer.getCurrentTerritoryToAttack().getCurrentOccupant().getName(), crestViewDefender);
     }
+
+
+
+
 
     public void setCrest(String attackerName, ImageView crest){
         if(attackerName == "Baratheon"){
