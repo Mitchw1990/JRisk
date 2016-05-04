@@ -60,6 +60,7 @@ public class Continent {
         this.ruler = ruler;
     }
 
-
-
+    public String getName() {
+        return name;
+    }
 }

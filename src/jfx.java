@@ -128,6 +128,7 @@ public class jfx extends Application{
     private DiceAnimation[] daArray;
 
     private Image[] dieImages;
+    private Continent[] allContinents;
 
     public static void main(String[] args)
     {
@@ -146,8 +147,6 @@ public class jfx extends Application{
         d6 = new Image(getClass().getResourceAsStream("6.png"));
 
         dieImages = new Image[]{d,d2,d3,d4,d5,d6};
-
-
 
 
         numberOfArmiesToRecieveCurrent = 0;
@@ -747,6 +746,11 @@ public class jfx extends Application{
                 vaesDothrak, westernGrassSea);
         Ghiscar = new Continent("Ghiscar", 4, bayasabhad, ghiscar, lhazar, paintedMountains, qarth, redWaste,
                 samyrianHills, slaversBay);
+
+        allContinents = new Continent[] {theNorth, theKingsLands, theSouth, theFreeCities,
+                                        valyrianFreehold, theDothrakiSea, Ghiscar};
+
+
         //init continents **********************
 
         theStage.show();
@@ -1146,11 +1150,14 @@ public class jfx extends Application{
                     currentPlayer.getCurrentTerritoryToAttack().incrementTroopCount();
                     currentPlayer.getCurrentTerritory().decrementTroopCount();
 
+                    continentCheck();
                     currentPlayer.getCurrentTerritoryToAttack().getCurrentOccupant().removeTerritory(currentPlayer.getCurrentTerritoryToAttack());
                     currentPlayer.addTerritory(currentPlayer.getCurrentTerritoryToAttack());
                     currentPlayer.getCurrentTerritory().deSelect();
                     currentPlayer.getCurrentTerritoryToAttack().deSelect();
                     currentPlayer.setTerritoryColors();
+
+
                 }
 
                 if(currentPlayer.getCurrentTerritory().getTroopCount() < 2 && currentPlayer.getCurrentTerritoryToAttack().getTroopCount() != 0){
@@ -1282,14 +1289,7 @@ public class jfx extends Application{
         }
     }
 
-    public void fortify(){
-        for(Territory t : allTerritories){
-            if(!currentPlayer.getConqueredTerritories().contains(t)){
-                t.setAvailable(false);
-            }
-        }
 
-    }
 
     public void setAllTerritoriesInvisible(){
         for(Territory t : allTerritories){
@@ -1344,7 +1344,21 @@ public class jfx extends Application{
         setCrest(currentPlayer.getCurrentTerritoryToAttack().getCurrentOccupant().getName(), crestViewDefender);
     }
 
-
+    public void continentCheck(){
+        for(Continent c : allContinents){
+            if(currentPlayer.getConqueredTerritories().containsAll(c.getTerritoryList()) && !currentPlayer.getConqueredContinents().contains(c)){
+                String cName = c.getName();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Continent Conquered");
+                alert.setHeaderText("Praise the old gos and the new, we have take " + cName + ", lord commander!'");
+                alert.setContentText("You will receive a troop bonus of " +
+                        c.getBonus() + " the next time you place armies.");
+                alert.showAndWait();
+            }
+            currentPlayer.getCurrentTerritoryToAttack().getCurrentOccupant().removeContinent(c);
+            currentPlayer.addContinent(c);
+        }
+    }
 
 
 
