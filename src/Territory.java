@@ -200,14 +200,14 @@ public class Territory extends Button {
         }
     }
 
-    public void setColorAttack(){ this.setStyle("  -fx-padding: 1 5 5 5;\n" +
+    public void setColorAttack(){ this.setStyle("-fx-padding: 15 15 15 15;\n" +
             "    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;\n" +
-            "    -fx-background-radius: 10;\n" +
+            "    -fx-background-radius: 15;\n" +
             "    -fx-background-color: \n" +
-            "        linear-gradient(from 0% 93% to 0% 100%, #a30d1b 0%, #90252b 100%),\n" +
-            "        #9d1800,\n" +
-            "        #d84028,\n" +
-            "        radial-gradient(center 50% 50%, radius 100%, #d81918, #810411);\n" +
+            "        linear-gradient(from 0% 93% to 0% 100%, #a30d0b 0%, #d1100e 100%),\n" +
+            "        #bb192b,\n" +
+            "        #bb192b,\n" +
+            "        radial-gradient(center 50% 50%, radius 100%, #d83b08, #aa2f06);\n" +
             "    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );\n" +
             "    -fx-font-weight: bold;\n" +
             "    -fx-font-size: 1.1em;");

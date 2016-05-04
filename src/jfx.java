@@ -46,6 +46,9 @@ public class jfx extends Application{
     private DiceAnimation da;
     private DiceAnimation da2;
     private DiceAnimation da3;
+    private DiceAnimation da4;
+    private DiceAnimation da5;
+
     private ImageView bannerView;
     
     private Scene boardScene;
@@ -139,22 +142,36 @@ public class jfx extends Application{
         //Dice *************************
 
         DiceAnimation da = new DiceAnimation();
-        da.setFitHeight(80);
-        da.setFitWidth(80);
-        da.setLayoutX(400);
-        da.setLayoutY(775);
+        da.setFitHeight(40);
+        da.setFitWidth(40);
+        da.setLayoutX(600);
+        da.setLayoutY(220);
 
         DiceAnimation da2 = new DiceAnimation();
-        da2.setFitHeight(80);
-        da2.setFitWidth(80);
-        da2.setLayoutX(490);
-        da2.setLayoutY(775);
+        da2.setFitHeight(40);
+        da2.setFitWidth(40);
+        da2.setLayoutX(650);
+        da2.setLayoutY(220);
 
         DiceAnimation da3 = new DiceAnimation();
-        da3.setFitHeight(80);
-        da3.setFitWidth(80);
-        da3.setLayoutX(580);
-        da3.setLayoutY(775);
+        da3.setFitHeight(40);
+        da3.setFitWidth(40);
+        da3.setLayoutX(625);
+        da3.setLayoutY(270);
+
+        DiceAnimation da4 = new DiceAnimation();
+        da4.setFitHeight(40);
+        da4.setFitWidth(40);
+        da4.setLayoutX(970);
+        da4.setLayoutY(270);
+
+        DiceAnimation da5 = new DiceAnimation();
+        da5.setFitHeight(40);
+        da5.setFitWidth(40);
+        da5.setLayoutX(970);
+        da5.setLayoutY(220);
+
+
 
         //Dice *************************
 
@@ -357,7 +374,7 @@ public class jfx extends Application{
         //menuBar.prefWidthProperty().bind(theStage.widthProperty());
         menu.getItems().addAll(menuPause, menuQuit);
         menuBar.getMenus().addAll(menu);
-        ((Group) boardScene.getRoot()).getChildren().addAll( menuBar, da,da2,da3);
+        ((Group) boardScene.getRoot()).getChildren().addAll( menuBar, da,da2,da3,da4,da5);
 
 
         //Board ************************
