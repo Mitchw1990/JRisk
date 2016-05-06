@@ -18,8 +18,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
-
 public class jfx extends Application{
+
+
 
     public enum phaseType {ATTACK, PLACE_TROOPS, FORTIFY};
     public phaseType currentPhase;
@@ -142,6 +143,7 @@ public class jfx extends Application{
     public void start(Stage theStage)
     {
 
+
         d = new Image(getClass().getResourceAsStream("1.png"));
         d2 = new Image(getClass().getResourceAsStream("2.png"));
         d3 = new Image(getClass().getResourceAsStream("3.png"));
@@ -162,6 +164,9 @@ public class jfx extends Application{
 
         URL url2 = getClass().getResource("gotQuote.mp3");
         AudioClip quote = new AudioClip(url2.toString());
+
+        URL url3 = getClass().getResource("gameplay.mp3");
+        gameplayMusic = new AudioClip(url3.toString());
 
 
         //Dice *************************
@@ -280,6 +285,7 @@ public class jfx extends Application{
             placeBanner();
             phaseView.setVisible(true);
             shieldView.setVisible(true);
+            gameplayMusic.play(.3);
         });
 
         playButton.setStyle(" -fx-background-color: \n" +
@@ -676,7 +682,6 @@ public class jfx extends Application{
                 parchedFields,paintedMountains,slaversBay, lhazar, samyrianHills,
                 bayasabhad,qarth, redWaste,ghiscar};
         allTerritories.addAll(Arrays.asList(tArray));
-
         //init territories**********************
 
         //define borders**********************
@@ -1147,7 +1152,7 @@ public class jfx extends Application{
                 if (currentPlayer.getCurrentTerritoryToAttack() != null && currentPlayer.getCurrentTerritoryToAttack().getTroopCount() == 0) {
                     URL territorySoundUrl = getClass().getResource("conqueredTerritory.mp3");
                     AudioClip territorySound = new AudioClip(territorySoundUrl.toString());
-                    territorySound.setVolume(999999999);
+                    territorySound.setBalance(10);
                     territorySound.play();
 
                     Territory conquered = currentPlayer.getCurrentTerritoryToAttack();
@@ -1421,7 +1426,7 @@ public class jfx extends Application{
         }
 
     public void playerVictoryCheck(){
-       // gameplayMusic.stop();
+        gameplayMusic.stop();
         URL continentSoundUrl = getClass().getResource("got.mp3");
         AudioClip continentSound = new AudioClip(continentSoundUrl.toString());
         continentSound.setVolume(999999999);

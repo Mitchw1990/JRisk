@@ -3,3 +3,4 @@
 *.iwsbranch
 out/
 out/production/Jrisk
+*.jar
